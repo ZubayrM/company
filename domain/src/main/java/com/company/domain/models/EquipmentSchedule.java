@@ -2,11 +2,13 @@ package com.company.domain.models;
 
 import javax.persistence.JoinColumn;
 
-public class ReadyTooling {
+public class EquipmentSchedule {//ГРАФИК ОСНАЩЕНИЯ
     private Long id;
 
     @JoinColumn ("detail_id")
     private Detail detail;
 
-    private Tooling tooling;
+    private Employee creator;
+
+    private Product
 }

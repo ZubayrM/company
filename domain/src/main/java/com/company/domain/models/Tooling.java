@@ -1,11 +1,9 @@
 package com.company.domain.models;
 
+import jdk.nashorn.internal.objects.annotations.Property;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -21,4 +19,17 @@ public class Tooling {
     private String cipher;
 
     private String purpose;//назначение
+
+    @JoinColumn ("detail_id")
+    private Detail detail;
+
+    private Employee creator;//ИСПОЛНИТЕЛЬ-КОНСТРУКТОР
+
+    private Employee checkingEmployee;//ПРОВЕРЯЮЩИЙ
+
+    private Employee techController;//ТЕХНОЛОГИЧЕСКИЙ КОНТРОЛЬ
+
+    private Employee timeController;//НОРМОКОНТРОЛЬ
+
+    private Employee approver;//утверждающий
 }
