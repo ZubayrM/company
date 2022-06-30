@@ -20,8 +20,8 @@ public class Tooling {
 
     private String purpose;//назначение
 
-    @JoinColumn ("detail_id")
-    private Detail detail;
+    @JoinColumn ("product_id")
+    private Product product;
 
     private Employee creator;//ИСПОЛНИТЕЛЬ-КОНСТРУКТОР
 

@@ -10,5 +10,6 @@ public class EquipmentSchedule {//ГРАФИК ОСНАЩЕНИЯ
 
     private Employee creator;
 
-    private Product
+    @JoinColumn ("product_id")
+    private Product product;
 }
