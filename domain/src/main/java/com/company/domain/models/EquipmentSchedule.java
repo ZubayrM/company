@@ -1,15 +1,25 @@
 package com.company.domain.models;
 
-import javax.persistence.JoinColumn;
+import javax.persistence.*;
 
 public class EquipmentSchedule {//ГРАФИК ОСНАЩЕНИЯ
+
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JoinColumn ("detail_id")
-    private Detail detail;
+    @JoinColumn (name = "constructor")
+    private Employee creator;//ИСПОЛНИТЕЛЬ-КОНСТРУКТОР
 
-    private Employee creator;
+    @JoinColumn
+    private Employee checkingEmployee;//ПРОВЕРЯЮЩИЙ
 
-    @JoinColumn ("product_id")
-    private Product product;
+    @JoinColumn
+    private Employee techController;//ТЕХНОЛОГИЧЕСКИЙ КОНТРОЛЬ
+
+    @JoinColumn
+    private Employee timeController;//НОРМОКОНТРОЛЬ
+
+    @JoinColumn
+    private Employee approver;//утверждающий
 }

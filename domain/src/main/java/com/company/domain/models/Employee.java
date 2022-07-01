@@ -1,24 +1,27 @@
 package com.company.domain.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Getter
     private Integer id;
 
-    @Getter
-    @Setter
-    private String employeeName;
+    @Column (name = "name")
+    private String name;
 
+    @Column (name = "surname")
+    private String surname;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "position")
     private Positions position;
 
     // TODO: 30.06.2022 Должности сотрудников предприятия,
