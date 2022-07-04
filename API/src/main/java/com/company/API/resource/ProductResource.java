@@ -17,6 +17,9 @@ public interface ProductResource {
     @GetMapping("/all")
     String getAll(Model model);
 
+    @GetMapping("/{cipher}")
+    String getProduct(Model model);
+
     @DeleteMapping("/{cipher}")
     void delete(@PathVariable String cipher, Model model);
 
