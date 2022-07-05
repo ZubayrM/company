@@ -1,8 +1,8 @@
-package com.company.resource;
+package com.company.controllers;
 
 import com.company.API.model.ProductDto;
-import com.company.API.resource.ProductResource;
-import com.company.repository.ProductRepository;
+import com.company.API.controllers.ProductResource;
+import com.company.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,7 +1,7 @@
-package com.company.service;
+package com.company.services;
 
 import org.springframework.stereotype.Service;
 
 @Service
-public class ToolingService {
+public class ProductService {
 }

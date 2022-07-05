@@ -1,4 +1,4 @@
-package com.company.API.resource;
+package com.company.API.controllers;
 
 import com.company.API.model.ProductDto;
 import org.springframework.ui.Model;
@@ -22,5 +22,4 @@ public interface ProductResource {
 
     @DeleteMapping("/{cipher}")
     void delete(@PathVariable String cipher, Model model);
-
 }

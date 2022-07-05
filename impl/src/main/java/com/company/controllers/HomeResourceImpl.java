@@ -1,6 +1,6 @@
-package com.company.resource;
+package com.company.controllers;
 
-import com.company.API.resource.HomeResource;
+import com.company.API.controllers.HomeResource;
 import org.springframework.stereotype.Controller;
 
 @Controller
