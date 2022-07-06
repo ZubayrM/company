@@ -6,4 +6,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository <Product, Long> {
+    Product getProductByCipher (String cipher);
+
+    void deleteProductByCipher (String cipher);
+
+    Product findByCipher(String cipher);
 }

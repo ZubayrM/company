@@ -8,4 +8,6 @@ public class ProductDto {
     private String name;
 
     private String cipher;
+
+    private ProductDto product;
 }

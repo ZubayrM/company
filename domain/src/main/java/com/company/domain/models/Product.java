@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +19,7 @@ public class Product {
 
     @Column (name = "cipher", unique = true)
     private String cipher;
+
+    @Column (name = "product")
+    private Product mainProduct;
 }

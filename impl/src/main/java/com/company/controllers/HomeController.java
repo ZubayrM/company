@@ -4,7 +4,7 @@ import com.company.API.controllers.HomeResource;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class HomeResourceImpl implements HomeResource {
+public class HomeController implements HomeResource {
 
     public String home() {
         return "home";
