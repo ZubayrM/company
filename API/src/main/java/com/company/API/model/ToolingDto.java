@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class ProductDto {
+public class ToolingDto {
 
     @NotBlank(message = "поле не заполнено")
     private String name;
@@ -13,5 +13,6 @@ public class ProductDto {
     @NotBlank(message = "поле не заполнено")
     private String cipher;
 
-    private ProductDto product;
+    private String product;
+
 }

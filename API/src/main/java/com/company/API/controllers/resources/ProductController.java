@@ -1,4 +1,4 @@
-package com.company.API.controllers;
+package com.company.API.controllers.resources;
 
 import com.company.API.model.ProductDto;
 import org.springframework.ui.Model;
@@ -9,7 +9,7 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @RequestMapping("/api/product")
-public interface ProductResource {
+public interface ProductController {
 
     @PostMapping("/add")
     String add(@RequestBody ProductDto newProduct, Model model);
@@ -18,11 +18,11 @@ public interface ProductResource {
     String addList(@RequestAttribute MultipartFile file,Model model);
 
     @GetMapping("/all")
-    List<ProductDto> getAll(Model model, Pageable pageable);
+    String getAll(Model model, Pageable pageable);
 
     @GetMapping("/{cipher}")
-    ProductDto getProduct(Model model);
+    String getByCipher(@PathVariable String cipher, Model model);
 
     @DeleteMapping("/{cipher}")
-    void delete(@PathVariable String cipher, Model model);
+    String delete(@PathVariable String cipher, Model model);
 }

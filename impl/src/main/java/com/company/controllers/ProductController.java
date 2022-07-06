@@ -1,8 +1,6 @@
 package com.company.controllers;
 
 import com.company.API.model.ProductDto;
-import com.company.API.controllers.ProductResource;
-import com.company.repositories.ProductRepository;
 import com.company.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,7 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @Controller
-public class ProductController implements ProductResource {
+public class ProductController implements com.company.API.controllers.resources.ProductController {
 
     private final ProductService productService;
 
