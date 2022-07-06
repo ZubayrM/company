@@ -28,9 +28,9 @@ public class Contract {
     @Column (name = "task")
     private String task; //предмет договора
 
-    @Column (name = "customer")
+    @JoinColumn (name = "customer")
     private DevelopmentDepartment customer;// заказчик
 
-    @Column (name = "executor")
-    private DevelopmentDepartment executor; //исполнтель
+    @JoinColumn (name = "executor")
+    private DevelopmentDepartment executor; //исполнитель
 }
