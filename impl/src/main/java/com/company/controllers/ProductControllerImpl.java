@@ -11,31 +11,33 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @Controller
-public class ProductController implements com.company.API.controllers.resources.ProductController {
+public class ProductControllerImpl implements com.company.API.controllers.resources.ProductController {
 
     private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    public ProductControllerImpl(ProductService productService) {
         this.productService = productService;
     }
 
     public String add(ProductDto newProduct, Model model) {
-        return null;
+        productService.addProduct(newProduct);
+        return "home";
     }
 
     public String addList(MultipartFile file, Model model) {
         return null;
     }
 
-    public List<ProductDto> getAll(Model model, Pageable pageable) {
+    public String getAll(Model model, Pageable pageable) {
         return null;
     }
 
-    public ProductDto getProduct(Model model) {
+    public String getByCipher(String cipher, Model model) {
         return null;
     }
 
-    public void delete(String cipher, Model model) {
+    public String delete(String cipher, Model model) {
+        return null;
     }
 }
