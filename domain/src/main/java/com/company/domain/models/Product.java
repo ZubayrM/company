@@ -22,4 +22,29 @@ public class Product {
 
     @Column (name = "product")
     private Product mainProduct;
+
+    @Column (name = "route")
+    private String route;
+
+    @Enumerated (value = EnumType.STRING)
+    @Column (name = "type")
+    private Type type;
+
+    public enum Type{
+        DETAIL ("Деталь"),
+        ASSEMBLY ("Сборочная единица"),
+        PURCHASED ("Покупная"),
+        MATERIAL ("Материал"),
+        NORMALIZED ("Стандарное изделие");
+
+        private String type;
+
+        Type(String type){
+            this.type = type;
+        }
+
+        public String getType(){
+            return type;
+        }
+    }
 }
