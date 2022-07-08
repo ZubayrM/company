@@ -27,7 +27,6 @@ public class ProductService {
                         .cipher(dto.getProduct().getCipher())
                         .build());
             }
-
             productRepository
                     .save( Product.builder()
                             .name(dto.getName())
@@ -38,7 +37,6 @@ public class ProductService {
     }
 
     public void addProductList (MultipartFile multipartFile){
-        productRepository.save(multipartFile);
     }
 
     public Product getProduct (String cipher){
