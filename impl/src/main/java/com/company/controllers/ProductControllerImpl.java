@@ -26,7 +26,8 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     public String addList(MultipartFile file, Model model) {
-        return null;
+        productService.addProductList(file);
+        return "home";
     }
 
     public String getAll(Model model, Pageable pageable) {

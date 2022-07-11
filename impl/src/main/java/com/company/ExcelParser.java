@@ -1,24 +1,31 @@
 package com.company;
 
 import com.company.domain.models.Product;
+import lombok.SneakyThrows;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class ExcelParser {
-    public static List<Product> excelParsing (String filePath){
+    public static List<Product> excelParsing (MultipartFile multipartFile){
         List<Product> productList = new ArrayList<Product>();
 
         InputStream inputStream = null;
         HSSFWorkbook workbook = null;
         try {
-            inputStream = new FileInputStream(filePath);
+            File file = new File(multipartFile.getOriginalFilename());
+            multipartFile.transferTo(file);
+            inputStream = new FileInputStream(file);
             workbook = new HSSFWorkbook(inputStream);
         }
         catch (IOException e) {
@@ -26,13 +33,41 @@ public abstract class ExcelParser {
         }
 
         Sheet sheet = workbook.getSheetAt(1);
+        Iterator<Row> rowIterator = sheet.iterator();
 
-        for (int i = 8; i < 860; i++){
+        int startField = 0;
+        int endField = 0;
+
+        while (rowIterator.hasNext()){
+            Row row = rowIterator.next();
+            Iterator<Cell> cellIterator = row.iterator();
+            if (startField == 0){
+                while (cellIterator.hasNext()){
+                    Cell cell = cellIterator.next();
+                    if (cell.getRichStringCellValue().toString().equals("№п/п")){
+                        startField = row.getRowNum() + 1;
+                        break;
+                    }
+                }
+            }
+            else {
+                if (row.getCell(0) == null){
+                    endField = row.getRowNum() - 1;
+                    break;
+                }
+            }
+        }
+        for (int i = startField; i < endField; i++){
             Product product = new Product();
-            product.setCipher(sheet.getRow(i).getCell(1).getRichStringCellValue().toString());
-            product.setName(sheet.getRow(i).getCell(3).getRichStringCellValue().toString());
-            product.setType(typeParsing(sheet.getRow(i).getCell(2).getRichStringCellValue().toString()));
-            product.setRoute(routeParsing(sheet.getRow(i).getCell(4)));
+            product.setCipher(sheet.getRow(i).getCell(1).getRichStringCellValue().toString());//присваиваем шифр
+            product.setName(sheet.getRow(i).getCell(3).getRichStringCellValue().toString());//присваиваем имя
+            product.setType(typeParsing(sheet.getRow(i).getCell(2).getRichStringCellValue().toString()));//присваиваем тип
+            product.setRoute(routeParsing(sheet.getRow(i).getCell(4)));//присваиваем маршрут
+            for (Product product1 : productList){
+                if (product1.getCipher().equals(sheet.getRow(i).getCell(6).getStringCellValue())){//присваиваем изделие-входимость
+                    product.setMainProduct(product1);
+                }
+            }
             productList.add(product);
         }
         return productList;
@@ -72,4 +107,15 @@ public abstract class ExcelParser {
         }
         return null;
     }
+
+//    @SneakyThrows
+//    private static void excelParsing(MultipartFile multipartFile) {
+//        InputStream inputStream = null;
+//        HSSFWorkbook workbook = null;
+//
+//        File file = new File(multipartFile.getOriginalFilename());
+//        multipartFile.transferTo(file);
+//        inputStream = new FileInputStream(file);
+//        workbook = new HSSFWorkbook(inputStream);
+//    }
 }

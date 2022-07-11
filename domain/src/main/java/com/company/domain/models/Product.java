@@ -20,7 +20,7 @@ public class Product {
     @Column (name = "cipher", unique = true)
     private String cipher;
 
-    @Column (name = "product")
+    @JoinColumn (name = "product")
     private Product mainProduct;
 
     @Column (name = "route")

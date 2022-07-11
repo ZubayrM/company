@@ -1,6 +1,7 @@
 package com.company.services;
 
 import com.company.API.model.ProductDto;
+import com.company.ExcelParser;
 import com.company.domain.models.Product;
 import com.company.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +12,13 @@ import java.util.List;
 
 @Service
 public class ProductService {
-    private ProductRepository productRepository;
-
     @Autowired
-    public void setProductRepository(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final ProductRepository productRepository;
+
+//    @Autowired
+//    public void setProductRepository(ProductRepository productRepository) {
+//        this.productRepository = productRepository;
+//    }
 
     public void addProduct (ProductDto dto){
         if (productRepository.findByCipher(dto.getCipher()) == null){
@@ -37,6 +39,7 @@ public class ProductService {
     }
 
     public void addProductList (MultipartFile multipartFile){
+        ExcelParser.excelParsing(multipartFile);
     }
 
     public Product getProduct (String cipher){
