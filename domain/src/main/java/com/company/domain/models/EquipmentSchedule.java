@@ -17,17 +17,22 @@ public class EquipmentSchedule {//ГРАФИК ОСНАЩЕНИЯ
     private Long id;
 
     @JoinColumn (name = "constructor")
+    @ManyToOne
     private Employee creator;//ИСПОЛНИТЕЛЬ-КОНСТРУКТОР
 
     @JoinColumn (name = "checking_engineer")
+    @ManyToOne
     private Employee checkingEmployee;//ПРОВЕРЯЮЩИЙ
 
     @JoinColumn (name = "tech_controller")
+    @ManyToOne
     private Employee techController;//ТЕХНОЛОГИЧЕСКИЙ КОНТРОЛЬ
 
     @JoinColumn (name = "time_controller")
+    @ManyToOne
     private Employee timeController;//НОРМОКОНТРОЛЬ
 
     @JoinColumn (name = "approved")
+    @ManyToOne
     private Employee approved;//утверждающий
 }

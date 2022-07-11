@@ -23,12 +23,15 @@ public class Tooling {
     private String cipher;
 
     @JoinColumn (name="product_id")
+    @ManyToOne
     private Product product;
 
     @JoinColumn (name = "creator")
+    @ManyToOne
     private Employee creator;//ИСПОЛНИТЕЛЬ-КОНСТРУКТОР
 
     @JoinColumn (name = "checking_employee")
+    @ManyToOne
     private Employee checkingEmployee;//ПРОВЕРЯЮЩИЙ
 
     @Enumerated(value = EnumType.STRING)
@@ -36,6 +39,7 @@ public class Tooling {
     private Signature statusChecking;
 
     @JoinColumn (name = "tech_controller")
+    @ManyToOne
     private Employee techController;//ТЕХНОЛОГИЧЕСКИЙ КОНТРОЛЬ
 
     @Enumerated(value = EnumType.STRING)
@@ -43,6 +47,7 @@ public class Tooling {
     private Signature statusTechController;
 
     @JoinColumn (name = "time_controller")
+    @ManyToOne
     private Employee timeController;//НОРМОКОНТРОЛЬ
 
     @Enumerated(value = EnumType.STRING)
@@ -50,6 +55,7 @@ public class Tooling {
     private Signature statusTimeController;
 
     @JoinColumn (name = "approved")
+    @ManyToOne
     private Employee approved;//утверждающий
 
     @Enumerated(value = EnumType.STRING)

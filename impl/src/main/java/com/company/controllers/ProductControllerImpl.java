@@ -2,14 +2,17 @@ package com.company.controllers;
 
 import com.company.API.model.ProductDto;
 import com.company.services.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.awt.print.Pageable;
-import java.util.List;
 
+@Slf4j
 @Controller
 public class ProductControllerImpl implements com.company.API.controllers.resources.ProductController {
 
@@ -20,7 +23,8 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         this.productService = productService;
     }
 
-    public String add(ProductDto newProduct, Model model) {
+    public String add(@Valid ProductDto newProduct, Model model, Errors errors) {
+        log.info("method add: " + newProduct.toString());
         productService.addProduct(newProduct);
         return "home";
     }

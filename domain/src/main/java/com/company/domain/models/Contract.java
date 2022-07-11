@@ -30,8 +30,10 @@ public class Contract {
     private String task; //предмет договора
 
     @JoinColumn (name = "customer")
+    @ManyToOne
     private DevelopmentDepartment customer;// заказчик
 
     @JoinColumn (name = "executor")
+    @ManyToOne
     private DevelopmentDepartment executor; //исполнитель
 }

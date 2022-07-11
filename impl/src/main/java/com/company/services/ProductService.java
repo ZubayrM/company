@@ -3,6 +3,7 @@ package com.company.services;
 import com.company.API.model.ProductDto;
 import com.company.domain.models.Product;
 import com.company.repositories.ProductRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,13 +11,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ProductService {
-    private ProductRepository productRepository;
 
     @Autowired
-    public void setProductRepository(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final ProductRepository productRepository;
 
     public void addProduct (ProductDto dto){
         if (productRepository.findByCipher(dto.getCipher()) == null){

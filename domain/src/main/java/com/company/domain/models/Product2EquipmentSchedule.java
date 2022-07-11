@@ -16,8 +16,10 @@ public class Product2EquipmentSchedule {
     private Long id;
 
     @JoinColumn(name = "product_id")
+    @ManyToOne
     private Product product;
 
     @JoinColumn(name = "equipment_schedule_id")
+    @ManyToOne
     private EquipmentSchedule equipmentSchedule;
 }
