@@ -21,6 +21,14 @@
                 <role>Philanthropist</role>
             </roles>
         </developer>
+        <developer>
+            <name>Dinislam</name>
+            <email>mr.saburlaev@mail.ru</email>
+            <organization>OAO "Koncern KEMZ"</organization>
+            <roles>
+                <role>Special One</role>
+            </roles>
+        </developer>
     </developers>
 
     <modules>
@@ -61,6 +69,11 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
             <version>3.11</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.25</version>
         </dependency>
     </dependencies>
 

@@ -22,12 +22,15 @@ public class Tooling {
     @Column(name = "cipher", unique = true)
     private String cipher;
 
+    @OneToOne
     @JoinColumn (name="product_id")
     private Product product;
 
+    @OneToOne
     @JoinColumn (name = "creator")
     private Employee creator;//ИСПОЛНИТЕЛЬ-КОНСТРУКТОР
 
+    @OneToOne
     @JoinColumn (name = "checking_employee")
     private Employee checkingEmployee;//ПРОВЕРЯЮЩИЙ
 
@@ -35,6 +38,7 @@ public class Tooling {
     @Column(name = "status_checking")
     private Signature statusChecking;
 
+    @OneToOne
     @JoinColumn (name = "tech_controller")
     private Employee techController;//ТЕХНОЛОГИЧЕСКИЙ КОНТРОЛЬ
 
@@ -42,6 +46,7 @@ public class Tooling {
     @Column(name = "status_tech_controller")
     private Signature statusTechController;
 
+    @OneToOne
     @JoinColumn (name = "time_controller")
     private Employee timeController;//НОРМОКОНТРОЛЬ
 
@@ -49,6 +54,7 @@ public class Tooling {
     @Column(name = "status_time_controller")
     private Signature statusTimeController;
 
+    @OneToOne
     @JoinColumn (name = "approved")
     private Employee approved;//утверждающий
 

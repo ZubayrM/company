@@ -29,12 +29,15 @@ public class Contract {
     @Column (name = "task")
     private String task; //предмет договора
 
+    @OneToOne
     @JoinColumn (name = "customer_id")
     private DevelopmentDepartment customer;// заказчик
 
+    @OneToOne
     @JoinColumn (name = "executor_id")
     private DevelopmentDepartment executor; //исполнитель
 
+    @OneToOne
     @JoinColumn (name = "tooling_id")
     private Tooling tooling;
 }

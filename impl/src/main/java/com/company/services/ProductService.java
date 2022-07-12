@@ -12,13 +12,12 @@ import java.util.List;
 
 @Service
 public class ProductService {
-    @Autowired
-    private final ProductRepository productRepository;
+    private ProductRepository productRepository;
 
-//    @Autowired
-//    public void setProductRepository(ProductRepository productRepository) {
-//        this.productRepository = productRepository;
-//    }
+    @Autowired
+    public void setProductRepository(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public void addProduct (ProductDto dto){
         if (productRepository.findByCipher(dto.getCipher()) == null){

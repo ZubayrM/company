@@ -20,6 +20,7 @@ public class Product {
     @Column (name = "cipher", unique = true)
     private String cipher;
 
+    @OneToOne
     @JoinColumn (name = "product")
     private Product mainProduct;
 
