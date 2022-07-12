@@ -6,8 +6,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.awt.print.Pageable;
-
 @RequestMapping("/api/product")
 public interface ProductController {
 
@@ -18,7 +16,7 @@ public interface ProductController {
     String addList(@RequestAttribute MultipartFile file,Model model);
 
     @GetMapping("/all")
-    String getAll(Model model, Pageable pageable);
+    String getAll(Model model);
 
     @GetMapping("/{cipher}")
     String getByCipher(@PathVariable String cipher, Model model);
