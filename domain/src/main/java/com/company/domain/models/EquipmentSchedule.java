@@ -16,23 +16,23 @@ public class EquipmentSchedule {//ГРАФИК ОСНАЩЕНИЯ
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
     @JoinColumn (name = "constructor")
+    @ManyToOne
     private Employee creator;//ИСПОЛНИТЕЛЬ-КОНСТРУКТОР
 
-    @OneToOne
     @JoinColumn (name = "checking_engineer")
+    @ManyToOne
     private Employee checkingEmployee;//ПРОВЕРЯЮЩИЙ
 
-    @OneToOne
     @JoinColumn (name = "tech_controller")
+    @ManyToOne
     private Employee techController;//ТЕХНОЛОГИЧЕСКИЙ КОНТРОЛЬ
 
-    @OneToOne
     @JoinColumn (name = "time_controller")
+    @ManyToOne
     private Employee timeController;//НОРМОКОНТРОЛЬ
 
-    @OneToOne
     @JoinColumn (name = "approved")
+    @ManyToOne
     private Employee approved;//утверждающий
 }

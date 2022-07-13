@@ -40,7 +40,9 @@ public class ProductService {
     }
 
     public void addProductList (MultipartFile multipartFile){
-        ExcelParser.excelParsing(multipartFile);
+        for (Product product : ExcelParser.excelParsing(multipartFile)){
+            productRepository.save(product);
+        }
     }
 
     public Product getProduct (String cipher){

@@ -2,6 +2,7 @@ package com.company.API.controllers.resources;
 
 import com.company.API.model.ProductDto;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,13 +13,13 @@ import java.util.List;
 public interface ProductController {
 
     @PostMapping("/add")
-    String add(@RequestBody ProductDto newProduct, Model model);
+    String add(@RequestBody ProductDto newProduct, Model model, Errors errors);
 
     @PostMapping("/addAll")
     String addList(@RequestAttribute MultipartFile file,Model model);
 
     @GetMapping("/all")
-    String getAll(Model model, Pageable pageable);
+    String getAll(Model model);
 
     @GetMapping("/{cipher}")
     String getByCipher(@PathVariable String cipher, Model model);

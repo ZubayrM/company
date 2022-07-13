@@ -20,8 +20,8 @@ public class Product {
     @Column (name = "cipher", unique = true)
     private String cipher;
 
-    @OneToOne
     @JoinColumn (name = "product")
+    @ManyToOne
     private Product mainProduct;
 
     @Column (name = "route")
