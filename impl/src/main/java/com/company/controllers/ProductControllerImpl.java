@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
@@ -46,5 +50,12 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
 
     public String delete(String cipher, Model model) {
         return null;
+    }
+
+    @PostMapping("/add2")
+    public String add(@RequestBody ProductDto newProduct) {
+        log.info("method add: " + newProduct.toString());
+        productService.addProduct(newProduct);
+        return "home";
     }
 }
