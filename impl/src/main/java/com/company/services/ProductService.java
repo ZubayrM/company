@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -23,8 +24,10 @@ public class ProductService {
 
     public void addProduct (ProductDto dto){
         if (productRepository.findByCipher(dto.getCipher()) == null){
-            Product product = productRepository.findByCipher(dto.getProduct().getCipher());
-            if (product == null){
+            Optional<Product> oProduct = productRepository.findByCipher(dto.getProduct().getCipher());
+            Product product = null;
+            if (!oProduct.isPresent()){
+                product = oProduct.get();
                 product = productRepository.save(Product.builder()
                         .name(dto.getProduct().getName())
                         .cipher(dto.getProduct().getCipher())
@@ -41,7 +44,9 @@ public class ProductService {
 
     public void addProductList (MultipartFile multipartFile){
         for (Product product : ExcelParser.excelParsing(multipartFile)){
-            productRepository.save(product);
+            if (productRepository.findByCipher(product.getCipher()) == null){
+                productRepository.save(product);
+            }
         }
     }
 

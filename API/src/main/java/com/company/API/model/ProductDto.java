@@ -1,5 +1,6 @@
 package com.company.API.model;
 
+import com.company.domain.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,12 @@ public class ProductDto {
 
     @NotBlank(message = "поле не заполнено")
     private String cipher;
+
+    @NotBlank(message = "поле не заполнено")
+    private String route;
+
+    @NotBlank(message = "поле не заполнено")
+    private Product.Type type;
 
     private ProductDto product;
 }

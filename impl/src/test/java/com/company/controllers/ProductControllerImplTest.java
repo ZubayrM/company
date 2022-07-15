@@ -2,6 +2,7 @@ package com.company.controllers;
 
 
 import com.company.API.model.ProductDto;
+import com.company.domain.models.Product;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ class ProductControllerImplTest {
     @SneakyThrows
     void add() {
         mvc.perform(post("/api/product/add")
-                .content(om.writeValueAsString(new ProductDto("Гайка", "22-11A", null))))
+                .content(om.writeValueAsString(new ProductDto("Гайка", "22-11A", "17-99", Product.Type.DETAIL,null))))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
