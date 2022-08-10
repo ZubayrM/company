@@ -51,7 +51,8 @@ public class ProductService {
     }
 
     public Product getProduct (String cipher){
-        return productRepository.getProductByCipher(cipher);
+        Product product = productRepository.findByCipher(cipher).get();
+        return product;
     }
 
     public List<Product> getProductList (){
