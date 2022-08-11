@@ -51,8 +51,9 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @GetMapping ("/get/{cipher}")//тестирую метод по получению продукта
-    public Product getByCipher(@PathVariable String cipher) {
-        return productService.getProduct(cipher);
+    public String getByCipher(@PathVariable String cipher) {
+        productService.getProduct(cipher);
+        return "home";
     }
 
     @PostMapping("/add2")

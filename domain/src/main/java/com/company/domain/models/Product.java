@@ -20,16 +20,16 @@ public class Product {
     @Column (name = "cipher", unique = true)
     private String cipher;
 
-    @JoinColumn (name = "product")
-    @ManyToOne
-    private Product mainProduct;
-
     @Column (name = "route")
     private String route;
 
     @Enumerated (value = EnumType.STRING)
     @Column (name = "type")
     private Type type;
+
+    @JoinColumn (name = "product")
+    @ManyToOne
+    private Product mainProduct;
 
     public enum Type{
         DETAIL ("Деталь"),

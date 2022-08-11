@@ -22,24 +22,33 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public void addProduct (ProductDto dto){
-        if (productRepository.findByCipher(dto.getCipher()) == null){
-            Optional<Product> oProduct = productRepository.findByCipher(dto.getProduct().getCipher());
-            Product product = null;
-            if (!oProduct.isPresent()){
-                product = oProduct.get();
-                product = productRepository.save(Product.builder()
-                        .name(dto.getProduct().getName())
-                        .cipher(dto.getProduct().getCipher())
-                        .build());
+    public String addProduct (ProductDto dto){
+        Product product1 = null;
+        Product product = null;
+        Optional<Product> oProduct1 = productRepository.findByCipher(dto.getCipher());
+        if (!oProduct1.isPresent()){
+        //if (productRepository.findByCipher(dto.getCipher()) == null){
+            if (dto.getProduct() != null){
+                Optional<Product> oProduct = productRepository.findByCipher(dto.getProduct().getCipher());
+                if (!oProduct.isPresent()){
+                    product = productRepository.save(Product.builder()
+                            .name(dto.getProduct().getName())
+                            .cipher(dto.getProduct().getCipher())
+                            .route(dto.getProduct().getRoute())
+                            .type(dto.getProduct().getType())
+                            .build());
+                }
             }
-            productRepository
+            product1 = productRepository
                     .save( Product.builder()
                             .name(dto.getName())
                             .cipher(dto.getCipher())
+                            .route(dto.getRoute())
+                            .type(dto.getType())
                             .mainProduct(product)
                             .build());
         }
+        return product1.getCipher();
     }
 
     public void addProductList (MultipartFile multipartFile){
@@ -50,9 +59,9 @@ public class ProductService {
         }
     }
 
-    public Product getProduct (String cipher){
+    public String getProduct (String cipher){
         Product product = productRepository.findByCipher(cipher).get();
-        return product;
+        return product.getCipher();
     }
 
     public List<Product> getProductList (){
