@@ -34,6 +34,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
 
     @PostMapping ("/addList")
     public String addList(@RequestAttribute MultipartFile file, Model model) {
+        if (file != null)
         productService.addProductList(file);
         return "home";
     }

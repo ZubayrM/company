@@ -52,8 +52,10 @@ public class ProductService {
     }
 
     public void addProductList (MultipartFile multipartFile){
-        for (Product product : ExcelParser.excelParsing(multipartFile)){
-            if (productRepository.findByCipher(product.getCipher()) == null){
+        List<Product> list = ExcelParser.excelParsing(multipartFile);
+        for (Product product : list){
+            Optional<Product> oProduct1 = productRepository.findByCipher(product.getCipher());
+            if (!oProduct1.isPresent()){
                 productRepository.save(product);
             }
         }

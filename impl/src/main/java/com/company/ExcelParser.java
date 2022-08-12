@@ -6,12 +6,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.util.IOUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,10 +22,17 @@ public abstract class ExcelParser {
         InputStream inputStream = null;
         HSSFWorkbook workbook = null;
         try {
-            File file = new File(multipartFile.getOriginalFilename());
-            multipartFile.transferTo(file);
-            inputStream = new FileInputStream(file);
-            workbook = new HSSFWorkbook(inputStream);
+//            File file = new File(multipartFile.getOriginalFilename());
+//            multipartFile.transferTo(file);
+//            inputStream = new FileInputStream(file);
+//            workbook = new HSSFWorkbook(inputStream);
+            File convFile = new File(multipartFile.getOriginalFilename());
+            convFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(convFile);
+            fos.write(multipartFile.getBytes());
+            fos.close();
+
+            workbook = new HSSFWorkbook(new FileInputStream(convFile));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -51,25 +57,36 @@ public abstract class ExcelParser {
                 }
             }
             else {
-                if (row.getCell(0) == null){
-                    endField = row.getRowNum() - 1;
-                    break;
+//                if (row.getCell(0) == null){
+//                    endField = row.getRowNum() - 1;
+//                    break;
+//                }
+                Product product = new Product();
+                product.setCipher(row.getCell(1).getRichStringCellValue().toString());//присваиваем шифр
+                product.setName(row.getCell(3).getRichStringCellValue().toString());//присваиваем имя
+                product.setType(typeParsing(row.getCell(2).getRichStringCellValue().toString()));//присваиваем тип
+                product.setRoute(routeParsing(row.getCell(4)));//присваиваем маршрут
+                for (Product product1 : productList){
+                    if (product1.getCipher().equals(row.getCell(1).getStringCellValue())){//присваиваем изделие-входимость
+                        product.setMainProduct(product1);
+                    }
                 }
+                productList.add(product);
             }
         }
-        for (int i = startField; i < endField; i++){
-            Product product = new Product();
-            product.setCipher(sheet.getRow(i).getCell(1).getRichStringCellValue().toString());//присваиваем шифр
-            product.setName(sheet.getRow(i).getCell(3).getRichStringCellValue().toString());//присваиваем имя
-            product.setType(typeParsing(sheet.getRow(i).getCell(2).getRichStringCellValue().toString()));//присваиваем тип
-            product.setRoute(routeParsing(sheet.getRow(i).getCell(4)));//присваиваем маршрут
-            for (Product product1 : productList){
-                if (product1.getCipher().equals(sheet.getRow(i).getCell(6).getStringCellValue())){//присваиваем изделие-входимость
-                    product.setMainProduct(product1);
-                }
-            }
-            productList.add(product);
-        }
+//        for (int i = startField; i < endField; i++){
+//            Product product = new Product();
+//            product.setCipher(sheet.getRow(i).getCell(1).getRichStringCellValue().toString());//присваиваем шифр
+//            product.setName(sheet.getRow(i).getCell(3).getRichStringCellValue().toString());//присваиваем имя
+//            product.setType(typeParsing(sheet.getRow(i).getCell(2).getRichStringCellValue().toString()));//присваиваем тип
+//            product.setRoute(routeParsing(sheet.getRow(i).getCell(4)));//присваиваем маршрут
+//            for (Product product1 : productList){
+//                if (product1.getCipher().equals(sheet.getRow(i).getCell(6).getStringCellValue())){//присваиваем изделие-входимость
+//                    product.setMainProduct(product1);
+//                }
+//            }
+//            productList.add(product);
+//        }
         return productList;
     }
 
