@@ -32,7 +32,8 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
-    public String addList(MultipartFile file, Model model) {
+    @PostMapping ("/addList")
+    public String addList(@RequestAttribute MultipartFile file, Model model) {
         productService.addProductList(file);
         return "home";
     }
@@ -46,8 +47,10 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return null;
     }
 
-    public String delete(String cipher, Model model) {
-        return null;
+    @DeleteMapping("/delete/{cipher}")
+    public String delete(@PathVariable String cipher, Model model) {
+        productService.deleteProduct(cipher);
+        return "home";
     }
 
     @GetMapping ("/get/{cipher}")//тестирую метод по получению продукта

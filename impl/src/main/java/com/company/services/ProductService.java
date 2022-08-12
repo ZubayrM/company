@@ -69,6 +69,7 @@ public class ProductService {
     }
 
     public void deleteProduct (String cipher){
-        productRepository.deleteProductByCipher(cipher);
+        Product product = productRepository.findByCipher(cipher).get();
+        productRepository.delete(product);
     }
 }
