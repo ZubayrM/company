@@ -51,7 +51,7 @@ public class ProductService {
         return product1.getCipher();
     }
 
-    public void addProductList (MultipartFile multipartFile){//для проверки
+    public void addProductList (MultipartFile multipartFile){//для теста
         List<Product> list = ExcelParser.excelParsing(multipartFile);
         for (Product product : list){
             Optional<Product> oProduct1 = productRepository.findByCipher(product.getCipher());
