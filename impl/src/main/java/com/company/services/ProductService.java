@@ -74,4 +74,8 @@ public class ProductService {
         Product product = productRepository.findByCipher(cipher).get();
         productRepository.delete(product);
     }
+
+    public void deleteAll (){
+        productRepository.deleteAll();
+    }
 }

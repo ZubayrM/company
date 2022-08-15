@@ -19,13 +19,8 @@ public abstract class ExcelParser {
     public static List<Product> excelParsing (MultipartFile multipartFile){
         List<Product> productList = new ArrayList<Product>();
 
-        InputStream inputStream = null;
         HSSFWorkbook workbook = null;
         try {
-//            File file = new File(multipartFile.getOriginalFilename());
-//            multipartFile.transferTo(file);
-//            inputStream = new FileInputStream(file);
-//            workbook = new HSSFWorkbook(inputStream);
             File convFile = new File(multipartFile.getOriginalFilename());
             convFile.createNewFile();
             FileOutputStream fos = new FileOutputStream(convFile);
@@ -42,7 +37,6 @@ public abstract class ExcelParser {
         Iterator<Row> rowIterator = sheet.iterator();
 
         int startField = 0;
-        int endField = 0;
 
         while (rowIterator.hasNext()){
             Row row = rowIterator.next();
@@ -57,36 +51,23 @@ public abstract class ExcelParser {
                 }
             }
             else {
-//                if (row.getCell(0) == null){
-//                    endField = row.getRowNum() - 1;
-//                    break;
-//                }
-                Product product = new Product();
-                product.setCipher(row.getCell(1).getRichStringCellValue().toString());//присваиваем шифр
-                product.setName(row.getCell(3).getRichStringCellValue().toString());//присваиваем имя
-                product.setType(typeParsing(row.getCell(2).getRichStringCellValue().toString()));//присваиваем тип
-                product.setRoute(routeParsing(row.getCell(4)));//присваиваем маршрут
-                for (Product product1 : productList){
-                    if (product1.getCipher().equals(row.getCell(1).getStringCellValue())){//присваиваем изделие-входимость
-                        product.setMainProduct(product1);
+                if (row.getCell(0) != null){
+                    Product product = new Product();
+                    product.setCipher(row.getCell(1).getRichStringCellValue().toString());//присваиваем шифр
+                    product.setName(row.getCell(3).getRichStringCellValue().toString());//присваиваем имя
+                    product.setType(typeParsing(row.getCell(2).getRichStringCellValue().toString()));//присваиваем тип
+                    product.setRoute(routeParsing(row.getCell(4)));//присваиваем маршрут
+                    for (Product product1 : productList){
+                        if (product1.getCipher().equals(row.getCell(6).getStringCellValue())){//присваиваем изделие-входимость
+                            product.setMainProduct(product1);
+                        }
                     }
+                    productList.add(product);
                 }
-                productList.add(product);
+                else
+                    break;
             }
         }
-//        for (int i = startField; i < endField; i++){
-//            Product product = new Product();
-//            product.setCipher(sheet.getRow(i).getCell(1).getRichStringCellValue().toString());//присваиваем шифр
-//            product.setName(sheet.getRow(i).getCell(3).getRichStringCellValue().toString());//присваиваем имя
-//            product.setType(typeParsing(sheet.getRow(i).getCell(2).getRichStringCellValue().toString()));//присваиваем тип
-//            product.setRoute(routeParsing(sheet.getRow(i).getCell(4)));//присваиваем маршрут
-//            for (Product product1 : productList){
-//                if (product1.getCipher().equals(sheet.getRow(i).getCell(6).getStringCellValue())){//присваиваем изделие-входимость
-//                    product.setMainProduct(product1);
-//                }
-//            }
-//            productList.add(product);
-//        }
         return productList;
     }
 
@@ -124,15 +105,4 @@ public abstract class ExcelParser {
         }
         return null;
     }
-
-//    @SneakyThrows
-//    private static void excelParsing(MultipartFile multipartFile) {
-//        InputStream inputStream = null;
-//        HSSFWorkbook workbook = null;
-//
-//        File file = new File(multipartFile.getOriginalFilename());
-//        multipartFile.transferTo(file);
-//        inputStream = new FileInputStream(file);
-//        workbook = new HSSFWorkbook(inputStream);
-//    }
 }

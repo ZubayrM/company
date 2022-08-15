@@ -34,8 +34,9 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
 
     @PostMapping ("/addList")
     public String addList(@RequestAttribute MultipartFile file, Model model) {
-        if (file != null)
-        productService.addProductList(file);
+        if (file != null){
+            productService.addProductList(file);
+        }
         return "home";
     }
 
@@ -64,6 +65,12 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     public String add(@RequestBody ProductDto newProduct) {
         log.info("method add: " + newProduct.toString());
         productService.addProduct(newProduct);
+        return "home";
+    }
+
+    @DeleteMapping ("/deleteAll")
+    public String deleteAll(){
+        productService.deleteAll();
         return "home";
     }
 }
