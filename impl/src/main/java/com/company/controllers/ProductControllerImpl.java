@@ -40,9 +40,16 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
-    public String getAll(Model model) {
-        log.info(productService.getProductList().toString());
+    @GetMapping ("/getList/{cipher}")
+    public String getAllByCipher(@PathVariable String cipher, Model model) {
+        log.info(productService.getProductListByCipher(cipher).toString());
+        productService.getProductListByCipher(cipher);
         return "home";
+    }
+
+    @Override
+    public String getAll(Model model) {
+        return null;
     }
 
     public String getByCipher(String cipher, Model model) {

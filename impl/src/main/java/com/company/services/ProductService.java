@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,8 +67,59 @@ public class ProductService {
         return product.getCipher();
     }
 
-    public List<Product> getProductList (){
-        return productRepository.findAll();
+    public List<Product> getProductListByCipher (String value){
+        List<Product> list = new ArrayList<>();
+
+        for (Product product : productRepository.findAll()){
+            if (product.getCipher().contains(value)){
+                list.add(product);
+            }
+        }
+        return list;
+    }
+
+    public List<Product> getProductListByName (String value){
+        List<Product> list = new ArrayList<>();
+
+        for (Product product : productRepository.findAll()){
+            if (product.getName().contains(value)){
+                list.add(product);
+            }
+        }
+        return list;
+    }
+
+    public List<Product> getProductListByRoute (String value){
+        List<Product> list = new ArrayList<>();
+
+        for (Product product : productRepository.findAll()){
+            if (product.getRoute().contains(value)){
+                list.add(product);
+            }
+        }
+        return list;
+    }
+
+    public List<Product> getProductListByType (String value){
+        List<Product> list = new ArrayList<>();
+
+        for (Product product : productRepository.findAll()){
+            if (product.getType().equals(value)){
+                list.add(product);
+            }
+        }
+        return list;
+    }
+
+    public List<Product> getProductListByMainProduct (String value){
+        List<Product> list = new ArrayList<>();
+
+        for (Product product : productRepository.findAll()){
+            if (product.getMainProduct().getCipher().contains(value)){
+                list.add(product);
+            }
+        }
+        return list;
     }
 
     public void deleteProduct (String cipher){

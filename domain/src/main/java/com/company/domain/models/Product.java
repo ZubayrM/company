@@ -36,7 +36,8 @@ public class Product {
         ASSEMBLY ("Сборочная единица"),
         PURCHASED ("Покупная"),
         MATERIAL ("Материал"),
-        NORMALIZED ("Стандарное изделие");
+        NORMALIZED ("Стандарное изделие"),
+        ASSEMBLY_NORMAL ("Сборочная нормаль");
 
         private String type;
 

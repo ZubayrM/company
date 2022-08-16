@@ -33,7 +33,7 @@ public abstract class ExcelParser {
             e.printStackTrace();
         }
 
-        Sheet sheet = workbook.getSheetAt(1);
+        Sheet sheet = workbook.getSheetAt(2);
         Iterator<Row> rowIterator = sheet.iterator();
 
         int startField = 0;
@@ -53,12 +53,17 @@ public abstract class ExcelParser {
             else {
                 if (row.getCell(0) != null){
                     Product product = new Product();
-                    product.setCipher(row.getCell(1).getRichStringCellValue().toString());//присваиваем шифр
+                    if (row.getCell(1).getStringCellValue().isEmpty()){
+                        product.setCipher("");
+                    }
+                    else{
+                        product.setCipher(row.getCell(1).getRichStringCellValue().toString());//присваиваем шифр
+                    }
                     product.setName(row.getCell(3).getRichStringCellValue().toString());//присваиваем имя
                     product.setType(typeParsing(row.getCell(2).getRichStringCellValue().toString()));//присваиваем тип
                     product.setRoute(routeParsing(row.getCell(4)));//присваиваем маршрут
                     for (Product product1 : productList){
-                        if (product1.getCipher().equals(row.getCell(6).getStringCellValue())){//присваиваем изделие-входимость
+                        if (product1.getCipher().trim().equals(row.getCell(6).getStringCellValue().trim())){//присваиваем изделие-входимость
                             product.setMainProduct(product1);
                         }
                     }
@@ -102,6 +107,9 @@ public abstract class ExcelParser {
         }
         else if (cellValue.equals("М")){
             return Product.Type.MATERIAL;
+        }
+        else if (cellValue.equals("СН")){
+            return Product.Type.ASSEMBLY_NORMAL;
         }
         return null;
     }
