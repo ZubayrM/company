@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
@@ -43,7 +44,8 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     @GetMapping ("/getList/{cipher}")
     public String getAllByCipher(@PathVariable String cipher, Model model) {
         log.info(productService.getProductListByCipher(cipher).toString());
-        productService.getProductListByCipher(cipher);
+        List<Product> products = productService.getProductListByCipher(cipher);
+        model.addAttribute("products", products);
         return "home";
     }
 
@@ -52,9 +54,9 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return null;
     }
 
-    public String getByCipher(String cipher, Model model) {
-        return null;
-    }
+//    public String getByCipher(String cipher, Model model) {
+//        return null;
+//    }
 
     @DeleteMapping("/delete/{cipher}")
     public String delete(@PathVariable String cipher, Model model) {
@@ -63,9 +65,10 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @GetMapping ("/get/{cipher}")//тестирую метод по получению продукта
-    public String getByCipher(@PathVariable String cipher) {
-        productService.getProduct(cipher);
-        return "home";
+    public String getByCipher(@PathVariable String cipher, Model model) {
+        Product product = productService.getProduct(cipher);
+        model.addAttribute("selectedProduct", product);
+        return "detail";
     }
 
     @PostMapping("/add2")

@@ -33,7 +33,7 @@ public abstract class ExcelParser {
             e.printStackTrace();
         }
 
-        Sheet sheet = workbook.getSheetAt(2);
+        Sheet sheet = workbook.getSheetAt(1);
         Iterator<Row> rowIterator = sheet.iterator();
 
         int startField = 0;
@@ -52,22 +52,19 @@ public abstract class ExcelParser {
             }
             else {
                 if (row.getCell(0) != null){
-                    Product product = new Product();
-                    if (row.getCell(1).getStringCellValue().isEmpty()){
-                        product.setCipher("");
-                    }
-                    else{
-                        product.setCipher(row.getCell(1).getRichStringCellValue().toString());//присваиваем шифр
-                    }
-                    product.setName(row.getCell(3).getRichStringCellValue().toString());//присваиваем имя
-                    product.setType(typeParsing(row.getCell(2).getRichStringCellValue().toString()));//присваиваем тип
-                    product.setRoute(routeParsing(row.getCell(4)));//присваиваем маршрут
-                    for (Product product1 : productList){
-                        if (product1.getCipher().trim().equals(row.getCell(6).getStringCellValue().trim())){//присваиваем изделие-входимость
-                            product.setMainProduct(product1);
+                    if (!row.getCell(1).getStringCellValue().isEmpty()){
+                        Product product = new Product();
+                        product.setCipher(row.getCell(1).getRichStringCellValue().toString().trim());//присваиваем шифр
+                        product.setName(row.getCell(3).getRichStringCellValue().toString().trim());//присваиваем имя
+                        product.setType(typeParsing(row.getCell(2).getRichStringCellValue().toString().trim()));//присваиваем тип
+                        product.setRoute(routeParsing(row.getCell(4)));//присваиваем маршрут
+                        for (Product product1 : productList){
+                            if (product1.getCipher().equals(row.getCell(6).getStringCellValue())){//присваиваем изделие-входимость
+                                product.setMainProduct(product1);
+                            }
                         }
+                        productList.add(product);
                     }
-                    productList.add(product);
                 }
                 else
                     break;
@@ -85,7 +82,7 @@ public abstract class ExcelParser {
                 res = cell.getRichStringCellValue().toString();
                 break;
             case Cell.CELL_TYPE_NUMERIC:
-                res = Double.toString(cell.getNumericCellValue());
+                res = Double.toString(cell.getNumericCellValue()).trim();
                 break;
         }
         return res;

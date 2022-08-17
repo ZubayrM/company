@@ -1,10 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru" xmlns:th="www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link th:href="@{/css/homeStyle.css}" rel="stylesheet"/>
 </head>
 <body>
 <h1>ОАО "Концерн КЭМЗ"</h1>
+<header><h2>Список изделий</h2></header>
+<main>
+    <div class="products">
+        <div class="products-grid">
+            <div class="products-header">
+                <div class="id">ID</div>
+                <div class="name">Name</div>
+                <div class="cipher">Cipher</div>
+                <div class="route">Route</div>
+                <div class="type">Type</div>
+                <div class="main product">Main product</div>
+            </div>
+            <div class="products-body">
+                <div class="product-element" th:each="product : ${products}">
+                    <div class="product-id" th:text="${product.getId}"></div>
+                    <div class="product-name" th:text="${product.getName}"></div>
+                    <div class="product-cipher" th:text="${product.getCipher}"></div>
+                    <div class="product-route" th:text="${product.getRoute}"></div>
+                    <div class="product-type" th:text="${product.getType}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail</title>
+</head>
+<body>
+<h1>ОАО "Концерн КЭМЗ"</h1>
+<main>
+    <h3>ID: <span th:text="${selectedProduct.getId}"></span></h3>
+    <h3>Name: <span th:text="${selectedProduct.getName}"></span></h3>
+    <h3>Cipher: <span th:text="${selectedProduct.getCipher}"></span></h3>
+    <h3>Route: <span th:text="${selectedProduct.getRoute}"></span></h3>
+    <h3>Type: <span th:text="${selectedProduct.getType}"></span></h3>
+    <h3>Main product: <span th:text="${selectedProduct.getMainProduct.getCipher}"></span></h3>
+</main>
+</body>
+</html>
