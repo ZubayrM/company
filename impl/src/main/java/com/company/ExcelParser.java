@@ -61,6 +61,7 @@ public abstract class ExcelParser {
                         for (Product product1 : productList){
                             if (product1.getCipher().equals(row.getCell(6).getStringCellValue())){//присваиваем изделие-входимость
                                 product.setMainProduct(product1);
+                                break;
                             }
                         }
                         productList.add(product);

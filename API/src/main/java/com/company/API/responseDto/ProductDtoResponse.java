@@ -1,4 +1,4 @@
-package com.company.API.model;
+package com.company.API.responseDto;
 
 import com.company.domain.models.Product;
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDto {
+public class ProductDtoResponse {
     @NotBlank(message = "поле не заполнено")
     private String name;
 
@@ -23,5 +23,6 @@ public class ProductDto {
     @NotBlank(message = "поле не заполнено")
     private Product.Type type;
 
-    private ProductDto product;
+    @NotBlank(message = "поле не заполнено")
+    private String product;
 }

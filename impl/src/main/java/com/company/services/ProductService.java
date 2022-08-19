@@ -1,7 +1,9 @@
 package com.company.services;
 
 import com.company.API.model.ProductDto;
+import com.company.API.responseDto.ProductDtoResponse;
 import com.company.ExcelParser;
+import com.company.ProductMapper;
 import com.company.domain.models.Product;
 import com.company.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
@@ -62,17 +64,27 @@ public class ProductService {
         }
     }
 
-    public Product getProduct (String cipher){
+    public ProductDtoResponse getProduct (String cipher){
         Product product = productRepository.findByCipher(cipher).get();
-        return product;
+        ProductMapper productMapper = new ProductMapper();
+        return productMapper.toDto(product);
     }
 
-    public List<Product> getProductListByCipher (String value){
-        List<Product> list = new ArrayList<>();
+    public List<ProductDtoResponse> getProductList (){
+        List<ProductDtoResponse> list = new ArrayList<>();
+        ProductMapper productMapper = new ProductMapper();
+        for (Product product : productRepository.findAll()){
+            list.add(productMapper.toDto(product));
+        }
+        return list;
+    }
 
+    public List<ProductDtoResponse> getProductListByCipher (String value){
+        List<ProductDtoResponse> list = new ArrayList<>();
+        ProductMapper productMapper = new ProductMapper();
         for (Product product : productRepository.findAll()){
             if (product.getCipher().contains(value)){
-                list.add(product);
+                list.add(productMapper.toDto(product));
             }
         }
         return list;
@@ -80,7 +92,6 @@ public class ProductService {
 
     public List<Product> getProductListByName (String value){
         List<Product> list = new ArrayList<>();
-
         for (Product product : productRepository.findAll()){
             if (product.getName().contains(value)){
                 list.add(product);
@@ -91,7 +102,6 @@ public class ProductService {
 
     public List<Product> getProductListByRoute (String value){
         List<Product> list = new ArrayList<>();
-
         for (Product product : productRepository.findAll()){
             if (product.getRoute().contains(value)){
                 list.add(product);
@@ -102,7 +112,6 @@ public class ProductService {
 
     public List<Product> getProductListByType (String value){
         List<Product> list = new ArrayList<>();
-
         for (Product product : productRepository.findAll()){
             if (product.getType().equals(value)){
                 list.add(product);
@@ -113,7 +122,6 @@ public class ProductService {
 
     public List<Product> getProductListByMainProduct (String value){
         List<Product> list = new ArrayList<>();
-
         for (Product product : productRepository.findAll()){
             if (product.getMainProduct().getCipher().contains(value)){
                 list.add(product);

@@ -3,33 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link th:href="@{/css/homeStyle.css}" rel="stylesheet"/>
+    <!--<link th:href="@{/css/homeStyle.css}" rel="stylesheet"/>-->
 </head>
 <body>
 <h1>ОАО "Концерн КЭМЗ"</h1>
 <header><h2>Список изделий</h2></header>
 <main>
     <div class="products">
-        <div class="products-grid">
-            <div class="products-header">
-                <div class="id">ID</div>
-                <div class="name">Name</div>
-                <div class="cipher">Cipher</div>
-                <div class="route">Route</div>
-                <div class="type">Type</div>
-                <div class="main product">Main product</div>
-            </div>
-            <div class="products-body">
-                <div class="product-element" th:each="product : ${products}">
-                    <div class="product-id" th:text="${product.getId}"></div>
-                    <div class="product-name" th:text="${product.getName}"></div>
-                    <div class="product-cipher" th:text="${product.getCipher}"></div>
-                    <div class="product-route" th:text="${product.getRoute}"></div>
-                    <div class="product-type" th:text="${product.getType}"></div>
-                </div>
-            </div>
-        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <!--<td>ID</td>-->
+                <td>Название</td>
+                <td>Шифр</td>
+                <td>Маршрут</td>
+                <td>Тип</td>
+                <td>Входимость</td>
+                <td></td>
+                <!--<td></td>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="selectedProduct : ${products}">
+                <!--<td th:text="${product.getId}"></td>-->
+                <td th:text="${selectedProduct.getName}"></td>
+                <td th:text="${selectedProduct.getCipher}"></td>
+                <td th:text="${selectedProduct.getRoute}"></td>
+                <td th:text="${selectedProduct.getType.getType}"></td>
+                <td th:text="${selectedProduct.getProduct}"></td>
+                <!--<td><a class="btn btn-danger" th:href="@{'/' + ${product.getCipher}}">Удалить</a></td>-->
+                <td>
+                    <form th:method="get" th:action="@{'/get/' + ${selectedProduct.getCipher}}">
+                        <button style="background-color: darkred; color: antiquewhite">Открыть</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
+    <!--<div class="products">-->
+        <!--<div class="products-grid">-->
+            <!--<div class="products-header">-->
+                <!--<div class="id">ID</div>-->
+                <!--<div class="name">Name</div>-->
+                <!--<div class="cipher">Cipher</div>-->
+                <!--<div class="route">Route</div>-->
+                <!--<div class="type">Type</div>-->
+                <!--<div class="main product">Main product</div>-->
+            <!--</div>-->
+            <!--<div class="products-body">-->
+                <!--<div class="product-element" th:each="product : ${products}">-->
+                    <!--<div class="product-id" th:text="${product.getId}"></div>-->
+                    <!--<div class="product-name" th:text="${product.getName}"></div>-->
+                    <!--<div class="product-cipher" th:text="${product.getCipher}"></div>-->
+                    <!--<div class="product-route" th:text="${product.getRoute}"></div>-->
+                    <!--<div class="product-type" th:text="${product.getType}"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 </main>
 </body>
 </html>

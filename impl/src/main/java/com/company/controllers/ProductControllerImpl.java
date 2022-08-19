@@ -1,6 +1,7 @@
 package com.company.controllers;
 
 import com.company.API.model.ProductDto;
+import com.company.API.responseDto.ProductDtoResponse;
 import com.company.domain.models.Product;
 import com.company.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -44,21 +45,23 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     @GetMapping ("/getList/{cipher}")
     public String getAllByCipher(@PathVariable String cipher, Model model) {
         log.info(productService.getProductListByCipher(cipher).toString());
-        List<Product> products = productService.getProductListByCipher(cipher);
+        List<ProductDtoResponse> products = productService.getProductListByCipher(cipher);
         model.addAttribute("products", products);
         return "home";
     }
 
-    @Override
+    @GetMapping ("/")
     public String getAll(Model model) {
-        return null;
+        List<ProductDtoResponse> products = productService.getProductList();
+        model.addAttribute("products", products);
+        return "home";
     }
 
 //    public String getByCipher(String cipher, Model model) {
 //        return null;
 //    }
 
-    @DeleteMapping("/delete/{cipher}")
+    @DeleteMapping("/{cipher}")
     public String delete(@PathVariable String cipher, Model model) {
         productService.deleteProduct(cipher);
         return "home";
@@ -66,7 +69,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
 
     @GetMapping ("/get/{cipher}")//тестирую метод по получению продукта
     public String getByCipher(@PathVariable String cipher, Model model) {
-        Product product = productService.getProduct(cipher);
+        ProductDtoResponse product = productService.getProduct(cipher);
         model.addAttribute("selectedProduct", product);
         return "detail";
     }
