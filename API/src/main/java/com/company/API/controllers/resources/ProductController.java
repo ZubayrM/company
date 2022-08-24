@@ -24,7 +24,7 @@ public interface ProductController {
     @GetMapping("/{cipher}")
     String getByCipher(@PathVariable String cipher, Model model);
 
-    @DeleteMapping("/{cipher}")
+    @DeleteMapping("/delete/{cipher}")
     String delete(@PathVariable String cipher, Model model);
 
     @DeleteMapping("/deleteAll")
