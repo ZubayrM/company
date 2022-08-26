@@ -7,13 +7,13 @@
 <body>
 <h1>ОАО "Концерн КЭМЗ"</h1>
 <main>
-    <h3>Name: <span th:text="${selectedProduct.getName}"></span></h3>
-    <h3>Cipher: <span th:text="${selectedProduct.getCipher}"></span></h3>
-    <h3>Route: <span th:text="${selectedProduct.getRoute}"></span></h3>
-    <h3>Type: <span th:text="${selectedProduct.getType.getType}"></span></h3>
-    <h3>Main product: <span th:text="${selectedProduct.getProduct}"></span></h3>
+    <h3>Наименование: <span th:text="${selectedProduct.getName}"></span></h3>
+    <h3>Шифр: <span th:text="${selectedProduct.getCipher}"></span></h3>
+    <h3>Маршрут: <span th:text="${selectedProduct.getRoute}"></span></h3>
+    <h3>Тип: <span th:text="${selectedProduct.getType.getType}"></span></h3>
+    <h3>Входимость: <span th:text="${selectedProduct.getProduct}"></span></h3>
     <div id="delete-product">
-        <form th:method="delete" th:action="@{'delete/' + ${selectedProduct.getCipher}}">
+        <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
             <button style="color: darkred">Удалить</button>
         </form>
     </div>

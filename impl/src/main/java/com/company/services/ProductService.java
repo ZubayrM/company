@@ -52,13 +52,15 @@ public class ProductService {
                             .build());
         }
         return product1.getCipher();
+
+
     }
 
     public void addProductList (MultipartFile multipartFile){//для теста
         List<Product> list = ExcelParser.excelParsing(multipartFile);
         for (Product product : list){
-            Optional<Product> oProduct1 = productRepository.findByCipher(product.getCipher());
-            if (!oProduct1.isPresent()){
+            Optional<Product> oProduct = productRepository.findByCipher(product.getCipher());
+            if (!oProduct.isPresent()){
                 productRepository.save(product);
             }
         }

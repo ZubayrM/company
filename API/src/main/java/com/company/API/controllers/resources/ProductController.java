@@ -15,18 +15,18 @@ public interface ProductController {
     @PostMapping("/add")
     String add(@RequestBody ProductDto newProduct, Model model, Errors errors);
 
-    @PostMapping("/addAll")
+    @PostMapping("/")
     String addList(@RequestAttribute MultipartFile file,Model model);
 
-    @GetMapping("/all")
+    @GetMapping("/")
     String getAll(Model model);
 
     @GetMapping("/{cipher}")
     String getByCipher(@PathVariable String cipher, Model model);
 
-    @DeleteMapping("/delete/{cipher}")
+    @DeleteMapping("/{cipher}")
     String delete(@PathVariable String cipher, Model model);
 
-    @DeleteMapping("/deleteAll")
+    @DeleteMapping("/")
     String deleteAll();
 }

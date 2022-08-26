@@ -31,12 +31,12 @@
                     <td th:text="${selectedProduct.getType.getType}"></td>
                     <td th:text="${selectedProduct.getProduct}"></td>
                     <td>
-                        <form th:method="get" th:action="@{'get/' + ${selectedProduct.getCipher}}">
+                        <form th:method="get" th:action="@{${selectedProduct.getCipher}}">
                             <button style="background-color: darkred; color: antiquewhite">Открыть</button>
                         </form>
                     </td>
                     <td>
-                        <form th:method="delete" th:action="@{'delete/' + ${selectedProduct.getCipher}}">
+                        <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
                             <button style="color: darkred">Удалить</button>
                         </form>
                     </td>
@@ -44,14 +44,14 @@
                 </tbody>
             </table>
             <div class="delete-all-products">
-                <form th:method="delete" th:action="@{deleteAll}">
+                <form th:method="delete" th:action="@{''}">
                     <input class="delete-all" type="submit" value="Очистить список">
                 </form>
             </div>
         </div>
         <div th:if="${products.size()==0}">
             Список деталей пуст!
-            <form enctype="multipart/form-data" th:method="post" th:action="@{addAll}">
+            <form enctype="multipart/form-data" th:method="post" th:action="@{''}">
                 <p>Загрузите файл</p>
                 <p><input type="file" name="file" multiple></p>
                 <input type="submit" value="Загрузить">

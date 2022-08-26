@@ -34,7 +34,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
-    @PostMapping ("/addAll")
+    @PostMapping ("/")
     public String addList(@RequestAttribute MultipartFile file, Model model) {
         if (file != null){
             productService.addProductList(file);
@@ -61,13 +61,13 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
 //        return null;
 //    }
 
-    @DeleteMapping("/delete/{cipher}")
+    @DeleteMapping("/{cipher}")
     public String delete(@PathVariable String cipher, Model model) {
         productService.deleteProduct(cipher);
         return "redirect:/api/product/";
     }
 
-    @GetMapping ("/get/{cipher}")//тестирую метод по получению продукта
+    @GetMapping ("/{cipher}")//тестирую метод по получению продукта
     public String getByCipher(@PathVariable String cipher, Model model) {
         ProductDtoResponse product = productService.getProduct(cipher);
         model.addAttribute("selectedProduct", product);
@@ -81,7 +81,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
-    @DeleteMapping ("/deleteAll")
+    @DeleteMapping ("/")
     public String deleteAll(){
         productService.deleteAll();
         return "redirect:/api/product/";
