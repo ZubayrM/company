@@ -7,6 +7,7 @@ import com.company.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -61,6 +62,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
 //        return null;
 //    }
 
+    @Transactional
     @DeleteMapping("/{cipher}")
     public String delete(@PathVariable String cipher, Model model) {
         productService.deleteProduct(cipher);

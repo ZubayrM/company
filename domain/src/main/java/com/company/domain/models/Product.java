@@ -1,6 +1,8 @@
 package com.company.domain.models;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 
@@ -17,7 +19,7 @@ public class Product {
     @Column (name = "name")
     private String name;
 
-    @Column (name = "cipher", unique = true)
+    @Column (name = "cipher")
     private String cipher;
 
     @Column (name = "route")
@@ -28,7 +30,7 @@ public class Product {
     private Type type;
 
     @JoinColumn (name = "product")
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.EAGER)
     private Product mainProduct;
 
     public enum Type{
