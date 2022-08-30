@@ -16,6 +16,6 @@ public interface ProductRepository extends JpaRepository <Product, Long> {
     Optional<Product> findByCipher(String cipher);
 
 
-    @Query ("")//для проверки
-    void deleteByCipher (String cipher, String name, String productName);
+//    @Query ("")//для проверки
+//    void deleteByCipher (String cipher, String name, String productName);
 }

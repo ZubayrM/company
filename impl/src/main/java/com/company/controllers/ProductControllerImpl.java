@@ -62,7 +62,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
 //        return null;
 //    }
 
-    @Transactional
+    //@Transactional
     @DeleteMapping("/{cipher}")
     public String delete(@PathVariable String cipher, Model model) {
         productService.deleteProduct(cipher);

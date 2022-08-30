@@ -5,6 +5,10 @@ import org.hibernate.annotations.Cascade;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -30,8 +34,11 @@ public class Product {
     private Type type;
 
     @JoinColumn (name = "product")
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne
     private Product mainProduct;
+
+    @OneToMany (mappedBy = "mainProduct", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> childs = new ArrayList<>();
 
     public enum Type{
         DETAIL ("Деталь"),
