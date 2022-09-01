@@ -77,7 +77,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @PostMapping("/add2")
-    public String add(@RequestBody ProductDto newProduct) {
+    public String add(@Valid @RequestBody ProductDto newProduct) {
         log.info("method add: " + newProduct.toString());
         productService.addProduct(newProduct);
         return "home";

@@ -32,13 +32,14 @@ public class ProductService {
         if (!oProduct1.isPresent()){
         //if (productRepository.findByCipher(dto.getCipher()) == null){
             if (dto.getProduct() != null){
-                Optional<Product> oProduct = productRepository.findByCipher(dto.getProduct().getCipher());
-                if (!oProduct.isPresent()){
+                Optional<Product> oProduct = productRepository.findByCipher(dto.getProduct());
+                if (oProduct.isPresent()){
+                    Product pr = productRepository.findByCipher(dto.getProduct()).get();
                     product = productRepository.save(Product.builder()
-                            .name(dto.getProduct().getName())
-                            .cipher(dto.getProduct().getCipher())
-                            .route(dto.getProduct().getRoute())
-                            .type(dto.getProduct().getType())
+                            .name(pr.getName())
+                            .cipher(pr.getCipher())
+                            .route(pr.getRoute())
+                            .type(pr.getType())
                             .build());
                 }
             }
@@ -47,13 +48,25 @@ public class ProductService {
                             .name(dto.getName())
                             .cipher(dto.getCipher())
                             .route(dto.getRoute())
-                            .type(dto.getType())
+                            .type(Product.Type.valueOf(dto.getType()))
                             .mainProduct(product)
                             .build());
         }
+        else {
+            Product pr = oProduct1.get();
+            if (dto.getProduct().isEmpty() || !dto.getProduct().equals(pr.getMainProduct().getCipher())){
+                product = productRepository.getProductByCipher(dto.getProduct());
+                product1 = productRepository
+                        .save( Product.builder()
+                                .name(dto.getName())
+                                .cipher(dto.getCipher())
+                                .route(dto.getRoute())
+                                .type(Product.Type.valueOf(dto.getType()))
+                                .mainProduct(product)
+                                .build());
+            }
+        }
         return product1.getCipher();
-
-
     }
 
     public void addProductList (MultipartFile multipartFile){//для теста

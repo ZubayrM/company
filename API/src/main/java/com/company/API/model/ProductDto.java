@@ -21,7 +21,8 @@ public class ProductDto {
     private String route;
 
     @NotBlank(message = "поле не заполнено")
-    private Product.Type type;
+    private String type;
 
-    private ProductDto product;
+    @NotBlank(message = "поле не заполнено")
+    private String product;
 }

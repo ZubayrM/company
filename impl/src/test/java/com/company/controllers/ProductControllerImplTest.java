@@ -35,7 +35,7 @@ class ProductControllerImplTest {
     @SneakyThrows
     void add() {
         mvc.perform(post("/api/product/add")
-                .content(om.writeValueAsString(new ProductDto("Гайка", "22-11A", "17-99", Product.Type.DETAIL,null))))
+                .content(om.writeValueAsString(new ProductDto("Гайка", "22-11A", "17-99", "Деталь",null))))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
