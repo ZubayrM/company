@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <!--<link th:href="@{/css/homeStyle.css}" rel="stylesheet"/>-->
+    <p style="text-align: center"><img th:src="@{/images/logo1.png}" alt="Логотип КЭМЗ"/></p>
+    <!--<link rel="shortcut icon" href="https://static.tildacdn.com/tild3233-3764-4861-a366-353637613836/Group_18.jpg" type="image/jpg">-->
+    <h1 style="text-align: center">ОАО "Концерн КЭМЗ"</h1>
 </head>
 <body>
-<h1>ОАО "Концерн КЭМЗ"</h1>
+<br>
+<br>
+<br>
 <header><h2>Список изделий</h2></header>
 <main>
     <div class="products">
         <div th:if="${products.size()>0}">
-            <table class="table table-hover">
+            <table class="table table-striped">
                 <thead>
                 <tr>
-                    <td>Название</td>
-                    <td>Шифр</td>
-                    <td>Маршрут</td>
-                    <td>Тип</td>
-                    <td>Входимость</td>
+                    <th scope="colgroup">Название</th>
+                    <th scope="colgroup">Шифр</th>
+                    <th scope="colgroup">Маршрут</th>
+                    <th scope="colgroup">Тип</th>
+                    <th scope="colgroup">Входимость</th>
                     <td></td>
                     <td></td>
                 </tr>

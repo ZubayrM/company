@@ -77,10 +77,13 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @PostMapping("/add2")
-    public String add(@Valid @RequestBody ProductDto newProduct) {
+    public String add(@Valid @RequestBody ProductDto newProduct, Errors errors) {
+        if (errors.hasErrors()){
+            return "redirect:/api/product/";
+        }
         log.info("method add: " + newProduct.toString());
         productService.addProduct(newProduct);
-        return "home";
+        return "redirect:/api/product/";
     }
 
     @DeleteMapping ("/")
