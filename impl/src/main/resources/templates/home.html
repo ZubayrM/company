@@ -8,13 +8,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <!--<link th:href="@{/css/homeStyle.css}" rel="stylesheet"/>-->
-    <p style="text-align: center"><img th:src="@{/images/logo1.png}" alt="Логотип КЭМЗ"/></p>
-    <!--<link rel="shortcut icon" href="https://static.tildacdn.com/tild3233-3764-4861-a366-353637613836/Group_18.jpg" type="image/jpg">-->
-    <h1 style="text-align: center">ОАО "Концерн КЭМЗ"</h1>
+    <link rel="shortcut icon" href="/images/mylogo.png">
 </head>
 <body>
-<br>
-<br>
+<div style="width:auto; margin:0; background: #ccc; border-bottom:2px solid dimgray">
+    <a href="#" style="float:left; margin-top:2px; margin-right:50px;"><img src="/images/mylogo.png"></a>
+    <h1 style="line-height:100px; color: white">ОАО "Концерн КЭМЗ"</h1>
+</div>
 <br>
 <header><h2>Список изделий</h2></header>
 <main>
@@ -23,13 +23,29 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="colgroup">Название</th>
-                    <th scope="colgroup">Шифр</th>
-                    <th scope="colgroup">Маршрут</th>
-                    <th scope="colgroup">Тип</th>
-                    <th scope="colgroup">Входимость</th>
-                    <td></td>
-                    <td></td>
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                        <p>Название</p>
+                        <p>
+                        <form th:method="get" th:action="@{byName}">
+                        <input type="search" name="name" placeholder="Поиск по названию">
+                        <input type="submit" value="Найти">
+                        </form>
+                        </p>
+                    </th>
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                        <p>Шифр</p>
+                        <p>
+                            <form th:method="get" th:action="@{byCipher}">
+                        <input type="search" name="cipher" placeholder="Поиск по шифру">
+                        <input type="submit" value="Найти">
+                    </form>
+                        </p>
+                    </th>
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">Маршрут</th>
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">Тип</th>
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">Входимость</th>
+                    <td style="border-bottom: 1px solid dimgray"></td>
+                    <td style="border-bottom: 1px solid dimgray"></td>
                 </tr>
                 </thead>
                 <tbody>
@@ -68,5 +84,6 @@
         </div>
     </div>
 </main>
+
 </body>
 </html>

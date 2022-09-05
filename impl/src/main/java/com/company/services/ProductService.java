@@ -105,11 +105,12 @@ public class ProductService {
         return list;
     }
 
-    public List<Product> getProductListByName (String value){
-        List<Product> list = new ArrayList<>();
+    public List<ProductDtoResponse> getProductListByName (String value){
+        List<ProductDtoResponse> list = new ArrayList<>();
+        ProductMapper productMapper = new ProductMapper();
         for (Product product : productRepository.findAll()){
             if (product.getName().contains(value)){
-                list.add(product);
+                list.add(productMapper.toDto(product));
             }
         }
         return list;

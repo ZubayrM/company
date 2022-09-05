@@ -21,6 +21,12 @@ public interface ProductController {
     @GetMapping("/")
     String getAll(Model model);
 
+    @GetMapping("/{name}")
+    String getAllByName(@PathVariable String name, Model model);
+
+    @GetMapping("/{cipher}")
+    String getAllByCipher(@PathVariable String cipher, Model model);
+
     @GetMapping("/{cipher}")
     String getByCipher(@PathVariable String cipher, Model model);
 

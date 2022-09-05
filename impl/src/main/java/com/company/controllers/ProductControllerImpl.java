@@ -43,10 +43,17 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "redirect:/api/product/";
     }
 
-    @GetMapping ("/getList/{cipher}")
-    public String getAllByCipher(@PathVariable String cipher, Model model) {
+    @GetMapping ("/byCipher")
+    public String getAllByCipher(@RequestParam String cipher, Model model) {
         log.info(productService.getProductListByCipher(cipher).toString());
         List<ProductDtoResponse> products = productService.getProductListByCipher(cipher);
+        model.addAttribute("products", products);
+        return "home";
+    }
+
+    @GetMapping ("/byName")
+    public String getAllByName (@RequestParam String name, Model model){
+        List<ProductDtoResponse> products = productService.getProductListByName(name);
         model.addAttribute("products", products);
         return "home";
     }
