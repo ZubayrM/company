@@ -13,10 +13,10 @@
 <body>
 <div style="width:auto; margin:0; background: #ccc; border-bottom:2px solid dimgray">
     <a href="#" style="float:left; margin-top:2px; margin-right:50px;"><img src="/images/mylogo.png"></a>
-    <h1 style="line-height:100px; color: white">ОАО "Концерн КЭМЗ"</h1>
+    <h1 style="line-height:100px; color: white">АО "Концерн КЭМЗ"</h1>
 </div>
 <br>
-<header><h2>Список изделий</h2></header>
+<header><h2>Состав изделия</h2></header>
 <main>
     <div class="products">
         <div th:if="${products.size()>0}">
@@ -28,7 +28,7 @@
                         <p>
                         <form th:method="get" th:action="@{byName}">
                         <input type="search" name="name" placeholder="Поиск по названию">
-                        <input type="submit" value="Найти">
+                        <input type="submit" value="&#128270;">
                         </form>
                         </p>
                     </th>
@@ -37,15 +37,55 @@
                         <p>
                             <form th:method="get" th:action="@{byCipher}">
                         <input type="search" name="cipher" placeholder="Поиск по шифру">
-                        <input type="submit" value="Найти">
+                        <input type="submit" value="&#128270;">
                     </form>
                         </p>
                     </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">Маршрут</th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">Тип</th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">Входимость</th>
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                        <p>Маршрут</p>
+                        <p>
+                            <form th:method="get" th:action="@{byRoute}">
+                        <input type="search" name="route" placeholder="Поиск по маршруту">
+                        <input type="submit" value="&#128270;">
+                    </form>
+                        </p>
+                    </th>
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                        <p>Тип</p>
+                        <p>
+                            <form th:method="get" th:action="@{byType}">
+                        <select name="type">
+                            <option style="background-color: darkred">Выберите тип</option>
+                            <option value="Сборочная единица">Сборочная единица</option>
+                            <option value="Деталь">Деталь</option>
+                            <option value="Покупная">Покупная</option>
+                            <option value="Материал">Материал</option>
+                            <option value="Стандарное изделие">Стандарное изделие</option>
+                            <option value="Сборочная нормаль">Сборочная нормаль</option>
+                        </select>
+                        <input type="submit" value="&#128270;">
+                    </form>
+                        </p>
+                    </th>
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                        <p>Входимость</p>
+                        <p>
+                        <form th:method="get" th:action="@{MPList}">
+                            <select name="MP">
+                                <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
+                            </select>
+                        <input type="submit" value="&#128270;">
+                        </form>
+                        </p>
+                    </th>
                     <td style="border-bottom: 1px solid dimgray"></td>
                     <td style="border-bottom: 1px solid dimgray"></td>
+                    <p>Сбросить фильтр</p>
+                    <p>
+                    <form th:method="get" th:action="@{reset}">
+                        <input type="submit" value="&#10060;">
+                    </form>
+                    </p>
                 </tr>
                 </thead>
                 <tbody>
@@ -57,12 +97,12 @@
                     <td th:text="${selectedProduct.getProduct}"></td>
                     <td>
                         <form th:method="get" th:action="@{${selectedProduct.getCipher}}">
-                            <button style="background-color: darkred; color: antiquewhite">Открыть</button>
+                            <button class="btn btn-success">Открыть</button>
                         </form>
                     </td>
                     <td>
                         <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
-                            <button style="color: darkred">Удалить</button>
+                            <button class="btn btn-danger">Удалить</button>
                         </form>
                     </td>
                 </tr>

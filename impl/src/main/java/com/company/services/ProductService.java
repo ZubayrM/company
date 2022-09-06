@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -116,32 +114,44 @@ public class ProductService {
         return list;
     }
 
-    public List<Product> getProductListByRoute (String value){
-        List<Product> list = new ArrayList<>();
+    public List<ProductDtoResponse> getProductListByRoute (String value){
+        List<ProductDtoResponse> list = new ArrayList<>();
+        ProductMapper productMapper = new ProductMapper();
         for (Product product : productRepository.findAll()){
             if (product.getRoute().contains(value)){
-                list.add(product);
+                list.add(productMapper.toDto(product));
             }
         }
         return list;
     }
 
-    public List<Product> getProductListByType (String value){
-        List<Product> list = new ArrayList<>();
+    public List<ProductDtoResponse> getProductListByType (String value){
+        List<ProductDtoResponse> list = new ArrayList<>();
+        ProductMapper productMapper = new ProductMapper();
         for (Product product : productRepository.findAll()){
-            if (product.getType().equals(value)){
-                list.add(product);
+            if (product.getType().getType().equals(value)){
+                list.add(productMapper.toDto(product));
             }
         }
         return list;
     }
 
-    public List<Product> getProductListByMainProduct (String value){
-        List<Product> list = new ArrayList<>();
+    public List<ProductDtoResponse> getProductListByMainProduct (String value){
+        List<ProductDtoResponse> list = new ArrayList<>();
+        ProductMapper productMapper = new ProductMapper();
         for (Product product : productRepository.findAll()){
-            if (product.getMainProduct().getCipher().contains(value)){
-                list.add(product);
+            if (product.getMainProduct().getCipher().equals(value)){
+                list.add(productMapper.toDto(product));
             }
+        }
+        return list;
+    }
+
+    public Set<String> getMainProductsList (){
+        Set<String> list = new HashSet<>();
+        for (Product product : productRepository.findAll()){
+            if (product.getMainProduct() != null)
+            list.add(product.getMainProduct().getCipher());
         }
         return list;
     }

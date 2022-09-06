@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Slf4j
 @Controller
@@ -58,16 +59,32 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
-    @GetMapping ("/")
-    public String getAll(Model model) {
-        List<ProductDtoResponse> products = productService.getProductList();
+    @GetMapping("/byType")
+    public String getAllByType (@RequestParam String type, Model model){
+        List<ProductDtoResponse> products = productService.getProductListByType(type);
         model.addAttribute("products", products);
         return "home";
     }
 
-//    public String getByCipher(String cipher, Model model) {
-//        return null;
-//    }
+    @GetMapping("/byRoute")
+    public String getAllByRoute(@RequestParam String route, Model model) {
+        model.addAttribute("products", productService.getProductListByRoute(route));
+        return "home";
+    }
+
+    @GetMapping("/byMP")
+    public String getAllByMainProduct(@RequestParam String MP, Model model) {
+        model.addAttribute("products", productService.getProductListByMainProduct(MP));
+        return "home";
+    }
+
+    @GetMapping ("/")
+    public String getAll(Model model) {
+        List<ProductDtoResponse> products = productService.getProductList();
+        model.addAttribute("products", products);
+        //model.addAttribute("list", productService.getMainProductsList());
+        return "home";
+    }
 
     //@Transactional
     @DeleteMapping("/{cipher}")
@@ -96,6 +113,16 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     @DeleteMapping ("/")
     public String deleteAll(){
         productService.deleteAll();
+        return "redirect:/api/product/";
+    }
+
+    @ModelAttribute
+    public void putMainProductsListForSearch(Model model){
+        model.addAttribute("MPList", productService.getMainProductsList());
+    }
+
+    @GetMapping("/reset")
+    public String resetFilter(){
         return "redirect:/api/product/";
     }
 }
