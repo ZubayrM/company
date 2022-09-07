@@ -136,12 +136,14 @@ public class ProductService {
         return list;
     }
 
-    public List<ProductDtoResponse> getProductListByMainProduct (String value){
+    public List<ProductDtoResponse> getProductListByMainProduct (String MP){
         List<ProductDtoResponse> list = new ArrayList<>();
         ProductMapper productMapper = new ProductMapper();
         for (Product product : productRepository.findAll()){
-            if (product.getMainProduct().getCipher().equals(value)){
-                list.add(productMapper.toDto(product));
+            if (product.getMainProduct() != null){
+                if (product.getMainProduct().getCipher().equals(MP)){
+                    list.add(productMapper.toDto(product));
+                }
             }
         }
         return list;

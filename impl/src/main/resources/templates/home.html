@@ -16,14 +16,17 @@
     <h1 style="line-height:100px; color: white">АО "Концерн КЭМЗ"</h1>
 </div>
 <br>
-<header><h2>Состав изделия</h2></header>
+<header>
+    <h2>Состав изделия</h2>
+    <h2 th:text="${products.get(0).getCipher()}"></h2>
+</header>
 <main>
     <div class="products">
         <div th:if="${products.size()>0}">
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="15">
                         <p>Название</p>
                         <p>
                         <form th:method="get" th:action="@{byName}">
@@ -32,7 +35,7 @@
                         </form>
                         </p>
                     </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="30">
                         <p>Шифр</p>
                         <p>
                             <form th:method="get" th:action="@{byCipher}">
@@ -41,7 +44,7 @@
                     </form>
                         </p>
                     </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="45">
                         <p>Маршрут</p>
                         <p>
                             <form th:method="get" th:action="@{byRoute}">
@@ -50,7 +53,7 @@
                     </form>
                         </p>
                     </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="60">
                         <p>Тип</p>
                         <p>
                             <form th:method="get" th:action="@{byType}">
@@ -67,21 +70,22 @@
                     </form>
                         </p>
                     </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray">
+                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="75">
                         <p>Входимость</p>
                         <p>
-                        <form th:method="get" th:action="@{MPList}">
-                            <select name="MP">
-                                <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
-                            </select>
-                        <input type="submit" value="&#128270;">
+                        <form th:method="get" th:action="@{byMP}">
+                        <select name="MP" th:method="get" th:action="@{MPList}">
+                            <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
+                        </select>
+                            <input type="submit" value="&#128270;">
                         </form>
+
                         </p>
                     </th>
-                    <td style="border-bottom: 1px solid dimgray"></td>
-                    <td style="border-bottom: 1px solid dimgray"></td>
-                    <p>Сбросить фильтр</p>
+                    <td style="border-bottom: 1px solid dimgray" width="90"></td>
+                    <td style="border-bottom: 1px solid dimgray" width="100"></td>
                     <p>
+                        Сбросить фильтр
                     <form th:method="get" th:action="@{reset}">
                         <input type="submit" value="&#10060;">
                     </form>
@@ -113,14 +117,14 @@
                     <input class="delete-all" type="submit" value="Очистить список">
                 </form>
             </div>
-        </div>
-        <div th:if="${products.size()==0}">
-            Список деталей пуст!
             <form enctype="multipart/form-data" th:method="post" th:action="@{''}">
                 <p>Загрузите файл</p>
                 <p><input type="file" name="file" multiple></p>
                 <input type="submit" value="Загрузить">
             </form>
+        </div>
+        <div th:if="${products.size()==0}">
+            Список деталей пуст!
         </div>
     </div>
 </main>
