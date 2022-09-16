@@ -11,12 +11,11 @@ import java.util.Collection;
 
 @Entity
 @Data
-@NoArgsConstructor
+@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @AllArgsConstructor
 public class Employee implements UserDetails {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Getter
     private Long id;
 
     @Column (name = "name")
