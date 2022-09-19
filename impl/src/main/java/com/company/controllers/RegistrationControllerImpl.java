@@ -1,7 +1,7 @@
 package com.company.controllers;
 
+import com.company.API.responseDto.RegistrationForm;
 import com.company.repositories.EmployeeRepository;
-import com.company.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

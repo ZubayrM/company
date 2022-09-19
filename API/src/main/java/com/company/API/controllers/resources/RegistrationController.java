@@ -1,6 +1,6 @@
 package com.company.API.controllers.resources;
 
-import
+import com.company.API.responseDto.RegistrationForm;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

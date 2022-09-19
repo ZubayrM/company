@@ -13,6 +13,7 @@ import java.util.Collection;
 @Data
 @NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @AllArgsConstructor
+@Builder
 public class Employee implements UserDetails {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -72,13 +73,23 @@ public class Employee implements UserDetails {
     // TODO: 30.06.2022 Должности сотрудников предприятия,
     //  вовлеченные в процесс создания, согласования и утверждения оснастки
     public enum Positions {
-        DESIGN_ENGINEER,//ИНЖЕНЕР-КОНСТРУКТОР
-        HEAD_OF_DESIGN_BUREAU,//ПРОВЕРЯЮЩИЙ, НАЧАЛЬНИК КОСТРУКТОРСКОГО БЮРО
-        TECH_CONTROLLER,//ТЕХ.КОНТРОЛЬ
-        TIME_CONTROLLER,//НОРМО-КОНТРОЛЬ
-        APPROVER,//УТВЕРЖДАЮЩИЙ
-        DEPUTY_GENERAL_DIRECTOR,//ЗАМ.ГЕН.ДИРЕКТОРА
-        HEAD_ECONOMIST//ГЛАВНЫЙ ЭКОНОМИСТ
+        DESIGN_ENGINEER ("ИНЖЕНЕР-КОНСТРУКТОР"),//ИНЖЕНЕР-КОНСТРУКТОР
+        HEAD_OF_DESIGN_BUREAU ("НАЧАЛЬНИК КОСТРУКТОРСКОГО БЮРО"),//ПРОВЕРЯЮЩИЙ, НАЧАЛЬНИК КОСТРУКТОРСКОГО БЮРО
+        TECH_CONTROLLER ("ТЕХ.КОНТРОЛЬ"),//ТЕХ.КОНТРОЛЬ
+        TIME_CONTROLLER ("НОРМО-КОНТРОЛЬ"),//НОРМО-КОНТРОЛЬ
+        APPROVER ("УТВЕРЖДАЮЩИЙ"),//УТВЕРЖДАЮЩИЙ
+        DEPUTY_GENERAL_DIRECTOR ("ЗАМ.ГЕН.ДИРЕКТОРА"),//ЗАМ.ГЕН.ДИРЕКТОРА
+        HEAD_ECONOMIST ("ГЛАВНЫЙ ЭКОНОМИСТ");//ГЛАВНЫЙ ЭКОНОМИСТ
+
+        private String position;
+
+        Positions(String position){
+            this.position = position;
+        }
+
+        public String getPosition(){
+            return position;
+        }
     }
 }
 
