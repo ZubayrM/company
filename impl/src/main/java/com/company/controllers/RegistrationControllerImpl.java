@@ -21,14 +21,14 @@ public class RegistrationControllerImpl implements RegistrationController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping
+    @GetMapping ("/")
     public String registerForm(){
         return "registration";
     }
 
-    @PostMapping
+    @PostMapping ("/")
     public String processRegistration (RegistrationForm form){
         employeeRepository.save(form.toEmployee(passwordEncoder));
-        return "redirect:/login";
+        return "redirect:/api/product/";
     }
 }

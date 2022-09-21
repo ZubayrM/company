@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping ("/api/registration")
 public interface RegistrationController {
 
-    @GetMapping
+    @GetMapping ("/")
     String registerForm();
 
-    @PostMapping
+    @PostMapping ("/")
     String processRegistration(RegistrationForm form);
 }
