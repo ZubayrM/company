@@ -18,7 +18,7 @@
 <br>
 <header>
     <h2>Состав изделия</h2>
-    <h2 th:text="${products.get(0).getCipher()}"></h2>
+    <!--<h2 th:text="${products.get(0).getCipher()}"></h2>-->
 </header>
 <main>
     <div class="products">
@@ -117,14 +117,15 @@
                     <input class="delete-all" type="submit" value="Очистить список">
                 </form>
             </div>
+
+        </div>
+        <div th:if="${products.size()==0}">
+            Список деталей пуст!
             <form enctype="multipart/form-data" th:method="post" th:action="@{''}">
                 <p>Загрузите файл</p>
                 <p><input type="file" name="file" multiple></p>
                 <input type="submit" value="Загрузить">
             </form>
-        </div>
-        <div th:if="${products.size()==0}">
-            Список деталей пуст!
         </div>
     </div>
 </main>

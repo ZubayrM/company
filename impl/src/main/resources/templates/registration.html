@@ -6,22 +6,23 @@
 </head>
 <body>
 <h1>Register</h1>
-<form method="POST" th:action="@{/}" id="registerForm">
-    <label for="username">ЛОГИН: </label>
-    <input type="text" id="username"/><br/>
-    <label for="password">ПАРОЛЬ: </label>
-    <input type="password" id="password"/><br/>
-    <label for="confirm">ПОДТВЕРДИТЕ ПАРОЛЬ: </label>
-    <input type="password" id="confirm"/><br/>
-    <label for="name">ИМЯ: </label>
-    <input type="text" id="name"/><br/>
-    <label for="surname">ФАМИЛИЯ: </label>
-    <input type="text" id="surname"/><br/>
-    <label for="position">ДОЛЖНОСТЬ: </label>
-    <input type="text" id="position"/><br/>
-    <form th:method="get" th:action="@{/}">
-        <input type="submit" value="Зарегистрироваться"/>
-    </form>
+<form method="POST" th:action="@{''}" id="registerForm">
+    <!--<label for="username">ЛОГИН: </label>-->
+    <input type="text" name="username" placeholder="Логин"/><br/>
+    <!--<label for="password">ПАРОЛЬ: </label>-->
+    <input type="password" name="password" placeholder="Пароль"/><br/>
+    <!--<label for="confirm">ПОДТВЕРДИТЕ ПАРОЛЬ: </label>-->
+    <input type="password" name="confirm" placeholder="Повторить пароль"/><br/>
+    <!--<label for="name">ИМЯ: </label>-->
+    <input type="text" name="name" placeholder="Имя"/><br/>
+    <!--<label for="surname">ФАМИЛИЯ: </label>-->
+    <input type="text" name="surname" placeholder="Фамилия"/><br/>
+    <!--<label for="position">ДОЛЖНОСТЬ: </label>-->
+    <input type="text" name="position" placeholder="Должность"/><br/>
+    <input type="submit" value="Зарегистрироваться"/>
+    <!--<form th:method="get" th:action="@{/}">-->
+        <!--<input type="submit" value="Зарегистрироваться"/>-->
+    <!--</form>-->
 </form>
 </body>
 </html>

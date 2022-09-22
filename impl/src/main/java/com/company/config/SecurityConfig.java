@@ -33,6 +33,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeRequests().antMatchers("/", "/**").access("permitAll()")
                 .and()
-                .formLogin().loginPage("/login").and().build();
+                .formLogin().loginPage("/registration").and().build();
     }
 }

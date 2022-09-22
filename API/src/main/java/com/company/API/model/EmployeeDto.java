@@ -13,12 +13,16 @@ import javax.validation.constraints.NotBlank;
 public class EmployeeDto {
     @NotBlank (message = "Поле не заполнено")
     private String name;
+
     @NotBlank (message = "Поле не заполнено")
     private String surname;
+
     @NotBlank (message = "Поле не заполнено")
     private String username;
+
     @NotBlank (message = "Поле не заполнено")
     private String password;
+
     @NotBlank (message = "Поле не заполнено")
     private String position;
 }
