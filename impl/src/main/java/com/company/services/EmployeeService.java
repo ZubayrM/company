@@ -7,18 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class EmployeeService {
     private EmployeeRepository employeeRepository;
+    private PasswordEncoder encoder;
 
     @Autowired
-    public void setEmployeeRepository(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, PasswordEncoder encoder) {
         this.employeeRepository = employeeRepository;
+        this.encoder = encoder;
     }
 
-    public void addEmployee(@RequestBody EmployeeDto employeeDto, PasswordEncoder encoder){
+    public void addEmployee(@RequestBody EmployeeDto employeeDto){
         Employee.Positions position = null;
 
         for (Employee.Positions pos : Employee.Positions.values()){

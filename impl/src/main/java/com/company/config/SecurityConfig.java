@@ -31,8 +31,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http.authorizeRequests().antMatchers("/", "/**").access("permitAll()")
+        return http
+                .authorizeRequests()
+                .antMatchers("/api/registration", "/api/login").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/registration").and().build();
+//                .antMatchers("/").access("permitAll()")
+//                .and()
+                .formLogin().loginPage("/api/login").and().build();
     }
 }
