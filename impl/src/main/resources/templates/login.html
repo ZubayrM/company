@@ -10,13 +10,15 @@
     Unable to login. Check your username and password.
 </div>
 <p>New here? Click
-    <a th:href="@{/registration}">here</a> to register.</p>
-<form method="POST" th:action="@{/login}" id="loginForm">
-    <label for="username">Username: </label>
+    <a th:method="get" th:href="@{/api/login/registration}">here</a> to register.</p>
+<form method="GET" th:action="@{''}" id="loginForm">
+    <label for="username">ЛОГИН: </label>
     <input type="text" name="username" id="username" /><br/>
-    <label for="password">Password: </label>
+    <label for="password">ПАРОЛЬ: </label>
     <input type="password" name="password" id="password" /><br/>
-    <input type="submit" value="Login"/>
+    <form th:method="post" th:action="@{api/login/authenticate}">
+        <input type="submit" value="ВОЙТИ"/>
+    </form>
 </form>
 </body>
 </html>

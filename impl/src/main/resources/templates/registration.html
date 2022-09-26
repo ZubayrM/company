@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>Register</h1>
-<form method="POST" th:action="@{''}" id="registerForm">
-    <!--<label for="username">ЛОГИН: </label>-->
+<form th:method="post" th:action="@{registration}" id="registerForm">
     <input type="text" name="username" placeholder="Логин"/><br/>
     <!--<label for="password">ПАРОЛЬ: </label>-->
     <input type="password" name="password" placeholder="Пароль"/><br/>

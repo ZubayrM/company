@@ -20,11 +20,19 @@ public class RegistrationControllerImpl implements RegistrationController {
     }
 
     @GetMapping
-    public String registerForm(){
+    public String loginForm(){
         return "login";
     }
 
-    @PostMapping
+    @Override
+    public String registrationForm() {
+        return "registration";
+    }
+
+    public String authenticate(){
+        return "redirect:/api/product/";
+    }
+
     public String processRegistration (EmployeeDto employeeDto){
         employeeService.addEmployee(employeeDto);
         return "redirect:/api/product/";

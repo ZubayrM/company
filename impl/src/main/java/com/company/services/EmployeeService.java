@@ -6,7 +6,10 @@ import com.company.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -36,5 +39,15 @@ public class EmployeeService {
                         .position(position)
                         .build()
         );
+    }
+
+    public String authenticate (@PathVariable String username, @PathVariable String password){
+        Optional<Employee> optional = Optional.ofNullable(employeeRepository.findByUsername(username));
+        if (optional.isPresent()){
+            if (optional.get().getPassword().equals(password)){
+                return optional.get().getUsername();
+            }
+        }
+        return null;
     }
 }

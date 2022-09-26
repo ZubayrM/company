@@ -33,11 +33,16 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
-                .antMatchers("/api/registration", "/api/login").permitAll()
+                .antMatchers( "/api/login", "/api/login/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
 //                .antMatchers("/").access("permitAll()")
 //                .and()
-                .formLogin().loginPage("/api/login").and().build();
+                .formLogin().loginPage("/api/login")
+                .loginProcessingUrl("/authenticate")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and()
+                .build();
     }
 }
