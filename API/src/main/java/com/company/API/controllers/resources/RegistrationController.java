@@ -16,7 +16,7 @@ public interface RegistrationController {
     String registrationForm();
 
     @PostMapping ("/authenticate")
-    String authenticate();
+    String authenticate(EmployeeDto dto);
 
     @PostMapping ("/registration")
     String processRegistration(EmployeeDto employeeDto);

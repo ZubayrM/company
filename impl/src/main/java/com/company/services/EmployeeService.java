@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
@@ -41,7 +42,9 @@ public class EmployeeService {
         );
     }
 
-    public String authenticate (@PathVariable String username, @PathVariable String password){
+    public String authenticate (EmployeeDto dto){
+        String username = dto.getUsername();
+        String password = dto.getPassword();
         Optional<Employee> optional = Optional.ofNullable(employeeRepository.findByUsername(username));
         if (optional.isPresent()){
             if (optional.get().getPassword().equals(password)){

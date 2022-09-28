@@ -5,6 +5,7 @@ import com.company.repositories.EmployeeRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -32,6 +33,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .authorizeRequests()
                 .antMatchers( "/api/login", "/api/login/registration").permitAll()
                 .anyRequest().authenticated()
@@ -40,8 +44,6 @@ public class SecurityConfig {
 //                .and()
                 .formLogin().loginPage("/api/login")
                 .loginProcessingUrl("/authenticate")
-                .usernameParameter("username")
-                .passwordParameter("password")
                 .and()
                 .build();
     }

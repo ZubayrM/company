@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Role;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 
 @Controller
 public class RegistrationControllerImpl implements RegistrationController {
@@ -29,7 +30,8 @@ public class RegistrationControllerImpl implements RegistrationController {
         return "registration";
     }
 
-    public String authenticate(){
+    public String authenticate(@RequestAttribute EmployeeDto dto){
+        employeeService.authenticate(dto);
         return "redirect:/api/product/";
     }
 
