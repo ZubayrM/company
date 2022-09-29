@@ -1,6 +1,7 @@
 package com.company.API.controllers.resources;
 
 import com.company.API.model.EmployeeDto;
+import com.company.API.responseDto.AuthUserDto;
 import com.company.API.responseDto.RegistrationForm;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public interface RegistrationController {
     String registrationForm();
 
     @PostMapping ("/authenticate")
-    String authenticate(EmployeeDto dto);
+    String authenticate(AuthUserDto dto);
 
     @PostMapping ("/registration")
     String processRegistration(EmployeeDto employeeDto);

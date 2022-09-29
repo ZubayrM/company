@@ -2,6 +2,7 @@ package com.company.controllers;
 
 import com.company.API.controllers.resources.RegistrationController;
 import com.company.API.model.EmployeeDto;
+import com.company.API.responseDto.AuthUserDto;
 import com.company.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
@@ -30,7 +31,7 @@ public class RegistrationControllerImpl implements RegistrationController {
         return "registration";
     }
 
-    public String authenticate(@RequestAttribute EmployeeDto dto){
+    public String authenticate(@RequestAttribute AuthUserDto dto){
         employeeService.authenticate(dto);
         return "redirect:/api/product/";
     }

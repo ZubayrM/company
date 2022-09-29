@@ -1,6 +1,7 @@
 package com.company.services;
 
 import com.company.API.model.EmployeeDto;
+import com.company.API.responseDto.AuthUserDto;
 import com.company.domain.models.Employee;
 import com.company.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +43,10 @@ public class EmployeeService {
         );
     }
 
-    public String authenticate (EmployeeDto dto){
+    public String authenticate (AuthUserDto dto){
         String username = dto.getUsername();
         String password = dto.getPassword();
-        Optional<Employee> optional = Optional.ofNullable(employeeRepository.findByUsername(username));
+        Optional<Employee> optional = employeeRepository.findByUsername(username);
         if (optional.isPresent()){
             if (optional.get().getPassword().equals(password)){
                 return optional.get().getUsername();
