@@ -12,6 +12,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.Optional;
+
 @Configuration
 public class SecurityConfig {
     @Bean
@@ -22,9 +24,9 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(EmployeeRepository employeeRepository){
         return username -> {
-            Employee employee = employeeRepository.findByUsername(username);
-            if (employee != null)
-                return employee;
+            Optional<Employee>  employee = employeeRepository.findByUsername(username);
+            if (employee.isPresent())
+                return employee.get();
 
             throw new UsernameNotFoundException("Пользователь '" + username + "' не найден!");
         };
