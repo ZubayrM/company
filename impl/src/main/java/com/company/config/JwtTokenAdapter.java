@@ -2,6 +2,7 @@ package com.company.config;
 
 import com.company.domain.models.Employee;
 import com.company.repositories.EmployeeRepository;
+import com.company.security.UserDetail;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.Authentication;
@@ -38,7 +39,8 @@ public class JwtTokenAdapter {
         Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
         if (!claims.getExpiration().before(new Date())){
             Employee employee = employeeRepository.findByUsername(claims.getSubject()).get();
-            return new UsernamePasswordAuthenticationToken(employee, null, employee.getAuthorities());
+            UserDetail detail= UserDetail.getInstance(employee);
+            return new UsernamePasswordAuthenticationToken(detail, null, detail.getAuthorities());
         }
         else
             throw new UsernameNotFoundException("ТЫ НЕ ПРОЙДЕШЬ!!!... попробуй-ка еще разок");

@@ -7,12 +7,15 @@ import com.company.domain.models.Employee;
 import com.company.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 @Service
@@ -53,11 +56,19 @@ public class EmployeeService {
         String username = dto.getUsername();
         String password = dto.getPassword();
         Optional<Employee> optional = employeeRepository.findByUsername(username);
-        if (optional.isPresent()){
-            if (optional.get().getPassword().equals(password)){
-                return optional.get().getUsername();
-            }
+        try{
+            optional.ifPresent(employee -> authenticationManager
+                    .authenticate(
+                            new UsernamePasswordAuthenticationToken(
+                                    username,
+                                    password,
+                                    new HashSet<org.springframework.security.core.GrantedAuthority>(){{
+                                        new SimpleGrantedAuthority(employee.getPosition().name());
+                                    }}
+                            )
+                    ));
         }
+
         return null;
     }
 }

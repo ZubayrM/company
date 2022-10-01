@@ -14,7 +14,7 @@ import java.util.Collection;
 @NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
 @AllArgsConstructor
 @Builder
-public class Employee implements UserDetails {
+public class Employee {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,40 +35,8 @@ public class Employee implements UserDetails {
     @Column(name = "position")
     private Positions position;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority(position.name()));
-    }
-
-    @Override
-    public String getPassword() {
-        return getPassword();
-    }
-
-    @Override
-    public String getUsername() {
-        return getName();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return false;
-    }
+    @Column(name = "is_blocked")
+    private Boolean isBlocked;
 
     // TODO: 30.06.2022 Должности сотрудников предприятия,
     //  вовлеченные в процесс создания, согласования и утверждения оснастки
