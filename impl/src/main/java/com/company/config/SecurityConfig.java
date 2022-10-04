@@ -2,6 +2,8 @@ package com.company.config;
 
 import com.company.domain.models.Employee;
 import com.company.repositories.EmployeeRepository;
+import com.company.security.UserDetail;
+import com.company.security.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,11 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(EmployeeRepository employeeRepository){
+    public UserDetail userDetailsService(EmployeeRepository employeeRepository){
         return username -> {
-            Optional<Employee>  employee = employeeRepository.findByUsername(username);
-            if (employee.isPresent())
-                return employee.get();
+            UserDetailService userDetailService = new UserDetailService(username);
 
             throw new UsernameNotFoundException("Пользователь '" + username + "' не найден!");
         };
