@@ -6,6 +6,7 @@ import com.company.config.JwtTokenAdapter;
 import com.company.domain.models.Employee;
 import com.company.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -28,6 +29,9 @@ public class EmployeeService {
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenAdapter jwtTokenAdapter;
+
+    @Value("${authkey}")
+    private String authKey;
 
     @Autowired
     public EmployeeService(EmployeeRepository employeeRepository, PasswordEncoder encoder, AuthenticationManager authenticationManager, JwtTokenAdapter jwtTokenAdapter) {
@@ -72,7 +76,7 @@ public class EmployeeService {
                         )
                 ));
         String token = jwtTokenAdapter.createToken(username);
-        Cookie cookie = new Cookie("Authorization", token);
+        Cookie cookie = new Cookie(authKey, token);
         ((HttpServletResponse)response).addCookie(cookie);
     }
 }

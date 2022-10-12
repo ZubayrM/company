@@ -1,25 +1,31 @@
 package com.company.config;
 
-import com.company.domain.models.Employee;
-import com.company.repositories.EmployeeRepository;
-import com.company.security.UserDetail;
-import com.company.security.UserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-
-import java.util.Optional;
 
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+//@EnableWebSecurity
+//@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+//    private final JwtTokenFilter jwtTokenFilter;
+//    private final JwtTokenConfig jwtTokenConfig;
+//
+//    @Autowired
+//    public WebSecurityConfig(JwtTokenFilter jwtTokenFilter, JwtTokenConfig jwtTokenConfig) {
+//        this.jwtTokenFilter = jwtTokenFilter;
+//        this.jwtTokenConfig = jwtTokenConfig;
+//    }
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -30,18 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    @Bean
-    public UserDetail userDetailsService(EmployeeRepository employeeRepository){
-        return username -> {
-            UserDetailService userDetailService = new UserDetailService(username);
-
-            throw new UsernameNotFoundException("Пользователь '" + username + "' не найден!");
-        };
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        return http
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -49,11 +46,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/api/login", "/api/login/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
+//                .apply(jwtTokenConfig)
+//                .and()
 //                .antMatchers("/").access("permitAll()")
 //                .and()
                 .formLogin().loginPage("/api/login")
-                .loginProcessingUrl("/authenticate")
-                .and()
-                .build();
+                .loginProcessingUrl("/authenticate");
     }
 }

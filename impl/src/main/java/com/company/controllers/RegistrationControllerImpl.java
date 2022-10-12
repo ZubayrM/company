@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Role;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
@@ -49,4 +50,8 @@ public class RegistrationControllerImpl implements RegistrationController {
         employeeService.addEmployee(employeeDto);
         return "redirect:/api/product/";
     }
+
+//    public String дайКуки (@CookieValue(name = "Authenticated") String cookie){
+//        return "/";
+//    }
 }

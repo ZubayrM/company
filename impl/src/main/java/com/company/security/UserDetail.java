@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 public class UserDetail implements UserDetails {
@@ -57,7 +59,8 @@ public class UserDetail implements UserDetails {
         return new UserDetail(
           employee.getUsername(),
           employee.getPassword(),
-          Set.of(new SimpleGrantedAuthority(employee.getPosition().name())),
+          Stream.of(new SimpleGrantedAuthority(employee.getPosition().name()))
+                .collect(Collectors.toSet()),
                 employee.getIsBlocked()
         );
     }
