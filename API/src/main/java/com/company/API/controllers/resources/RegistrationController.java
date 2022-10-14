@@ -12,7 +12,7 @@ import javax.servlet.ServletResponse;
 @RequestMapping ("/api/login")
 public interface RegistrationController {
 
-    @GetMapping
+    @GetMapping("/")
     String loginForm();
 
     @GetMapping ("/registration")
