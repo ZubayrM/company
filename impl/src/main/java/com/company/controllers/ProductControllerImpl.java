@@ -2,22 +2,17 @@ package com.company.controllers;
 
 import com.company.API.model.ProductDto;
 import com.company.API.responseDto.ProductDtoResponse;
-import com.company.domain.models.Product;
 import com.company.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.awt.print.Pageable;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @Slf4j
 @Controller
