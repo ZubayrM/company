@@ -5,6 +5,7 @@ import com.company.repositories.EmployeeRepository;
 import com.company.security.UserDetail;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +20,9 @@ public class JwtTokenAdapter {
 
     private final EmployeeRepository employeeRepository;
     private String secret = "KEMZ";
+
+    @Value("${authkey}")
+    private String secretUrlKey;
 
     @Autowired
     public JwtTokenAdapter(EmployeeRepository employeeRepository) {

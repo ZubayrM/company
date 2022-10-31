@@ -51,7 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutRequestMatcher(new RegexRequestMatcher("/logout", "GET"))
-                .deleteCookies("Authorization").logoutSuccessUrl("/");
+                .deleteCookies("authenticated").logoutSuccessUrl("/");
                 //.and()
 //                .antMatchers("/").access("permitAll()")
 //                .and()

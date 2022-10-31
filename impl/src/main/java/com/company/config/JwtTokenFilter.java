@@ -38,6 +38,7 @@ public class JwtTokenFilter extends GenericFilterBean {
             SecurityContextHolder.clearContext();
             ex.printStackTrace();
         }
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     private void authByCookies(HttpServletRequest servletRequest){
@@ -46,7 +47,7 @@ public class JwtTokenFilter extends GenericFilterBean {
         if (cookies != null){
             if (cookies.length > 0){
                 Optional<Cookie> authorization = Arrays.stream(cookies)
-                        .filter(cookie -> cookie.getName().equals("Authorization")).findFirst();
+                        .filter(cookie -> cookie.getName().equals("authenticated")).findFirst();
 
                 authorization.map(Cookie::getValue)
                         .ifPresent(token -> SecurityContextHolder
