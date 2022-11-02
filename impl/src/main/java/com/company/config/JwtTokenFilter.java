@@ -46,10 +46,12 @@ public class JwtTokenFilter extends GenericFilterBean {
 
         if (cookies != null){
             if (cookies.length > 0){
-                Optional<Cookie> authorization = Arrays.stream(cookies)
+                Optional<Cookie> authorization = Arrays
+                        .stream(cookies)
                         .filter(cookie -> cookie.getName().equals("authenticated")).findFirst();
 
-                authorization.map(Cookie::getValue)
+                authorization
+                        .map(Cookie::getValue)
                         .ifPresent(token -> SecurityContextHolder
                         .getContext()
                         .setAuthentication(adapter.authentication(token)));
