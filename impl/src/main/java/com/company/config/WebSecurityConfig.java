@@ -48,14 +48,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers( "/api/login", "/api/login/registration").permitAll()
+                .antMatchers( "/api/login/", "/api/login/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(jwtTokenConfig)
                 .and()
                 .logout()
                 .logoutRequestMatcher(new RegexRequestMatcher("/logout", "GET"))
-                .deleteCookies(authKey).logoutSuccessUrl("/");
+                .deleteCookies(authKey).logoutSuccessUrl("/").and().formLogin().loginPage("/api/login/");
                 //.and()
 //                .antMatchers("/").access("permitAll()")
 //                .and()
