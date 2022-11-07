@@ -45,7 +45,7 @@ public class RegistrationControllerImpl implements RegistrationController {
         }
         catch (AuthenticationException e){
             e.printStackTrace();
-            return "/authenticate";
+            return "redirect:/api/login";
         }
     }
 

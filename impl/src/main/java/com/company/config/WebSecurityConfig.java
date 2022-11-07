@@ -48,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers( "/api/login/", "/api/login/registration").permitAll()
+                .antMatchers( "/api/login/", "/api/login/registration", "/api/login/authenticate").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(jwtTokenConfig)
