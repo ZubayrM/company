@@ -8,12 +8,12 @@
 </head>
 <body>
 <h1>Login</h1>
-<div th:if="${error}">
-    Unable to login. Check your username and password.
-</div>
+<!--<div th:if="${error}">-->
+    <!--Unable to login. Check your username and password.-->
+<!--</div>-->
 <p>New here? Click
     <a th:method="get" th:href="@{/api/login/registration}">here</a> to register.</p>
-<form method="post" th:action="@{/api/login/authenticate}" id="loginForm">
+<form method="post" th:action="@{/api/login/}" id="loginForm">
     <label for="username">ЛОГИН: </label>
     <input type="text" name="username" id="username" /><br/>
     <label for="password">ПАРОЛЬ: </label>

@@ -53,6 +53,7 @@ public class EmployeeService {
                         .username(employeeDto.getUsername())
                         .password(encoder.encode(employeeDto.getPassword()))
                         .position(position)
+                        .isBlocked(false)
                         .build()
         );
     }

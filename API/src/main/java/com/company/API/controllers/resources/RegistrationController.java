@@ -6,6 +6,7 @@ import com.company.API.responseDto.RegistrationForm;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.ServletResponse;
 
@@ -18,8 +19,11 @@ public interface RegistrationController {
     @GetMapping ("/registration")
     String registrationForm();
 
-    @PostMapping ("/authenticate")
-    String authenticate(AuthUserDto dto, ServletResponse response);
+//    @PostMapping ("/")
+//    String authenticate(AuthUserDto dto, ServletResponse response);
+
+    @PostMapping ("/")
+    String authenticate(String username, String password, ServletResponse response);
 
     @PostMapping ("/registration")
     String processRegistration(EmployeeDto employeeDto);

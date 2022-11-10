@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
@@ -33,7 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
+        //return new BCryptPasswordEncoder(12);
     }
 
     @Bean
@@ -48,14 +50,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers( "/api/login/", "/api/login/registration", "/api/login/authenticate").permitAll()
+                .antMatchers( "/api/login/", "/api/login/registration", "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(jwtTokenConfig)
                 .and()
                 .logout()
-                .logoutRequestMatcher(new RegexRequestMatcher("/logout", "GET"))
-                .deleteCookies(authKey).logoutSuccessUrl("/").and().formLogin().loginPage("/api/login/");
+                .logoutRequestMatcher(new RegexRequestMatcher("/api/logout", "GET"))
+                .deleteCookies(authKey).logoutSuccessUrl("/")
+                .and()
+                .formLogin()
+                .loginPage("/api/login/");
                 //.and()
 //                .antMatchers("/").access("permitAll()")
 //                .and()

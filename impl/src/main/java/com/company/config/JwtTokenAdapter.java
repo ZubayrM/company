@@ -35,7 +35,7 @@ public class JwtTokenAdapter {
                 .setSubject(username)
                 .setIssuedAt(date)
                 .setExpiration(new Date(date.getTime() * 100_000))
-                .signWith(SignatureAlgorithm.ES512, secret)
+                .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 

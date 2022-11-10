@@ -8,10 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletResponse;
 
@@ -28,7 +25,6 @@ public class RegistrationControllerImpl implements RegistrationController {
 
     @GetMapping ("/")
     public String loginForm(){
-        log.info("Мы тут были");
         return "login";
     }
 
@@ -37,15 +33,32 @@ public class RegistrationControllerImpl implements RegistrationController {
         return "registration";
     }
 
-    @PostMapping("/authenticate")
-    public String authenticate(@ModelAttribute AuthUserDto dto, ServletResponse response){
+//    @PostMapping("/")
+////    public String authenticate(@ModelAttribute AuthUserDto dto, ServletResponse response){
+////        log.info("11111");
+////        log.info(dto.toString());
+////        try{
+////            employeeService.authenticate(dto, response);
+////            return "redirect:/api/product/";
+////        }
+////        catch (AuthenticationException e){
+////            log.info(e.getMessage());
+////            e.printStackTrace();
+////            return "redirect:/api/login/";
+////        }
+////    }
+
+    @PostMapping("/")
+    public String authenticate(@RequestParam String username, @RequestParam String password, ServletResponse response){
+        log.info("мы должны сюда попасть");
         try{
-            employeeService.authenticate(dto, response);
+            employeeService.authenticate(new AuthUserDto(username, password), response);
             return "redirect:/api/product/";
         }
         catch (AuthenticationException e){
+            log.info(e.getMessage());
             e.printStackTrace();
-            return "redirect:/api/login";
+            return "redirect:/api/login/";
         }
     }
 
