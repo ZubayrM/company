@@ -31,18 +31,26 @@ public class JwtTokenAdapter {
 
     public String createToken (String username){
         Date date = new Date();
+        Claims claims = Jwts.claims();
+        claims.setSubject(username);
         return Jwts.builder()
-                .setSubject(username)
+                .setClaims(claims)
                 .setIssuedAt(date)
                 .setExpiration(new Date(date.getTime() * 100_000))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
+//        return Jwts.builder()
+//                .setSubject(username)
+//                .setIssuedAt(date)
+//                .setExpiration(new Date(date.getTime() * 100_000))
+//                .signWith(SignatureAlgorithm.HS512, secret)
+//                .compact();
     }
 
     public Authentication authentication (String token){
         Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
         if (!claims.getExpiration().before(new Date())){
-            Employee employee = employeeRepository.findByUsername(claims.getSubject()).get();
+            Employee employee = employeeRepository.findByUsername(claims.getSubject()).orElseThrow(() -> new UsernameNotFoundException("not"));
             UserDetail detail= UserDetail.getInstance(employee);
             return new UsernamePasswordAuthenticationToken(detail, null, detail.getAuthorities());
         }

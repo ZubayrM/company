@@ -47,10 +47,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
                 .authorizeRequests()
-                .antMatchers( "/api/login/", "/api/login/registration", "/").permitAll()
+                .antMatchers("/api/product/").hasRole("APPROVER")
+                .antMatchers( "/api/login/", "/api/login/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(jwtTokenConfig)
@@ -60,7 +59,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies(authKey).logoutSuccessUrl("/")
                 .and()
                 .formLogin()
-                .loginPage("/api/login/");
+                .loginPage("/api/login/")
+                .loginProcessingUrl("/api/login/")
+                .defaultSuccessUrl("/api/product/", true);
                 //.and()
 //                .antMatchers("/").access("permitAll()")
 //                .and()

@@ -67,8 +67,4 @@ public class RegistrationControllerImpl implements RegistrationController {
         employeeService.addEmployee(employeeDto);
         return "redirect:/api/product/";
     }
-
-//    public String дайКуки (@CookieValue(name = "Authenticated") String cookie){
-//        return "/";
-//    }
 }

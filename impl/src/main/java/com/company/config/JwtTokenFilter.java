@@ -1,6 +1,7 @@
 package com.company.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,9 @@ import java.util.Optional;
 public class JwtTokenFilter extends GenericFilterBean {
 
     private final JwtTokenAdapter adapter;
+
+    @Value("${authkey}")
+    private String secretUrlKey;
 
     @Autowired
     public JwtTokenFilter(JwtTokenAdapter adapter){
@@ -46,9 +50,10 @@ public class JwtTokenFilter extends GenericFilterBean {
 
         if (cookies != null){
             if (cookies.length > 0){
-                Optional<Cookie> authorization = Arrays
+                Optional<Cookie> authorization =
+                        Arrays
                         .stream(cookies)
-                        .filter(cookie -> cookie.getName().equals("authenticated")).findFirst();
+                        .filter(cookie -> cookie.getName().equals(secretUrlKey)).findFirst();
 
                 authorization
                         .map(Cookie::getValue)

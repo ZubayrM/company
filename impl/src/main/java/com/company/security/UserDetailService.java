@@ -19,7 +19,7 @@ public class UserDetailService implements UserDetailsService {
         this.employeeRepository = employeeRepository;
     }
 
-    @SneakyThrows
+    //@SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
