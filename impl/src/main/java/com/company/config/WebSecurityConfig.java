@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,9 +16,7 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 
-@Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${authkey}")
@@ -39,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    protected AuthenticationManager authenticationManager() throws Exception {
+    protected AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return super.authenticationManager();
     }
 
@@ -48,8 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/product/").hasRole("APPROVER")
-                .antMatchers( "/api/login/", "/api/login/registration").permitAll()
+                //.antMatchers("/api/product/").hasRole("APPROVER")
+                .antMatchers( "/api/login/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .apply(jwtTokenConfig)
@@ -62,10 +61,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/api/login/")
                 .loginProcessingUrl("/api/login/")
                 .defaultSuccessUrl("/api/product/", true);
-                //.and()
-//                .antMatchers("/").access("permitAll()")
-//                .and()
-//                .formLogin().loginPage("/api/login")
-//                .loginProcessingUrl("/authenticate");
     }
 }

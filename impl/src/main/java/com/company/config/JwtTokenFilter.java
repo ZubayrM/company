@@ -37,6 +37,7 @@ public class JwtTokenFilter extends GenericFilterBean {
         }
         catch (AuthenticationException ex){
             SecurityContextHolder.clearContext();
+            ex.printStackTrace();
         }
         catch (Exception ex){
             SecurityContextHolder.clearContext();

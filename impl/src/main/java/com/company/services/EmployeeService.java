@@ -63,16 +63,19 @@ public class EmployeeService {
         String password = dto.getPassword();
         Optional<Employee> optional = employeeRepository.findByUsername(username);
 
+        optional = employeeRepository.findByName(username);
+
         optional.ifPresent(employee -> authenticationManager
                 .authenticate(
                         new UsernamePasswordAuthenticationToken(
-                                username,
-                                password,
+                                111,
+                                111,
                                 new HashSet<org.springframework.security.core.GrantedAuthority>(){{
                                     new SimpleGrantedAuthority(employee.getPosition().name());
                                 }}
                         )
                 ));
+
         String token = jwtTokenAdapter.createToken(username);
         Cookie cookie = new Cookie(authKey, token);
         ((HttpServletResponse)response).addCookie(cookie);

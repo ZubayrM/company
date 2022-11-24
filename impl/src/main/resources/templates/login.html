@@ -13,7 +13,7 @@
 <!--</div>-->
 <p>New here? Click
     <a th:method="get" th:href="@{/api/login/registration}">here</a> to register.</p>
-<form method="post" th:action="@{/api/login/}" id="loginForm">
+<form th:method="post" th:action="@{/api/login/d}" id="loginForm">
     <label for="username">ЛОГИН: </label>
     <input type="text" name="username" id="username" /><br/>
     <label for="password">ПАРОЛЬ: </label>
