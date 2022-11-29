@@ -26,37 +26,38 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="15">
-                        <p>Название</p>
-                        <p>
-                        <form th:method="get" th:action="@{byName}">
+                    <form th:method="get" th:action="@{bySearch}">
+                    <!--<th scope="colgroup" style="border-bottom: 1px solid dimgray" width="15">-->
+                        <!--<p>Название</p>-->
+                        <!--<p>-->
+                        <!--<form th:method="get" th:action="@{byName}">-->
                         <input type="search" name="name" placeholder="Поиск по названию">
-                        <input type="submit" value="&#128270;">
-                        </form>
-                        </p>
-                    </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="30">
-                        <p>Шифр</p>
-                        <p>
-                            <form th:method="get" th:action="@{byCipher}">
+                        <!--<input type="submit" value="&#128270;">-->
+                        <!--</form>-->
+                        <!--</p>-->
+                    <!--</th>-->
+                    <!--<th scope="colgroup" style="border-bottom: 1px solid dimgray" width="30">-->
+                        <!--<p>Шифр</p>-->
+                        <!--<p>-->
+                            <!--<form th:method="get" th:action="@{byCipher}">-->
                         <input type="search" name="cipher" placeholder="Поиск по шифру">
-                        <input type="submit" value="&#128270;">
-                    </form>
-                        </p>
-                    </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="45">
-                        <p>Маршрут</p>
-                        <p>
-                            <form th:method="get" th:action="@{byRoute}">
+                        <!--<input type="submit" value="&#128270;">-->
+                    <!--</form>-->
+                        <!--</p>-->
+                    <!--</th>-->
+                    <!--<th scope="colgroup" style="border-bottom: 1px solid dimgray" width="45">-->
+                        <!--<p>Маршрут</p>-->
+                        <!--<p>-->
+                            <!--<form th:method="get" th:action="@{byRoute}">-->
                         <input type="search" name="route" placeholder="Поиск по маршруту">
-                        <input type="submit" value="&#128270;">
-                    </form>
-                        </p>
-                    </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="60">
-                        <p>Тип</p>
-                        <p>
-                            <form th:method="get" th:action="@{byType}">
+                        <!--<input type="submit" value="&#128270;">-->
+                    <!--</form>-->
+                        <!--</p>-->
+                    <!--</th>-->
+                    <!--<th scope="colgroup" style="border-bottom: 1px solid dimgray" width="60">-->
+                        <!--<p>Тип</p>-->
+                        <!--<p>-->
+                            <!--<form th:method="get" th:action="@{byType}">-->
                         <select name="type">
                             <option style="background-color: darkred">Выберите тип</option>
                             <option value="Сборочная единица">Сборочная единица</option>
@@ -66,31 +67,33 @@
                             <option value="Стандарное изделие">Стандарное изделие</option>
                             <option value="Сборочная нормаль">Сборочная нормаль</option>
                         </select>
-                        <input type="submit" value="&#128270;">
-                    </form>
-                        </p>
-                    </th>
-                    <th scope="colgroup" style="border-bottom: 1px solid dimgray" width="75">
-                        <p>Входимость</p>
-                        <p>
-                        <form th:method="get" th:action="@{byMP}">
+                        <!--<input type="submit" value="&#128270;">-->
+                    <!--</form>-->
+                        <!--</p>-->
+                    <!--</th>-->
+                    <!--<th scope="colgroup" style="border-bottom: 1px solid dimgray" width="75">-->
+                        <!--<p>Входимость</p>-->
+                        <!--<p>-->
+                        <!--<form th:method="get" th:action="@{byMP}">-->
                         <select name="MP" th:method="get" th:action="@{MPList}">
                             <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
                         </select>
-                            <input type="submit" value="&#128270;">
-                        </form>
+                            <!--<input type="submit" value="&#128270;">-->
+                        <!--</form>-->
 
-                        </p>
-                    </th>
+                        <!--</p>-->
+                    <!--</th>-->
                     <td style="border-bottom: 1px solid dimgray" width="90"></td>
                     <td style="border-bottom: 1px solid dimgray" width="100"></td>
-                    <p>
-                        Сбросить фильтр
-                    <form th:method="get" th:action="@{reset}">
-                        <input type="submit" value="&#10060;">
+                    <!--<p>-->
+                        <!--Сбросить фильтр-->
+                    <!--<form th:method="get" th:action="@{reset}">-->
+                        <!--<input type="submit" value="&#10060;">-->
+                    <!--</form>-->
+                    <!--</p>-->
+                        <p>Запустить фильтр <input type="submit" value="&#128270;"></p>
                     </form>
-                    </p>
-                </tr>
+                <!--</tr>-->
                 </thead>
                 <tbody>
                 <tr th:each="selectedProduct : ${products}">

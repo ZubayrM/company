@@ -73,6 +73,14 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
+    @GetMapping("/bySearch")
+    public String getProductListBySearch(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "cipher", required = false) String cipher,
+                                 @RequestParam(value = "type", required = false) String type, @RequestParam(value = "route", required = false) String route,
+                                 @RequestParam(value = "mp", required = false) String mp, Model model){
+        model.addAttribute("products", productService.getProductListBySearch(name, cipher, type, route, mp));
+        return "home";
+    }
+
     @GetMapping ("/")
     public String getAll(Model model) {
         List<ProductDtoResponse> products = productService.getProductList();

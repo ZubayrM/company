@@ -158,6 +158,93 @@ public class ProductService {
         return list;
     }
 
+    public List<ProductDtoResponse> getProductListBySearch(String name, String cipher, String type, String route, String mp){
+        List<Product> list = new ArrayList<>();
+        List<Product> list1 = new ArrayList<>();
+        List<Product> list2 = new ArrayList<>();
+        List<Product> list3 = new ArrayList<>();
+        List<Product> list4 = new ArrayList<>();
+        List<ProductDtoResponse> finalList = new ArrayList<>();
+        ProductMapper productMapper = new ProductMapper();
+
+        if (name != null){
+            for (Product product : productRepository.findAll()){
+                if (product.getName().contains(name)){
+                    list.add(product);
+                }
+            }
+        }
+        if (cipher!=null){
+            if (!list.isEmpty()){
+                for (Product product : list){
+                    if (product.getCipher().contains(cipher)){
+                        list1.add(product);
+                    }
+                }
+            }
+            else {
+                for (Product product : productRepository.findAll()){
+                    if (product.getCipher().contains(cipher)){
+                        list1.add(product);
+                    }
+                }
+            }
+        }
+        if (type!=null){
+            if (!list1.isEmpty()){
+                for (Product product : list1){
+                    if (product.getType().getType().contains(type)){
+                        list2.add(product);
+                    }
+                }
+            }
+            else {
+                for (Product product : productRepository.findAll()){
+                    if (product.getType().getType().contains(type)){
+                        list2.add(product);
+                    }
+                }
+            }
+        }
+        if (route!=null){
+            if (!list2.isEmpty()){
+                for (Product product : list2){
+                    if (product.getRoute().contains(route)){
+                        list3.add(product);
+                    }
+                }
+            }
+            else {
+                for (Product product : productRepository.findAll()){
+                    if (product.getRoute().contains(route)){
+                        list3.add(product);
+                    }
+                }
+            }
+        }
+        if (mp!=null){
+            if (!list3.isEmpty()){
+                for (Product product : list3){
+                    if (product.getMainProduct().getCipher().contains(mp)){
+                        list4.add(product);
+                    }
+                }
+            }
+            else {
+                for (Product product : productRepository.findAll()){
+                    if (product.getMainProduct().getCipher().contains(mp)){
+                        list4.add(product);
+                    }
+                }
+            }
+        }
+        for (Product product : list4){
+            finalList.add(productMapper.toDto(product));
+        }
+
+        return finalList;
+    }
+
     public void deleteProduct (String cipher){
         Product product = productRepository.findByCipher(cipher).get();
         productRepository.delete(product);
