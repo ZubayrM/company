@@ -75,8 +75,8 @@
                         <!--<p>Входимость</p>-->
                         <!--<p>-->
                         <!--<form th:method="get" th:action="@{byMP}">-->
-                        <select name="MP" th:method="get" th:action="@{MPList}">
-                            <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
+                        <select name="mp">
+                            <option th:each="mP : ${products}" th:value = "${mP.getCipher()}" th:text="${mP.getCipher()}"></option>
                         </select>
                             <!--<input type="submit" value="&#128270;">-->
                         <!--</form>-->
@@ -85,14 +85,14 @@
                     <!--</th>-->
                     <td style="border-bottom: 1px solid dimgray" width="90"></td>
                     <td style="border-bottom: 1px solid dimgray" width="100"></td>
-                    <!--<p>-->
-                        <!--Сбросить фильтр-->
-                    <!--<form th:method="get" th:action="@{reset}">-->
-                        <!--<input type="submit" value="&#10060;">-->
-                    <!--</form>-->
-                    <!--</p>-->
                         <p>Запустить фильтр <input type="submit" value="&#128270;"></p>
                     </form>
+                    <p>
+                        Сбросить фильтр
+                    <form th:method="get" th:action="@{reset}">
+                        <input type="submit" value="&#10060;">
+                    </form>
+                    </p>
                 <!--</tr>-->
                 </thead>
                 <tbody>

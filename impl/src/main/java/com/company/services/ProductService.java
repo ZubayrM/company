@@ -160,85 +160,92 @@ public class ProductService {
 
     public List<ProductDtoResponse> getProductListBySearch(String name, String cipher, String type, String route, String mp){
         List<Product> list = new ArrayList<>();
-        List<Product> list1 = new ArrayList<>();
-        List<Product> list2 = new ArrayList<>();
-        List<Product> list3 = new ArrayList<>();
-        List<Product> list4 = new ArrayList<>();
         List<ProductDtoResponse> finalList = new ArrayList<>();
         ProductMapper productMapper = new ProductMapper();
 
-        if (name != null){
+        if (!name.equals("")){
             for (Product product : productRepository.findAll()){
                 if (product.getName().contains(name)){
                     list.add(product);
                 }
             }
         }
-        if (cipher!=null){
+        if (!cipher.equals("")){
             if (!list.isEmpty()){
-                for (Product product : list){
-                    if (product.getCipher().contains(cipher)){
-                        list1.add(product);
+                Iterator<Product>iterator = list.iterator();
+                while (iterator.hasNext()){
+                    if (!iterator.next().getCipher().contains(cipher) || iterator.next()!=null){
+                        iterator.remove();
                     }
                 }
             }
             else {
                 for (Product product : productRepository.findAll()){
-                    if (product.getCipher().contains(cipher)){
-                        list1.add(product);
+                    if (product.getCipher().contains(cipher) || product.getCipher()!=null){
+                        list.add(product);
                     }
                 }
             }
         }
-        if (type!=null){
-            if (!list1.isEmpty()){
-                for (Product product : list1){
+        if (!type.equals("") || !type.equals("Выберите тип")){
+            if (!list.isEmpty()){
+                Iterator<Product>iterator = list.iterator();
+                while (iterator.hasNext()){
+                    if (!iterator.next().getType().getType().contains(type)){
+                        iterator.remove();
+                    }
+                }
+            }
+            else {
+                for (Product product : productRepository.findAll()){
                     if (product.getType().getType().contains(type)){
-                        list2.add(product);
-                    }
-                }
-            }
-            else {
-                for (Product product : productRepository.findAll()){
-                    if (product.getType().getType().contains(type)){
-                        list2.add(product);
+                        list.add(product);
                     }
                 }
             }
         }
-        if (route!=null){
-            if (!list2.isEmpty()){
-                for (Product product : list2){
-                    if (product.getRoute().contains(route)){
-                        list3.add(product);
+        if (!route.equals("")){
+            if (!list.isEmpty()){
+                Iterator<Product>iterator = list.iterator();
+                while (iterator.hasNext()){
+                    if (!iterator.next().getRoute().contains(route)){
+                        iterator.remove();
                     }
                 }
             }
             else {
                 for (Product product : productRepository.findAll()){
                     if (product.getRoute().contains(route)){
-                        list3.add(product);
+                        list.add(product);
                     }
                 }
             }
         }
-        if (mp!=null){
-            if (!list3.isEmpty()){
-                for (Product product : list3){
-                    if (product.getMainProduct().getCipher().contains(mp)){
-                        list4.add(product);
+        if (!mp.equals("")){
+
+            if (!list.isEmpty()){
+                Iterator<Product>iterator = list.iterator();
+                while (iterator.hasNext()){
+                    if (iterator.next().getMainProduct() != null){
+                        if (!iterator.next().getMainProduct().getCipher().equals(mp)){
+                            iterator.remove();
+                        }
                     }
                 }
             }
             else {
                 for (Product product : productRepository.findAll()){
-                    if (product.getMainProduct().getCipher().contains(mp)){
-                        list4.add(product);
+                    if (product.getMainProduct() != null){
+                        if (product.getMainProduct().getCipher().equals(mp)){
+                            list.add(product);
+                        }
                     }
                 }
             }
+            Set<Product> productSet = new HashSet(list);
+            list = new ArrayList<>(productSet);
         }
-        for (Product product : list4){
+        for (Product product : list){
             finalList.add(productMapper.toDto(product));
         }
 
