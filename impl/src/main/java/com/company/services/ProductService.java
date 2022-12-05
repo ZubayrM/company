@@ -149,12 +149,14 @@ public class ProductService {
         return list;
     }
 
-    public Set<String> getMainProductsList (){
-        Set<String> list = new HashSet<>();
+    public List<String> getMainProductsList (){
+        Set<String> set = new HashSet<>();
         for (Product product : productRepository.findAll()){
             if (product.getMainProduct() != null)
-            list.add(product.getMainProduct().getCipher());
+            set.add(product.getMainProduct().getCipher());
         }
+        List<String>list = new ArrayList<>(set);
+        Collections.sort(list);
         return list;
     }
 

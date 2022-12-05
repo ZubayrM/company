@@ -25,7 +25,7 @@
             </header>
             <table class="table table-striped">
                 <thead>
-                <tr>
+                <!--<tr>-->
                     <form th:method="get" th:action="@{bySearch}">
                     <!--<th scope="colgroup" style="border-bottom: 1px solid dimgray" width="15">-->
                         <!--<p>Название</p>-->
@@ -76,7 +76,7 @@
                         <!--<p>-->
                         <!--<form th:method="get" th:action="@{byMP}">-->
                         <select name="mp">
-                            <option th:each="mP : ${products}" th:value = "${mP.getCipher()}" th:text="${mP.getCipher()}"></option>
+                            <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
                         </select>
                             <!--<input type="submit" value="&#128270;">-->
                         <!--</form>-->
@@ -85,14 +85,12 @@
                     <!--</th>-->
                     <td style="border-bottom: 1px solid dimgray" width="90"></td>
                     <td style="border-bottom: 1px solid dimgray" width="100"></td>
-                        <p>Запустить фильтр <input type="submit" value="&#128270;"></p>
+                        <p>Применить фильтр <input type="submit" value="&#128270;"></p>
                     </form>
-                    <p>
-                        Сбросить фильтр
+
                     <form th:method="get" th:action="@{reset}">
-                        <input type="submit" value="&#10060;">
+                        <p>Сбросить фильтр<input type="submit" value="&#10060;"></p>
                     </form>
-                    </p>
                 <!--</tr>-->
                 </thead>
                 <tbody>
