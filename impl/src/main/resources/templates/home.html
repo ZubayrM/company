@@ -59,7 +59,7 @@
                         <!--<p>-->
                             <!--<form th:method="get" th:action="@{byType}">-->
                         <select name="type">
-                            <option style="background-color: darkred">Выберите тип</option>
+                            <option style="background-color: darkcyan">Выберите тип</option>
                             <option value="Сборочная единица">Сборочная единица</option>
                             <option value="Деталь">Деталь</option>
                             <option value="Покупная">Покупная</option>
@@ -76,6 +76,7 @@
                         <!--<p>-->
                         <!--<form th:method="get" th:action="@{byMP}">-->
                         <select name="mp">
+                            <option style="background-color: dodgerblue">Выберите узел</option>
                             <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
                         </select>
                             <!--<input type="submit" value="&#128270;">-->
