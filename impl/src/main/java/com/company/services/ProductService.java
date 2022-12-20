@@ -3,6 +3,7 @@ package com.company.services;
 import com.company.API.model.ProductDto;
 import com.company.API.responseDto.ProductDtoResponse;
 import com.company.ExcelParser;
+import com.company.ImageAdding;
 import com.company.ProductMapper;
 import com.company.domain.models.Product;
 import com.company.repositories.ProductRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.*;
 
 @Service
@@ -75,6 +77,11 @@ public class ProductService {
                 productRepository.save(product);
             }
         }
+    }
+
+    public void addImage (MultipartFile multipartFile){
+        File file = ImageAdding.imageAdding(multipartFile);
+        productRepository.save(file);
     }
 
     public ProductDtoResponse getProduct (String cipher){

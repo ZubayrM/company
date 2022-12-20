@@ -5,6 +5,7 @@ import org.hibernate.annotations.Cascade;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -36,6 +37,9 @@ public class Product {
     @JoinColumn (name = "product")
     @ManyToOne
     private Product mainProduct;
+
+    @JoinColumn (name = "image")
+    private File image;
 
     @OneToMany (mappedBy = "mainProduct", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> childs = new ArrayList<>();
