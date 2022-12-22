@@ -1,15 +1,11 @@
 package com.company.domain.models;
 
 import lombok.*;
-import org.hibernate.annotations.Cascade;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data

@@ -2,6 +2,8 @@ package com.company.controllers;
 
 import com.company.API.model.ProductDto;
 import com.company.API.responseDto.ProductDtoResponse;
+import com.company.domain.models.Product;
+import com.company.repositories.ProductRepository;
 import com.company.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -19,10 +24,12 @@ import java.util.List;
 public class ProductControllerImpl implements com.company.API.controllers.resources.ProductController {
 
     private final ProductService productService;
+    private final ProductRepository repository;
 
     @Autowired
-    public ProductControllerImpl(ProductService productService) {
+    public ProductControllerImpl(ProductService productService, ProductRepository repository) {
         this.productService = productService;
+        this.repository = repository;
     }
 
     public String add(@Valid ProductDto newProduct, Model model, Errors errors) {
@@ -37,6 +44,19 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
             productService.addProductList(file);
         }
         return "redirect:/api/product/";
+    }
+
+    @PostMapping("/image")
+    public String addImage(@RequestAttribute MultipartFile file){
+        if (file != null){
+            productService.addImage(file);
+        }
+        return "redirect:/api/product";
+    }
+
+    public String getImage (String cipher, Model model){
+        Product prod = repository.getProductByCipher(cipher);
+        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(prod.getImage()));
     }
 
     @GetMapping ("/byCipher")
