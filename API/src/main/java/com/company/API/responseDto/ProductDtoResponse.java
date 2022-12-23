@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.io.File;
 
 @Data
 @AllArgsConstructor
@@ -25,4 +26,7 @@ public class ProductDtoResponse {
 
     @NotBlank(message = "поле не заполнено")
     private String product;
+
+    @NotBlank (message = "поле не заполнено")
+    private File image;
 }

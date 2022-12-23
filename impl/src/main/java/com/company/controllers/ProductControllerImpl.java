@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
@@ -51,12 +53,16 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         if (file != null){
             productService.addImage(file);
         }
-        return "redirect:/api/product";
+        return "redirect:/api/product/";
     }
 
-    public String getImage (String cipher, Model model){
+    @GetMapping ("/image")
+    public String getImage (String cipher, Model model) throws IOException {
         Product prod = repository.getProductByCipher(cipher);
-        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(prod.getImage()));
+        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(prod.getImage().toPath()));
+        String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
+        model.addAttribute("image", base64Encoded);
+        return "redirect:/api/product";
     }
 
     @GetMapping ("/byCipher")
