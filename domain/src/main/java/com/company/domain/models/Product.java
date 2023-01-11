@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -32,6 +33,7 @@ public class Product {
 
     @JoinColumn (name = "product")
     @ManyToOne
+    @ToString.Exclude
     private Product mainProduct;
 
     @JoinColumn (name = "image")
