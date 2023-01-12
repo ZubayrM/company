@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 
 @Service
@@ -79,15 +82,15 @@ public class ProductService {
         }
     }
 
-    public void addImage (MultipartFile multipartFile){
-        String name = java.nio.file.Paths.get(multipartFile.getOriginalFilename()).getFileName().toString();
-        File file = ImageAdding.imageAdding(multipartFile);
-        for (Product product : productRepository.findAll()){
-            if (name.equals(product.getCipher()) && product.getImage() == null){
-                product.setImage(file);
-            }
-        }
-    }
+//    public void addImage (MultipartFile multipartFile){
+//        String name = java.nio.file.Paths.get(multipartFile.getOriginalFilename()).getFileName().toString();
+//        File file = ImageAdding.imageAdding(multipartFile);
+//        for (Product product : productRepository.findAll()){
+//            if (name.equals(product.getCipher()) && product.getImage() == null){
+//                product.setImage(file);
+//            }
+//        }
+//    }
 
     public ProductDtoResponse getProduct (String cipher){
         Product product = productRepository.findByCipher(cipher).get();
@@ -201,7 +204,7 @@ public class ProductService {
                 }
             }
         }
-        if (!type.equals("") || !type.equals("Выберите тип")){
+        if (!type.equals("Выберите тип")){
             if (!list.isEmpty()){
                 Iterator<Product>iterator = list.iterator();
                 while (iterator.hasNext()){
@@ -235,7 +238,7 @@ public class ProductService {
                 }
             }
         }
-        if (!mp.equals("")){
+        if (!mp.equals("Выберите узел")){
 
             if (!list.isEmpty()){
                 Iterator<Product>iterator = list.iterator();
@@ -273,5 +276,12 @@ public class ProductService {
 
     public void deleteAll (){
         productRepository.deleteAll();
+    }
+
+    public void putImage(String cipher, MultipartFile multipartFile) throws IOException {
+        Product prod = productRepository.getProductByCipher(cipher);
+        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(ImageAdding.imageAdding(multipartFile).toPath()));
+        String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
+        prod.setImage(base64Encoded);
     }
 }

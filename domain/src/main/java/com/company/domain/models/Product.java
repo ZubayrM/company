@@ -37,7 +37,7 @@ public class Product {
     private Product mainProduct;
 
     @JoinColumn (name = "image")
-    private File image;
+    private String image;
 
     @OneToMany (mappedBy = "mainProduct", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> childs = new ArrayList<>();

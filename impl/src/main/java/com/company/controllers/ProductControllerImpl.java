@@ -49,21 +49,21 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @PostMapping("/image")
-    public String addImage(@RequestAttribute MultipartFile file){
+    public String addImage(@RequestAttribute MultipartFile file, String cipher) throws IOException {
         if (file != null){
-            productService.addImage(file);
+            productService.putImage(cipher, file);
         }
         return "redirect:/api/product/";
     }
 
-    @GetMapping ("/image")
-    public String getImage (String cipher, Model model) throws IOException {
-        Product prod = repository.getProductByCipher(cipher);
-        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(prod.getImage().toPath()));
-        String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
-        model.addAttribute("image", base64Encoded);
-        return "redirect:/api/product";
-    }
+//    @GetMapping ("/image")
+//    public String putImage(String cipher, Model model) throws IOException {
+//        Product prod = repository.getProductByCipher(cipher);
+//        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(prod.getImage().toPath()));
+//        String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
+//        model.addAttribute("image", base64Encoded);
+//        return "redirect:/api/product";
+//    }
 
     @GetMapping ("/byCipher")
     public String getAllByCipher(@RequestParam String cipher, Model model) {
