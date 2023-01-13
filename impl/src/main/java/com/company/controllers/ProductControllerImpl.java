@@ -49,9 +49,11 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @PostMapping("/image")
-    public String addImage(@RequestAttribute MultipartFile file, String cipher) throws IOException {
+    public String addImage(@RequestAttribute MultipartFile file, @PathVariable String cipher, Model model) throws IOException {
         if (file != null){
+            //ProductDtoResponse product = productService.getProduct(cipher);
             productService.putImage(cipher, file);
+            //model.addAttribute("selectedProd", product);
         }
         return "redirect:/api/product/";
     }
