@@ -13,7 +13,7 @@
     <h3>Тип: <span th:text="${selectedProduct.getType.getType}"></span></h3>
     <h3>Входимость: <span th:text="${selectedProduct.getProduct}"></span></h3>
     <h3 th:if="${selectedProduct.getImage == null}">
-        <form enctype="multipart/form-data" th:method="post" th:action="@{'/api/product/image(selectedProduct=${selectedProduct.getCipher})'}">
+        <form enctype="multipart/form-data" th:method="post" th:action="${'/api/product/image/' +  selectedProduct.getCipher}">
             <p>Загрузите файл</p>
             <p><input type="file" name="file" multiple></p>
             <input type="submit" value="Загрузить">
