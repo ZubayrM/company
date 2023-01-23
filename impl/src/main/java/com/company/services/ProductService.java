@@ -283,5 +283,6 @@ public class ProductService {
         byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(ImageAdding.imageAdding(multipartFile).toPath()));
         String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
         prod.setImage(base64Encoded);
+        productRepository.save(prod);
     }
 }

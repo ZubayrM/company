@@ -55,7 +55,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
             productService.putImage(cipher, file);
             //model.addAttribute("selectedProd", product);
         }
-        return "redirect:/api/product/";
+        return "redirect:/api/product/{cipher}";
     }
 
 //    @GetMapping ("/image")
