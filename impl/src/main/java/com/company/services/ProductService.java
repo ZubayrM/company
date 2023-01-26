@@ -94,6 +94,7 @@ public class ProductService {
 
     public ProductDtoResponse getProduct (String cipher){
         Product product = productRepository.findByCipher(cipher).get();
+        String string = product.getImage();
         ProductMapper productMapper = new ProductMapper();
         return productMapper.toDto(product);
     }

@@ -127,6 +127,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     @GetMapping ("/{cipher}")//тестирую метод по получению продукта
     public String getByCipher(@PathVariable String cipher, Model model) {
         ProductDtoResponse product = productService.getProduct(cipher);
+        log.info("Мы получили фото" + product.getImage());
         model.addAttribute("selectedProduct", product);
         return "detail";
     }

@@ -13,15 +13,15 @@
     <h3>Тип: <span th:text="${selectedProduct.getType.getType}"></span></h3>
     <h3>Входимость: <span th:text="${selectedProduct.getProduct}"></span></h3>
     <div th:if="${selectedProduct.getImage}">
+        <p>Файл загружен</p>
+        <img th:src="${'data:image/jpeg;base64' + selectedProduct.getImage}"/>
+    </div>
+    <div th:unless="${selectedProduct.getImage}">
         <form enctype="multipart/form-data" th:method="post" th:action="${'/api/product/image/' +  selectedProduct.getCipher}">
             <p>Загрузите файл</p>
             <p><input type="file" name="file" multiple></p>
             <input type="submit" value="Загрузить">
         </form>
-    </div>
-    <div th:unless="${selectedProduct.getImage}">
-        <p>Файл загружен</p>
-        <img src="data:image/jpeg;base64,${selectedProduct.getImage}"/>
     </div>
     <!--<p><img src="/images/пробник.jpg/" width="100%" height="80%"></p>-->
     <div id="delete-product">

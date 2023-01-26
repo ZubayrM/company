@@ -28,5 +28,5 @@ public class ProductDtoResponse {
     private String product;
 
     @NotBlank (message = "поле не заполнено")
-    private File image;
+    private String image;
 }
