@@ -281,7 +281,7 @@ public class ProductService {
 
     public void putImage(String cipher, MultipartFile multipartFile) throws IOException {
         Product prod = productRepository.getProductByCipher(cipher);
-        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(ImageAdding.imageAdding(multipartFile).toPath()));
+        byte[] encodeBase64 = Base64.getEncoder().encode(multipartFile.getBytes());
         String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
         prod.setImage(base64Encoded);
         productRepository.save(prod);
