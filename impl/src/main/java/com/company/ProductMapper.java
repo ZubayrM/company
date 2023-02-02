@@ -11,11 +11,11 @@ public class ProductMapper {
         productDtoResponse.setCipher(product.getCipher());
         productDtoResponse.setRoute(product.getRoute());
         productDtoResponse.setType(product.getType());
-        if (product.getImage() == null){
-            productDtoResponse.setImage("");
-        }
-        else
-            productDtoResponse.setImage(product.getImage());
+//        if (product.getImages() == null){
+//            productDtoResponse.setImages("");
+//        }
+//        else
+//            productDtoResponse.setImages(product.getImages());
         if (product.getMainProduct() == null){
             productDtoResponse.setProduct("");
         }

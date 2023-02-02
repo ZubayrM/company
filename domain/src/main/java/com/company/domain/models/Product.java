@@ -36,11 +36,14 @@ public class Product {
     @ToString.Exclude
     private Product mainProduct;
 
-    @JoinColumn (name = "image")
-    private String image;
+    //@JoinColumn (name = "images")
+    //private String images;
+
+    @OneToMany
+    private List<Image> images = new ArrayList<>();
 
     @OneToMany (mappedBy = "mainProduct", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Product> childs = new ArrayList<>();
+    private List<Product> children = new ArrayList<>();
 
     public enum Type{
         DETAIL ("Деталь"),

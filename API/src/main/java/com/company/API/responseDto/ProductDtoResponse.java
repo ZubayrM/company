@@ -1,5 +1,6 @@
 package com.company.API.responseDto;
 
+import com.company.domain.models.Image;
 import com.company.domain.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import java.io.File;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -28,5 +30,5 @@ public class ProductDtoResponse {
     private String product;
 
     @NotBlank (message = "поле не заполнено")
-    private String image;
+    private List<Image> images;
 }

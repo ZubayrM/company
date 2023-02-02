@@ -2,7 +2,7 @@ package com.company.controllers;
 
 import com.company.API.model.ProductDto;
 import com.company.API.responseDto.ProductDtoResponse;
-import com.company.domain.models.Product;
+import com.company.domain.models.Image;
 import com.company.repositories.ProductRepository;
 import com.company.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Base64;
 import java.util.List;
 
 @Slf4j
@@ -53,17 +49,21 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         if (file != null){
             //ProductDtoResponse product = productService.getProduct(cipher);
             productService.putImage(cipher, file);
+            //Всё то, что ниже, для проверки. Удалить после!
+            ProductDtoResponse product = productService.getProduct(cipher);
+            log.info("Мы получили фото " + product.getImages());
+            List<Image> list = product.getImages();
             //model.addAttribute("selectedProd", product);
         }
         return "redirect:/api/product/{cipher}";
     }
 
-//    @GetMapping ("/image")
+//    @GetMapping ("/images")
 //    public String putImage(String cipher, Model model) throws IOException {
 //        Product prod = repository.getProductByCipher(cipher);
-//        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(prod.getImage().toPath()));
+//        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(prod.getImages().toPath()));
 //        String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
-//        model.addAttribute("image", base64Encoded);
+//        model.addAttribute("images", base64Encoded);
 //        return "redirect:/api/product";
 //    }
 
@@ -127,8 +127,10 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     @GetMapping ("/{cipher}")//тестирую метод по получению продукта
     public String getByCipher(@PathVariable String cipher, Model model) {
         ProductDtoResponse product = productService.getProduct(cipher);
-        log.info("Мы получили фото" + product.getImage());
+        log.info("Мы получили фото " + product.getImages());
+        List<Image> list = product.getImages();
         model.addAttribute("selectedProduct", product);
+        model.addAttribute("images", product.getImages());
         return "detail";
     }
 

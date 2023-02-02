@@ -12,18 +12,20 @@
     <h3>Маршрут: <span th:text="${selectedProduct.getRoute}"></span></h3>
     <h3>Тип: <span th:text="${selectedProduct.getType.getType}"></span></h3>
     <h3>Входимость: <span th:text="${selectedProduct.getProduct}"></span></h3>
-    <div th:with="my_prod = ${selectedProduct.getImage()}">
-        <div th:if="${my_prod.length()==0}">
+    <div th:with="my_prod = ${selectedProduct.getImages()}">
+        <!--<div th:if="${my_prod.size() == 0}">-->
             <form enctype="multipart/form-data" th:method="post" th:action="${'/api/product/image/' +  selectedProduct.getCipher}">
                 <p>Загрузите файл</p>
                 <p><input type="file" name="file" multiple></p>
                 <input type="submit" value="Загрузить">
             </form>
-        </div>
-        <div th:if="${my_prod.length()>0}">
+        <!--</div>-->
+        <!--<div th:if="${my_prod.size() > 0}">-->
             <p>Файл загружен</p>
-            <img th:src="${'data:image/jpeg;base64,' + my_prod}" width="50%" height="30%"/>
-        </div>
+            <tr th:each="image:${images}">
+                <img th:src="${'data:image/jpeg;base64,' + image.getBiteCode()}" width="50%" height="30%"/>
+            </tr>
+        <!--</div>-->
     </div>
     <!--<p><img src="/images/пробник.jpg/" width="100%" height="80%"></p>-->
     <div id="delete-product">

@@ -58,7 +58,7 @@ public abstract class ExcelParser {
                         product.setName(row.getCell(3).getRichStringCellValue().toString().trim());//присваиваем имя
                         product.setType(typeParsing(row.getCell(2).getRichStringCellValue().toString().trim()));//присваиваем тип
                         product.setRoute(routeParsing(row.getCell(4)));//присваиваем маршрут
-                        product.setImage("");
+                        //product.setImages(new ArrayList<>());
                         for (Product product1 : productList){
                             if (product1.getCipher().equals(row.getCell(6).getStringCellValue())){//присваиваем изделие-входимость
                                 product.setMainProduct(product1);

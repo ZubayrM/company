@@ -5,7 +5,9 @@ import com.company.API.responseDto.ProductDtoResponse;
 import com.company.ExcelParser;
 import com.company.ImageAdding;
 import com.company.ProductMapper;
+import com.company.domain.models.Image;
 import com.company.domain.models.Product;
+import com.company.repositories.ImageRepository;
 import com.company.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,8 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 public class ProductService {
-    private ProductRepository productRepository;
-
-    @Autowired
-    public void setProductRepository(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final ProductRepository productRepository;
+    private final ImageRepository imageRepository;
 
     public String addProduct (ProductDto dto){
         Product product1 = null;
@@ -86,15 +84,14 @@ public class ProductService {
 //        String name = java.nio.file.Paths.get(multipartFile.getOriginalFilename()).getFileName().toString();
 //        File file = ImageAdding.imageAdding(multipartFile);
 //        for (Product product : productRepository.findAll()){
-//            if (name.equals(product.getCipher()) && product.getImage() == null){
-//                product.setImage(file);
+//            if (name.equals(product.getCipher()) && product.getImages() == null){
+//                product.setImages(file);
 //            }
 //        }
 //    }
 
     public ProductDtoResponse getProduct (String cipher){
         Product product = productRepository.findByCipher(cipher).get();
-        String string = product.getImage();
         ProductMapper productMapper = new ProductMapper();
         return productMapper.toDto(product);
     }
@@ -283,7 +280,11 @@ public class ProductService {
         Product prod = productRepository.getProductByCipher(cipher);
         byte[] encodeBase64 = Base64.getEncoder().encode(multipartFile.getBytes());
         String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
-        prod.setImage(base64Encoded);
+        Image image = new Image();
+        image.setProduct(prod);
+        image.setBiteCode(base64Encoded);
+        Image saveImage = imageRepository.save(image);
+        prod.getImages().add(saveImage);
         productRepository.save(prod);
     }
 }
