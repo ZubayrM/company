@@ -17,6 +17,7 @@ public class Image {
 
     @JoinColumn(name = "product_id")
     @ManyToOne
+    @ToString.Exclude
     private Product product;
 
     @Column(name = "bite_code")

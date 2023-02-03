@@ -49,23 +49,10 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         if (file != null){
             //ProductDtoResponse product = productService.getProduct(cipher);
             productService.putImage(cipher, file);
-            //Всё то, что ниже, для проверки. Удалить после!
-            ProductDtoResponse product = productService.getProduct(cipher);
-            log.info("Мы получили фото " + product.getImages());
-            List<Image> list = product.getImages();
             //model.addAttribute("selectedProd", product);
         }
         return "redirect:/api/product/{cipher}";
     }
-
-//    @GetMapping ("/images")
-//    public String putImage(String cipher, Model model) throws IOException {
-//        Product prod = repository.getProductByCipher(cipher);
-//        byte[] encodeBase64 = Base64.getEncoder().encode(Files.readAllBytes(prod.getImages().toPath()));
-//        String base64Encoded = new String(encodeBase64, StandardCharsets.UTF_8);
-//        model.addAttribute("images", base64Encoded);
-//        return "redirect:/api/product";
-//    }
 
     @GetMapping ("/byCipher")
     public String getAllByCipher(@RequestParam String cipher, Model model) {

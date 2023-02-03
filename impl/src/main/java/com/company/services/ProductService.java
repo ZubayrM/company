@@ -80,16 +80,6 @@ public class ProductService {
         }
     }
 
-//    public void addImage (MultipartFile multipartFile){
-//        String name = java.nio.file.Paths.get(multipartFile.getOriginalFilename()).getFileName().toString();
-//        File file = ImageAdding.imageAdding(multipartFile);
-//        for (Product product : productRepository.findAll()){
-//            if (name.equals(product.getCipher()) && product.getImages() == null){
-//                product.setImages(file);
-//            }
-//        }
-//    }
-
     public ProductDtoResponse getProduct (String cipher){
         Product product = productRepository.findByCipher(cipher).get();
         ProductMapper productMapper = new ProductMapper();

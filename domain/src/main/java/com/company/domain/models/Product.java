@@ -36,9 +36,7 @@ public class Product {
     @ToString.Exclude
     private Product mainProduct;
 
-    //@JoinColumn (name = "images")
-    //private String images;
-
+    @Column (name = "images")
     @OneToMany
     private List<Image> images = new ArrayList<>();
 
