@@ -231,8 +231,10 @@ public class ProductService {
             if (!list.isEmpty()){
                 Iterator<Product>iterator = list.iterator();
                 while (iterator.hasNext()){
-                    if (iterator.next().getMainProduct() != null){
-                        if (!iterator.next().getMainProduct().getCipher().equals(mp)){
+                    Product product = iterator.next();
+                    if (product.getMainProduct() != null){
+                        String mPr = product.getMainProduct().getCipher();
+                        if (!mPr.equals(mp)){
                             iterator.remove();
                         }
                     }
