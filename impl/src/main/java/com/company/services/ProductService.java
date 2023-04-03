@@ -279,4 +279,8 @@ public class ProductService {
         prod.getImages().add(saveImage);
         productRepository.save(prod);
     }
+
+    public void deleteImage (Long imageId){
+        imageRepository.deleteById(imageId);
+    }
 }

@@ -121,6 +121,12 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "detail";
     }
 
+    @DeleteMapping ("/image")
+    public String deleteImage (@PathVariable Long imageId, Model model){
+        productService.deleteImage(imageId);
+        return "redirect:/api/product/{cipher}";
+    }
+
     @PostMapping("/add2")
     public String add(@Valid @RequestBody ProductDto newProduct, Errors errors) {
         if (errors.hasErrors()){
