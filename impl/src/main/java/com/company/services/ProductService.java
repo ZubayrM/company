@@ -281,6 +281,8 @@ public class ProductService {
     }
 
     public void deleteImage (Long imageId){
-        imageRepository.deleteById(imageId);
+        Image image = imageRepository.getReferenceById(imageId);
+        Long id = image.getId();
+        imageRepository.deleteById(id);
     }
 }

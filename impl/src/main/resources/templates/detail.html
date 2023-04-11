@@ -24,7 +24,7 @@
             <p>Файл загружен</p>
             <tr th:each="image:${images}">
                 <img th:src="${'data:image/jpeg;base64,' + image.getBiteCode()}" width="50%" height="30%"/>
-                <form th:method="delete" th:action="${'/api/product/image/' +  image.getId()}">
+                <form th:method="delete" th:action="${'/api/product/image/' + image.getId}">
                     <button class="btn btn-danger">Удалить файл</button>
                 </form>
             </tr>
