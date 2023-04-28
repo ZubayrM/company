@@ -121,9 +121,9 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "detail";
     }
 
-    @DeleteMapping ("/image/{imageId}")
-    public String deleteImage (@PathVariable Long imageId, Model model){
-        productService.deleteImage(imageId);
+    @DeleteMapping ("/image/{cipher}/{imageId}")
+    public String deleteImage (@PathVariable String cipher, @PathVariable Long imageId, Model model){
+        productService.deleteImage(cipher, imageId);
         return "redirect:/api/product/{cipher}";
     }
 

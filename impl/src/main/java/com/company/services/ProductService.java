@@ -280,9 +280,18 @@ public class ProductService {
         productRepository.save(prod);
     }
 
-    public void deleteImage (Long imageId){
+    public void deleteImage (String cipher, Long imageId){
+        Product product = productRepository.getProductByCipher(cipher);
+        Iterator <Image> iterator = product.getImages().iterator();
+        while (iterator.hasNext()){
+            Image image = iterator.next();
+            if (image.getId().equals(imageId)){
+                iterator.remove();
+            }
+        }
         Image image = imageRepository.getReferenceById(imageId);
         Long id = image.getId();
+        String imageCode = image.getBiteCode();
         imageRepository.deleteById(id);
     }
 }
