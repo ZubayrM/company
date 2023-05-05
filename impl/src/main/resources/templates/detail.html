@@ -7,35 +7,39 @@
 <body>
 <h1>ОАО "Концерн КЭМЗ"</h1>
 <main>
-    <h3>Наименование: <span th:text="${selectedProduct.getName}"></span></h3>
-    <h3>Шифр: <span th:text="${selectedProduct.getCipher}"></span></h3>
-    <h3>Маршрут: <span th:text="${selectedProduct.getRoute}"></span></h3>
-    <h3>Тип: <span th:text="${selectedProduct.getType.getType}"></span></h3>
-    <h3>Входимость: <span th:text="${selectedProduct.getProduct}"></span></h3>
-    <div th:with="my_prod = ${selectedProduct.getImages()}">
-        <!--<div th:if="${my_prod.size() == 0}">-->
+    <figure>
+        <h3 >Наименование: <span th:text="${selectedProduct.getName}"></span></h3>
+        <h3>Шифр: <span th:text="${selectedProduct.getCipher}"></span></h3>
+        <h3>Маршрут: <span th:text="${selectedProduct.getRoute}"></span></h3>
+        <h3>Тип: <span th:text="${selectedProduct.getType.getType}"></span></h3>
+        <h3>Входимость: <span th:text="${selectedProduct.getProduct}"></span></h3>
+        <div th:with="my_prod = ${selectedProduct.getImages()}">
+            <!--<div th:if="${my_prod.size() == 0}">-->
             <form enctype="multipart/form-data" th:method="post" th:action="${'/api/product/image/' +  selectedProduct.getCipher}">
                 <p>Загрузите файл</p>
                 <p><input type="file" name="file" multiple></p>
                 <input type="submit" value="Загрузить">
             </form>
-        <!--</div>-->
-        <!--<div th:if="${my_prod.size() > 0}">-->
+            <!--</div>-->
+            <!--<div th:if="${my_prod.size() > 0}">-->
             <p>Файл загружен</p>
             <tr th:each="image:${images}">
-                <img th:src="${'data:image/jpeg;base64,' + image.getBiteCode()}" width="50%" height="30%"/>
-                <form th:method="delete" th:action="${'/api/product/image/' + selectedProduct.getCipher + '/' + image.getId}">
-                    <button class="btn btn-danger">Удалить файл</button>
-                </form>
+                <figure>
+                    <img th:src="${'data:image/jpeg;base64,' + image.getBiteCode()}" width="50%"/>
+                    <form th:method="delete" th:action="${'/api/product/image/' + selectedProduct.getCipher + '/' + image.getId}">
+                        <button class="btn btn-danger">Удалить файл</button>
+                    </form>
+                </figure>
             </tr>
-        <!--</div>-->
-    </div>
-    <!--<p><img src="/images/пробник.jpg/" width="100%" height="80%"></p>-->
-    <div id="delete-product">
-        <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
-            <button style="color: darkred">Удалить</button>
-        </form>
-    </div>
+            <!--</div>-->
+        </div>
+        <!--<p><img src="/images/пробник.jpg/" width="100%" height="80%"></p>-->
+        <div id="delete-product">
+            <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
+                <button style="color: darkred">Удалить</button>
+            </form>
+        </div>
+    </figure>
     <!--<a class="btn btn-danger" th:href="@{'delete/' + ${selectedProduct.getCipher}}">Удалить</a>-->
 </main>
 </body>
