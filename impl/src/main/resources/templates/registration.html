@@ -3,25 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>Register</h1>
 <form th:method="post" th:action="@{registration}" id="registerForm">
-    <input type="text" name="username" placeholder="Логин"/><br/>
-    <!--<label for="password">ПАРОЛЬ: </label>-->
-    <input type="password" name="password" placeholder="Пароль"/><br/>
-    <!--<label for="confirm">ПОДТВЕРДИТЕ ПАРОЛЬ: </label>-->
-    <input type="password" name="confirm" placeholder="Повторить пароль"/><br/>
-    <!--<label for="name">ИМЯ: </label>-->
-    <input type="text" name="name" placeholder="Имя"/><br/>
-    <!--<label for="surname">ФАМИЛИЯ: </label>-->
-    <input type="text" name="surname" placeholder="Фамилия"/><br/>
-    <!--<label for="position">ДОЛЖНОСТЬ: </label>-->
-    <input type="text" name="position" placeholder="Должность"/><br/>
-    <input type="submit" value="Зарегистрироваться"/>
-    <!--<form th:method="get" th:action="@{/}">-->
-        <!--<input type="submit" value="Зарегистрироваться"/>-->
-    <!--</form>-->
+    <!--<input type="text" name="username" placeholder="Логин"/><br/>-->
+    <h1>Регистрация</h1>
+    <div class="col-md-4">
+        <label for="validationServerUsername" class="form-label">Логин</label>
+        <div class="input-group has-validation">
+            <span class="input-group-text" id="inputGroupPrepend3">@</span>
+            <input type="text" class="form-control is-valid" id="validationServerUsername" aria-describedby="inputGroupPrepend3 validationServerUsernameFeedback" required>
+            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                Please choose a username.
+            </div>
+        </div>
+    </div>
+    <!--<input type="password" name="password" placeholder="Пароль"/><br/>-->
+    <div class="col-md-4">
+        <label class="form-label">Введите пароль</label>
+        <input type="password" name="password" class="form-control is-valid" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <!--<input type="password" name="confirm" placeholder="Повторить пароль"/><br/>-->
+    <div class="col-md-4">
+        <label class="form-label">Повторите пароль</label>
+        <input type="password" name="confirm" class="form-control is-valid" required>
+        <div class="valid-feedback">
+            Looks good!
+        </div>
+    </div>
+    <!--<input type="text" name="name" placeholder="Имя"/><br/>-->
+    <div class="col-md-4">
+        <label class="form-label">Имя</label>
+        <input type="text" class="form-control is-valid" required>
+    </div>
+    <!--<input type="text" name="surname" placeholder="Фамилия"/><br/>-->
+    <div class="col-md-4">
+        <label class="form-label">Фамилия</label>
+        <input type="text" class="form-control is-valid" required>
+    </div>
+    <!--<input type="text" name="position" placeholder="Должность"/><br/>-->
+    <div class="col-md-3">
+        <label class="form-label">Должность</label><br>
+        <select class="form-select is-invalid" name="position" aria-describedby="validationServer04Feedback" required>
+            <option selected disabled value="">Выберите должность...</option>
+            <option value="ИНЖЕНЕР-КОНСТРУКТОР">ИНЖЕНЕР-КОНСТРУКТОР</option>
+            <option value="НАЧАЛЬНИК КОСТРУКТОРСКОГО БЮРО">НАЧАЛЬНИК КОСТРУКТОРСКОГО БЮРО</option>
+            <option value="ТЕХ.КОНТРОЛЬ">ТЕХ.КОНТРОЛЬ</option>
+            <option value="НОРМО-КОНТРОЛЬ">НОРМО-КОНТРОЛЬ</option>
+            <option value="УТВЕРЖДАЮЩИЙ">УТВЕРЖДАЮЩИЙ</option>
+            <option value="ЗАМ.ГЕН.ДИРЕКТОРА">ЗАМ.ГЕН.ДИРЕКТОРА</option>
+            <option value="ГЛАВНЫЙ ЭКОНОМИСТ">ГЛАВНЫЙ ЭКОНОМИСТ</option>
+        </select><br>
+    </div><br>
+    <!--<input type="submit" value="Зарегистрироваться"/>-->
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Зарегистрироваться</button>
+    </div>
 </form>
 </body>
 </html>

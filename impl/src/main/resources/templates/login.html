@@ -14,9 +14,9 @@
 <p>New here? Click
     <a th:method="get" th:href="@{/api/login/registration}">here</a> to register.</p>
 <form th:method="post" th:action="@{/api/login/d}" id="loginForm">
-    <label for="username">ЛОГИН: </label>
+    <label class="form-label" for="username">Логин </label><br>
     <input type="text" name="username" id="username" /><br/>
-    <label for="password">ПАРОЛЬ: </label>
+    <label class="form-label" for="password">Пароль </label><br>
     <input type="password" name="password" id="password" /><br/>
     <!--<form th:method="post" th:action="@{api/login/authenticate}">-->
         <input type="submit" value="ВОЙТИ"/>
