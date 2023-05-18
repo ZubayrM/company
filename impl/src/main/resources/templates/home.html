@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-
-    <link rel="stylesheet" href="../static/css/style.css">
+    <!--<script src="../templates/script.js"></script>-->
+    <!--<link rel="stylesheet" src="../static/css/style.css">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
@@ -24,77 +24,75 @@
                 <h2>Состав изделия</h2>
                 <h2 th:text="${products.get(0).getCipher()}"></h2>
             </header>
+
             <table class="table table-striped">
                 <thead>
-                <!--<tr>-->
-                <button class="btn btn-success" id="showHideContent">Показать/Скрыть</button>
+                <button id="showContent">Показать</button>
+                <button id="hideContent">Скрыть</button>
                     <form th:method="get" th:action="@{bySearch}">
-
-                        <div class="filter" title="Фильтр">
-                            <!--<input type="search" name="name" placeholder="Поиск по названию">-->
-                            <div class="col-md-4">
-                                <label class="form-label">Поиск по названию</label>
-                                <input type="search" name="name" class="form-control" required>
-                            </div>
-                            <!--<input type="search" name="cipher" placeholder="Поиск по шифру">-->
-                            <div class="col-md-4">
-                                <label class="form-label">Поиск по шифру</label>
-                                <input type="search" name="cipher" class="form-control" required>
-                            </div>
-                            <!--<input type="search" name="route" placeholder="Поиск по маршруту">-->
-                            <div class="col-md-4">
-                                <label class="form-label">Поиск по маршруту</label>
-                                <input type="search" name="route" class="form-control" required>
-                            </div>
-                            <div class="col-md-3">
-                                <!--<label class="form-label">State</label>-->
-                                <select class="form-select" name="type" required>
-                                    <option selected disabled value="">Выберите тип</option>
-                                    <option value="Сборочная единица">Сборочная единица</option>
-                                    <option value="Деталь">Деталь</option>
-                                    <option value="Покупная">Покупная</option>
-                                    <option value="Материал">Материал</option>
-                                    <option value="Стандарное изделие">Стандарное изделие</option>
-                                    <option value="Сборочная нормаль">Сборочная нормаль</option>
-                                </select>
-                                <select class="form-select" name="mp" required>
-                                    <option selected disabled value="">Выберите узел</option>
-                                    <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
-                                </select>
-                            </div>
-                            <!--<select name="type">-->
-                            <!--<option style="background-color: darkcyan">Выберите тип</option>-->
-                            <!--<option value="Сборочная единица">Сборочная единица</option>-->
-                            <!--<option value="Деталь">Деталь</option>-->
-                            <!--<option value="Покупная">Покупная</option>-->
-                            <!--<option value="Материал">Материал</option>-->
-                            <!--<option value="Стандарное изделие">Стандарное изделие</option>-->
-                            <!--<option value="Сборочная нормаль">Сборочная нормаль</option>-->
-                            <!--</select>-->
+                        <div style="display:none;" id="filter" title="Фильтр">
+                            <input type="search" name="name" placeholder="Поиск по названию">
+                            <!--<div class="input-group mb-3">-->
+                                <!--<label class="form-label">Поиск по названию</label>-->
+                                <!--<input type="search" name="name" class="form-control">-->
+                            <!--</div>-->
+                            <input type="search" name="cipher" placeholder="Поиск по шифру">
+                            <!--<div class="input-group mb-3">-->
+                                <!--<label class="form-label">Поиск по шифру</label>-->
+                                <!--<input type="search" name="cipher" class="form-control">-->
+                            <!--</div>-->
+                            <input type="search" name="route" placeholder="Поиск по маршруту">
+                            <!--<div class="input-group mb-3">-->
+                                <!--<label class="form-label">Поиск по маршруту</label>-->
+                                <!--<input type="search" name="route" class="form-control">-->
+                            <!--</div>-->
 
                             <!--<div class="col-md-3">-->
-                            <!--&lt;!&ndash;<label class="form-label">State</label>&ndash;&gt;-->
-                            <!--<select class="form-select" name="mp" required>-->
+                                <!--&lt;!&ndash;<label class="form-label">State</label>&ndash;&gt;-->
+                                <!--<select class="form-select" name="type">-->
+                                    <!--<option selected disabled value="">Выберите тип</option>-->
+                                    <!--<option value="Сборочная единица">Сборочная единица</option>-->
+                                    <!--<option value="Деталь">Деталь</option>-->
+                                    <!--<option value="Покупная">Покупная</option>-->
+                                    <!--<option value="Материал">Материал</option>-->
+                                    <!--<option value="Стандарное изделие">Стандарное изделие</option>-->
+                                    <!--<option value="Сборочная нормаль">Сборочная нормаль</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                            <select name="type">
+                            <option style="background-color: darkcyan">Выберите тип</option>
+                            <option value="Сборочная единица">Сборочная единица</option>
+                            <option value="Деталь">Деталь</option>
+                            <option value="Покупная">Покупная</option>
+                            <option value="Материал">Материал</option>
+                            <option value="Стандарное изделие">Стандарное изделие</option>
+                            <option value="Сборочная нормаль">Сборочная нормаль</option>
+                            </select>
+
+                            <!--<div class="col-md-3">-->
+                            <!--<select class="form-select" name="mp">-->
                             <!--<option selected disabled value="">Выберите узел</option>-->
                             <!--<option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>-->
                             <!--</select>-->
                             <!--</div><br>-->
 
-                            <!--<select name="mp">-->
-                            <!--<option style="background-color: dodgerblue">Выберите узел</option>-->
-                            <!--<option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>-->
-                            <!--</select><br>-->
+                            <select name="mp">
+                            <option style="background-color: dodgerblue">Выберите узел</option>
+                            <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
+                            </select><br>
+
                             <td style="border-bottom: 1px solid dimgray" width="90"></td>
                             <td style="border-bottom: 1px solid dimgray" width="100"></td>
                             <!--<p>Применить фильтр <input type="submit" value="&#128270;"></p>-->
-                            <button class="btn btn-success" value="&#xF3E0;">Применить фильтр</button>
-                            <button th:method="get" th:action="@{reset}" class="btn btn-secondary">Сбросить фильтр</button>
+                            <button class="btn btn-success" type="submit" value="&#xF3E0;">Применить фильтр</button>
+                            <!--<button th:method="get" th:action="@{reset}">Сбросить фильтр</button>-->
                         </div>
                     </form>
 
-                    <!--<form th:method="get" th:action="@{reset}">-->
+                    <form th:method="get" th:action="@{reset}">
+                        <button>Сбросить фильтр</button>
                         <!--<p>Сбросить фильтр<input type="submit" value="&#10060;"></p>-->
-                    <!--</form>-->
+                    </form>
                 <!--</tr>-->
                 </thead>
                 <tbody>
@@ -133,7 +131,19 @@
             </form>
         </div>
     </div>
+    <script>
+        let content = document.getElementById("filter")
+        let show = document.getElementById("showContent")
+        let hide = document.getElementById("hideContent")
+
+        show.addEventListener("click", () => {
+            content.style.display = "block"
+        })
+
+        hide.addEventListener("click", () => {
+            content.style.display = "none"
+        })
+    </script>
 </main>
-<script src="../static/js/script.js"></script>
 </body>
 </html>
