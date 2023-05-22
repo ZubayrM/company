@@ -12,8 +12,8 @@
     <link rel="shortcut icon" href="/images/mylogo.png">
 </head>
 <body>
-<div style="width:auto; margin:0; background: #ccc; border-bottom:2px solid dimgray">
-    <a href="#" style="float:left; margin-top:2px; margin-right:50px;"><img src="/images/mylogo.png"></a>
+<div style="width:auto; text-align: center; margin:0; background: #ccc; border-bottom:2px solid dimgray">
+    <a href="#" style="float:left; margin-top:5px; margin-right:50px;"><img src="/images/mylogo.png"></a>
     <h1 style="line-height:100px; color: white">АО "Концерн КЭМЗ"</h1>
 </div>
 <br>
@@ -27,39 +27,39 @@
 
             <table class="table table-striped">
                 <thead>
-                <button id="showContent">Показать</button>
-                <button id="hideContent">Скрыть</button>
+                <button class="btn btn-success" id="showContent">Показать</button>
+                <button class="btn btn-success" id="hideContent">Скрыть</button>
+                <div style="display:none;" id="filter" title="Фильтр">
                     <form th:method="get" th:action="@{bySearch}">
-                        <div style="display:none;" id="filter" title="Фильтр">
-                            <input type="search" name="name" placeholder="Поиск по названию">
-                            <!--<div class="input-group mb-3">-->
-                                <!--<label class="form-label">Поиск по названию</label>-->
-                                <!--<input type="search" name="name" class="form-control">-->
-                            <!--</div>-->
-                            <input type="search" name="cipher" placeholder="Поиск по шифру">
-                            <!--<div class="input-group mb-3">-->
-                                <!--<label class="form-label">Поиск по шифру</label>-->
-                                <!--<input type="search" name="cipher" class="form-control">-->
-                            <!--</div>-->
-                            <input type="search" name="route" placeholder="Поиск по маршруту">
-                            <!--<div class="input-group mb-3">-->
-                                <!--<label class="form-label">Поиск по маршруту</label>-->
-                                <!--<input type="search" name="route" class="form-control">-->
-                            <!--</div>-->
+                        <input type="search" name="name" placeholder="Поиск по названию">
+                        <!--<div class="input-group mb-3">-->
+                        <!--<label class="form-label">Поиск по названию</label>-->
+                        <!--<input type="search" name="name" class="form-control">-->
+                        <!--</div>-->
+                        <input type="search" name="cipher" placeholder="Поиск по шифру">
+                        <!--<div class="input-group mb-3">-->
+                        <!--<label class="form-label">Поиск по шифру</label>-->
+                        <!--<input type="search" name="cipher" class="form-control">-->
+                        <!--</div>-->
+                        <input type="search" name="route" placeholder="Поиск по маршруту">
+                        <!--<div class="input-group mb-3">-->
+                        <!--<label class="form-label">Поиск по маршруту</label>-->
+                        <!--<input type="search" name="route" class="form-control">-->
+                        <!--</div>-->
 
-                            <!--<div class="col-md-3">-->
-                                <!--&lt;!&ndash;<label class="form-label">State</label>&ndash;&gt;-->
-                                <!--<select class="form-select" name="type">-->
-                                    <!--<option selected disabled value="">Выберите тип</option>-->
-                                    <!--<option value="Сборочная единица">Сборочная единица</option>-->
-                                    <!--<option value="Деталь">Деталь</option>-->
-                                    <!--<option value="Покупная">Покупная</option>-->
-                                    <!--<option value="Материал">Материал</option>-->
-                                    <!--<option value="Стандарное изделие">Стандарное изделие</option>-->
-                                    <!--<option value="Сборочная нормаль">Сборочная нормаль</option>-->
-                                <!--</select>-->
-                            <!--</div>-->
-                            <select name="type">
+                        <!--<div class="col-md-3">-->
+                        <!--&lt;!&ndash;<label class="form-label">State</label>&ndash;&gt;-->
+                        <!--<select class="form-select" name="type">-->
+                        <!--<option selected disabled value="">Выберите тип</option>-->
+                        <!--<option value="Сборочная единица">Сборочная единица</option>-->
+                        <!--<option value="Деталь">Деталь</option>-->
+                        <!--<option value="Покупная">Покупная</option>-->
+                        <!--<option value="Материал">Материал</option>-->
+                        <!--<option value="Стандарное изделие">Стандарное изделие</option>-->
+                        <!--<option value="Сборочная нормаль">Сборочная нормаль</option>-->
+                        <!--</select>-->
+                        <!--</div>-->
+                        <select name="type">
                             <option style="background-color: darkcyan">Выберите тип</option>
                             <option value="Сборочная единица">Сборочная единица</option>
                             <option value="Деталь">Деталь</option>
@@ -67,32 +67,33 @@
                             <option value="Материал">Материал</option>
                             <option value="Стандарное изделие">Стандарное изделие</option>
                             <option value="Сборочная нормаль">Сборочная нормаль</option>
-                            </select>
+                        </select>
 
-                            <!--<div class="col-md-3">-->
-                            <!--<select class="form-select" name="mp">-->
-                            <!--<option selected disabled value="">Выберите узел</option>-->
-                            <!--<option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>-->
-                            <!--</select>-->
-                            <!--</div><br>-->
+                        <!--<div class="col-md-3">-->
+                        <!--<select class="form-select" name="mp">-->
+                        <!--<option selected disabled value="">Выберите узел</option>-->
+                        <!--<option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>-->
+                        <!--</select>-->
+                        <!--</div><br>-->
 
-                            <select name="mp">
+                        <select name="mp">
                             <option style="background-color: dodgerblue">Выберите узел</option>
                             <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
-                            </select><br>
+                        </select><br>
 
-                            <td style="border-bottom: 1px solid dimgray" width="90"></td>
-                            <td style="border-bottom: 1px solid dimgray" width="100"></td>
-                            <!--<p>Применить фильтр <input type="submit" value="&#128270;"></p>-->
-                            <button class="btn btn-success" type="submit" value="&#xF3E0;">Применить фильтр</button>
-                            <!--<button th:method="get" th:action="@{reset}">Сбросить фильтр</button>-->
-                        </div>
+                        <button class="btn btn-success" type="submit">Применить фильтр</button>
+                        <!--<button class="btn btn-success" th:method="get" th:action="@{reset}" type="submit">Сбросить фильтр</button>-->
+
+                        <!--<td style="border-bottom: 1px solid dimgray" width="90"></td>-->
+                        <!--<td style="border-bottom: 1px solid dimgray" width="100"></td>-->
+                        <!--<p>Применить фильтр <input type="submit" value="&#128270;"></p>-->
                     </form>
-
                     <form th:method="get" th:action="@{reset}">
-                        <button>Сбросить фильтр</button>
+                        <button class="btn btn-success">Сбросить фильтр</button>
                         <!--<p>Сбросить фильтр<input type="submit" value="&#10060;"></p>-->
                     </form>
+                </div>
+
                 <!--</tr>-->
                 </thead>
                 <tbody>
