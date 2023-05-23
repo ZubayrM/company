@@ -1,6 +1,7 @@
 package com.company.API.controllers.resources;
 
 import com.company.API.model.ProductDto;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ public interface ProductController {
     String addList(@RequestAttribute MultipartFile file,Model model);
 
     @GetMapping("/")
-    String getAll(Model model);
+    String getAll(Model model, int page, int size);
 
     @GetMapping("/{name}")
     String getAllByName(@PathVariable String name, Model model);

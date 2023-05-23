@@ -97,23 +97,30 @@
                 <!--</tr>-->
                 </thead>
                 <tbody>
-                <tr th:each="selectedProduct : ${products}">
-                    <td th:text="${selectedProduct.getName}"></td>
-                    <td th:text="${selectedProduct.getCipher}"></td>
-                    <td th:text="${selectedProduct.getRoute}"></td>
-                    <td th:text="${selectedProduct.getType.getType}"></td>
-                    <td th:text="${selectedProduct.getProduct}"></td>
-                    <td>
-                        <form th:method="get" th:action="@{${selectedProduct.getCipher}}">
-                            <button class="btn btn-success">Открыть</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
-                            <button class="btn btn-danger">Удалить</button>
-                        </form>
-                    </td>
-                </tr>
+                <!--<template th:each="selectedPage : ${products}">-->
+                    <tr th:each="selectedProduct : ${products}">
+                        <td th:text="${selectedProduct.getName}"></td>
+                        <td th:text="${selectedProduct.getCipher}"></td>
+                        <td th:text="${selectedProduct.getRoute}"></td>
+                        <td th:text="${selectedProduct.getType.getType}"></td>
+                        <td>
+                            <span th:if="${selectedProduct.getMainProduct()} == null" text=""></span>
+                            <span th:unless="${selectedProduct.getMainProduct()} == null" th:text="${selectedProduct.getMainProduct().getCipher()}"></span>
+                        </td>
+
+                        <td>
+                            <form th:method="get" th:action="@{${selectedProduct.getCipher}}">
+                                <button class="btn btn-success">Открыть</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
+                                <button class="btn btn-danger">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                <!--</template>-->
+
                 </tbody>
             </table>
             <div class="delete-all-products">

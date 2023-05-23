@@ -3,10 +3,12 @@ package com.company.controllers;
 import com.company.API.model.ProductDto;
 import com.company.API.responseDto.ProductDtoResponse;
 import com.company.domain.models.Image;
+import com.company.domain.models.Product;
 import com.company.repositories.ProductRepository;
 import com.company.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -97,8 +99,9 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @GetMapping ("/")
-    public String getAll(Model model) {
-        List<ProductDtoResponse> products = productService.getProductList();
+    public String getAll(Model model, @RequestParam(required = false, defaultValue = "0") int page,
+                         @RequestParam(required = false, defaultValue = "10") int size) {
+        List<Product> products = productService.getProductList(PageRequest.of(page, size));
         model.addAttribute("products", products);
         //model.addAttribute("list", productService.getMainProductsList());
         return "home";

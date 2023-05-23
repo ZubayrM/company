@@ -11,6 +11,8 @@ import com.company.repositories.ImageRepository;
 import com.company.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,13 +88,14 @@ public class ProductService {
         return productMapper.toDto(product);
     }
 
-    public List<ProductDtoResponse> getProductList (){
+    public List<Product> getProductList (PageRequest pageRequest){
         List<ProductDtoResponse> list = new ArrayList<>();
         ProductMapper productMapper = new ProductMapper();
         for (Product product : productRepository.findAll()){
             list.add(productMapper.toDto(product));
         }
-        return list;
+        Page<Product> page = productRepository.findAll(pageRequest);
+        return page.getContent();
     }
 
     public List<ProductDtoResponse> getProductListByCipher (String value){
@@ -163,7 +166,7 @@ public class ProductService {
         return list;
     }
 
-    public List<ProductDtoResponse> getProductListBySearch(String name, String cipher, String type, String route, String mp){
+    public List<Product> getProductListBySearch(String name, String cipher, String type, String route, String mp){
         List<Product> list = new ArrayList<>();
         List<ProductDtoResponse> finalList = new ArrayList<>();
         ProductMapper productMapper = new ProductMapper();
@@ -252,11 +255,11 @@ public class ProductService {
             Set<Product> productSet = new HashSet(list);
             list = new ArrayList<>(productSet);
         }
-        for (Product product : list){
-            finalList.add(productMapper.toDto(product));
-        }
+//        for (Product product : list){
+//            finalList.add(productMapper.toDto(product));
+//        }
 
-        return finalList;
+        return list;
     }
 
     public void deleteProduct (String cipher){
