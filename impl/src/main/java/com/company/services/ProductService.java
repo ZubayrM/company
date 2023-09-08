@@ -88,14 +88,14 @@ public class ProductService {
         return productMapper.toDto(product);
     }
 
-    public List<Product> getProductList (PageRequest pageRequest){
+    public Page<Product> getProductList (PageRequest pageRequest){
         List<ProductDtoResponse> list = new ArrayList<>();
         ProductMapper productMapper = new ProductMapper();
         for (Product product : productRepository.findAll()){
             list.add(productMapper.toDto(product));
         }
         Page<Product> page = productRepository.findAll(pageRequest);
-        return page.getContent();
+        return page;
     }
 
     public List<ProductDtoResponse> getProductListByCipher (String value){
