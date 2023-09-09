@@ -85,7 +85,8 @@
         </tr>
         <nav aria-label="Page navigation example">
           <ul class="pagination" th:method="get" th:action="@{''}">
-            <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber} - 1">Previous</a></li>
+            <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber} - 1">Previous</a>
+            </li>
             <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber}">1</a></li>
             <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber} + 1">2</a></li>
             <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber} + 2">3</a></li>
@@ -115,7 +116,11 @@
   <div>
     <br/>
     <h4>Пагинация</h4>
-    <ol class="productsList list-group"></ol>
+    <div class="product-list-wrapper">
+      <ol class="product-list list-group"></ol>
+    </div>
+
+    <h5 class="hidden empty-placeholder">Список товаров пуст</h5>
 
     <div class="spinner">
       <div class="d-flex justify-content-center align-items-center hidden">
@@ -126,12 +131,14 @@
     </div>
 
     <br/>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item previous-btn"><a class="page-link" href="javascript:void(0);">Previous</a></li>
-        <li class="page-item next-btn"><a class="page-link" href="javascript:void(0);">Next</a></li>
-      </ul>
-    </nav>
+    <div class="custom-pagination">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item previous-btn"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+          <li class="page-item next-btn"><a class="page-link" href="javascript:void(0);">Next</a></li>
+        </ul>
+      </nav>
+    </div>
   </div>
 
   <script>

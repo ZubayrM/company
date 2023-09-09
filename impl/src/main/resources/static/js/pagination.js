@@ -4,7 +4,9 @@ import makeObservable from "./observer.js"; // функция которая д�
 const URL = 'https://dummyjson.com/products'
 
 // Список элементов из HTML - document.querySelector позволяет получать их (можешь почитать разные способы в интернете)
-const productsList = document.querySelector('.productsList');
+const productList = document.querySelector('.product-list');
+const productListWrapper = document.querySelector('.product-list-wrapper');
+const emptyPlaceholder = document.querySelector('.empty-placeholder');
 const spinner = document.querySelector('.spinner');
 const previousBtn = document.querySelector('.previous-btn');
 const nextBtn = document.querySelector('.next-btn');
@@ -15,6 +17,7 @@ let state = {
   totalPages: 0,
   limit: 10,
   isLoading: false,
+  isEmptyList: false,
   // геттер обновляет свое значение в зависимости от других свойств объекта
   get isFirstPage() {
     return this.currentPage === 0;
@@ -58,7 +61,45 @@ state.observe(async (key, value) => {
     setNavigationButtons();
     setPagination();
   }
+
+  if (key === "isEmptyList") {
+    if (value) {
+      hidePagination();
+      showEmptyPlaceholder();
+      hideProductList();
+    } else {
+      showPagination();
+      hideEmptyPlaceholder();
+      showProductList();
+    }
+  }
 })
+
+function hidePagination() {
+  const pagination = document.querySelector('.custom-pagination');
+  pagination.classList.add('hidden');
+}
+
+function showPagination() {
+  const pagination = document.querySelector('.custom-pagination');
+  pagination.classList.remove('hidden');
+}
+
+function showEmptyPlaceholder() {
+  emptyPlaceholder.classList.remove('hidden');
+}
+
+function hideEmptyPlaceholder() {
+  emptyPlaceholder.classList.add('hidden');
+}
+
+function hideProductList() {
+  productListWrapper.classList.add('hidden');
+}
+
+function showProductList() {
+  productListWrapper.classList.remove('hidden');
+}
 
 function hideSpinner() {
   spinner.classList.add('hidden');
@@ -70,7 +111,7 @@ function showSpinner() {
 
 // Получаем высоту списка - для того чтобы выставить такую же для нашей обертки спиннера (чтобы пагинация не уходило наверх)
 function getProductsListHeight() {
-  return productsList.getBoundingClientRect().height;
+  return productList.getBoundingClientRect().height;
 }
 
 // Тут выставляем высоту обертке спиннера
@@ -110,6 +151,7 @@ async function renderProductsList() {
     const productsInfo = await getProductsInfo();
     // Настройка общего количества страниц
     state.totalPages = productsInfo.total / state.limit;
+    state.isEmptyList = productsInfo.total === 0;
 
     // Берем полученный массив и отрисовываем список
     productsInfo.products.forEach(product => {
@@ -122,7 +164,7 @@ async function renderProductsList() {
 
       // Добавляем в список (который пока пустой в HTML) наш элемент
       // И так пока все элементы из массива productsInfo.products не добавятся
-      productsList.append(productItem);
+      productList.append(productItem);
     })
   } catch (e) {
     console.error(e);
