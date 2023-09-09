@@ -53,17 +53,20 @@ state.observe(async (key, value) => {
 
   if (key === "isLoading") {
     if (value) {
+      // Если идет загрузка
       showSpinner();
     } else {
       hideSpinner();
     }
 
+    // Отслеживают загрузку внутри себя
     setNavigationButtons();
     setPagination();
   }
 
   if (key === "isEmptyList") {
     if (value) {
+      // Если пустой список
       hidePagination();
       showEmptyPlaceholder();
       hideProductList();
