@@ -45,19 +45,28 @@ state.observe(async (key, value) => {
     // вызываем другие функции и вообще что угодно можно делать тут после изменения
     setHeightToSpinner();
     clearProductsList();
-    updatePagination();
-    setNavigationButtons();
     await renderProductsList();
   }
 
   if (key === "isLoading") {
-    // Краткая форма записи условия if/else
-    if (value) spinner.classList.remove('hidden');
-    else spinner.classList.add('hidden');
+    if (value) {
+      hideSpinner();
+    } else {
+      showSpinner();
+    }
 
     setNavigationButtons();
+    setPagination();
   }
 })
+
+function hideSpinner() {
+  spinner.classList.add('hidden');
+}
+
+function showSpinner() {
+  spinner.classList.remove('hidden');
+}
 
 // Получаем высоту списка - для того чтобы выставить такую же для нашей обертки спиннера (чтобы пагинация не уходило наверх)
 function getProductsListHeight() {
@@ -94,32 +103,6 @@ function clearProductsList() {
   products.forEach(product => product.remove());
 }
 
-// След страница
-function goToNextPage() {
-  state.currentPage += 1;
-}
-
-// Пред страница
-function goToPreviousPage() {
-  state.currentPage -= 1;
-}
-
-// Настраиваем активную пагинацию и отключаем кнопку чтобы повторно не нажимали уже активную
-// После переключения на другую страницу нажатие возвращается
-function setActivePagination() {
-  const paginationElements = document.querySelectorAll('.pagination-item');
-  paginationElements.forEach(page => {
-    const currentPaginationValue = Number(page.textContent) - 1;
-    if (currentPaginationValue !== state.currentPage) {
-      page.classList.remove('active');
-      page.style.pointerEvents = "unset";
-    } else {
-      page.classList.add('active');
-      page.style.pointerEvents = "none";
-    }
-  });
-}
-
 // Показываем список товаров
 async function renderProductsList() {
   try {
@@ -147,14 +130,12 @@ async function renderProductsList() {
 }
 
 function removePagination() {
-  const paginationItems = document.querySelectorAll('.pagination-item');
-  paginationItems.forEach(paginationItem => paginationItem.remove());
+  const paginationList = document.querySelectorAll('.pagination-item');
+  paginationList.forEach(paginationItem => paginationItem.remove());
 }
 
 // Отрисовываем пагинацию
 function renderPagination() {
-  console.log('state.endPage',state.endPage);
-  console.log('state.startPage',state.startPage);
   // Итерируемся по количеству state.totalPages
   for (let i = state.endPage + 1; i > state.startPage; i--) {
     // Создаем элемент li для списка пагинации из HTML
@@ -188,10 +169,38 @@ function renderPagination() {
   }
 }
 
-function updatePagination() {
+// Настраиваем активную пагинацию и отключаем кнопку чтобы повторно не нажимали уже активную или другие кнопки во время загрузки
+function setActivePagination() {
+  const paginationList = document.querySelectorAll('.pagination-item');
+  if (state.isLoading) {
+    paginationList.forEach(paginationItem => paginationItem.style.pointerEvents = "none");
+  } else {
+    paginationList.forEach(paginationItem => paginationItem.style.pointerEvents = "unset");
+  }
+
+  paginationList.forEach(page => {
+    const currentPaginationValue = Number(page.textContent) - 1;
+    if (currentPaginationValue === state.currentPage) {
+      page.classList.add('active');
+      page.style.pointerEvents = "none";
+    }
+  });
+}
+
+function setPagination() {
   removePagination();
   renderPagination();
   setActivePagination();
+}
+
+// След страница
+function goToNextPage() {
+  state.currentPage += 1;
+}
+
+// Пред страница
+function goToPreviousPage() {
+  state.currentPage -= 1;
 }
 
 // Обновляем стиль кнопок Previous и Next
@@ -233,7 +242,7 @@ function setNavigationButtons() {
 // Описание отрисовки программы по шагам
 async function renderApp() {
   await renderProductsList();
-  updatePagination();
+  setPagination();
   setNavigationButtons();
 }
 
