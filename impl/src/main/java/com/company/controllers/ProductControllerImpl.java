@@ -8,6 +8,7 @@ import com.company.repositories.ProductRepository;
 import com.company.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.io.IOException;
 import java.util.List;
 
@@ -99,10 +101,11 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @GetMapping ("/")
-    public String getAll(Model model, @RequestParam(required = false, defaultValue = "0") int page,
+    public String getAll(Model model, @RequestParam(required = false, defaultValue = "0") @Min(0) int page,
                          @RequestParam(required = false, defaultValue = "10") int size) {
-        List<Product> products = productService.getProductList(PageRequest.of(page, size));
+        Page<Product> products = productService.getProductList(PageRequest.of(page, size));
         model.addAttribute("products", products);
+        model.addAttribute("pageNumber", products.getNumber());
         //model.addAttribute("list", productService.getMainProductsList());
         return "home";
     }
