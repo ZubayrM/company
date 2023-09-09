@@ -50,9 +50,9 @@ state.observe(async (key, value) => {
 
   if (key === "isLoading") {
     if (value) {
-      hideSpinner();
-    } else {
       showSpinner();
+    } else {
+      hideSpinner();
     }
 
     setNavigationButtons();
