@@ -22,6 +22,16 @@ let state = {
   get isLastPage() {
     return this.currentPage === this.totalPages - 1;
   },
+  get startPage() {
+    if (this.isFirstPage) return this.currentPage;
+    if (this.isLastPage) return this.currentPage - 2;
+    return this.currentPage - 1;
+  },
+  get endPage() {
+    if (this.isFirstPage) return this.currentPage + 2;
+    if (this.isLastPage) return this.currentPage;
+    return this.currentPage + 1;
+  }
 };
 
 // Делаем наше хранилище отслеживаемым
@@ -35,7 +45,7 @@ state.observe(async (key, value) => {
     // вызываем другие функции и вообще что угодно можно делать тут после изменения
     setHeightToSpinner();
     clearProductsList();
-    setActivePagination();
+    updatePagination();
     setNavigationButtons();
     await renderProductsList();
   }
@@ -98,8 +108,9 @@ function goToPreviousPage() {
 // После переключения на другую страницу нажатие возвращается
 function setActivePagination() {
   const paginationElements = document.querySelectorAll('.pagination-item');
-  paginationElements.forEach((page, index) => {
-    if (index !== state.currentPage) {
+  paginationElements.forEach(page => {
+    const currentPaginationValue = Number(page.textContent) - 1;
+    if (currentPaginationValue !== state.currentPage) {
       page.classList.remove('active');
       page.style.pointerEvents = "unset";
     } else {
@@ -135,10 +146,17 @@ async function renderProductsList() {
   }
 }
 
+function removePagination() {
+  const paginationItems = document.querySelectorAll('.pagination-item');
+  paginationItems.forEach(paginationItem => paginationItem.remove());
+}
+
 // Отрисовываем пагинацию
 function renderPagination() {
+  console.log('state.endPage',state.endPage);
+  console.log('state.startPage',state.startPage);
   // Итерируемся по количеству state.totalPages
-  for (let i = state.totalPages; i > 0; i--) {
+  for (let i = state.endPage + 1; i > state.startPage; i--) {
     // Создаем элемент li для списка пагинации из HTML
     const paginationItem = document.createElement('li');
     // Классы добавил из Bootstrap - чтобы соттветствовало стилю и свой класс pagination-item, чтобы потом найти их
@@ -168,6 +186,12 @@ function renderPagination() {
     // добавил эти кнопки с номером страницы после кноки "previous"
     previousBtn.after(paginationItem);
   }
+}
+
+function updatePagination() {
+  removePagination();
+  renderPagination();
+  setActivePagination();
 }
 
 // Обновляем стиль кнопок Previous и Next
@@ -209,8 +233,7 @@ function setNavigationButtons() {
 // Описание отрисовки программы по шагам
 async function renderApp() {
   await renderProductsList();
-  renderPagination();
-  setActivePagination();
+  updatePagination();
   setNavigationButtons();
 }
 
