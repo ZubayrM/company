@@ -1,124 +1,164 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns:th="www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <!--<script src="../templates/script.js"></script>-->
-    <!--<link rel="stylesheet" src="../static/css/style.css">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <!--<link th:href="@{/css/homeStyle.css}" rel="stylesheet"/>-->
-    <link rel="shortcut icon" href="/images/mylogo.png">
+  <meta charset="UTF-8">
+  <title>Home</title>
+  <!--<script src="../templates/script.js"></script>-->
+  <link rel="stylesheet" href="../static/css/style.css">
+  <!--  Подкючил актуальную версию Bootstrap  -->
+  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!--<link th:href="@{/css/homeStyle.css}" rel="stylesheet"/>-->
+  <!--<link rel="shortcut icon" href="../static/images/mylogo.png">-->
 </head>
 <body>
 <div style="width:auto; text-align: center; margin:0; background: #ccc; border-bottom:2px solid dimgray">
-    <a href="#" style="float:left; margin-top:5px; margin-right:50px;"><img src="/images/mylogo.png"></a>
-    <h1 style="line-height:100px; color: white">АО "Концерн КЭМЗ"</h1>
+  <a href="#" style="float:left; margin-top:5px; margin-right:50px;"><img src="../static/images/mylogo.png" alt="logo"></a>
+  <h1 style="line-height:100px; color: white">АО "Концерн КЭМЗ"</h1>
 </div>
 <br>
 <main>
-    <div class="products">
-        <div th:if="${products.getContent().size()>0}">
-            <header>
-                <h2>Состав изделия</h2>
-                <h2 th:text="${products.getContent().get(0).getCipher()}"></h2>
-            </header>
+  <div class="products">
+    <div th:if="${products.getContent().size()>0}">
+      <header>
+        <h2>Состав изделия</h2>
+        <h2 th:text="${products.getContent().get(0).getCipher()}"></h2>
+      </header>
 
-            <table class="table table-striped">
-                <thead>
-                <button class="btn btn-success" id="showContent">Показать</button>
-                <button class="btn btn-success" id="hideContent">Скрыть</button>
-                <div style="display:none;" id="filter" title="Фильтр">
-                    <form th:method="get" th:action="@{bySearch}">
-                        <input type="search" name="name" placeholder="Поиск по названию">
-                        <input type="search" name="cipher" placeholder="Поиск по шифру">
-                        <input type="search" name="route" placeholder="Поиск по маршруту">
-                        <select name="type">
-                            <option style="background-color: darkcyan">Выберите тип</option>
-                            <option value="Сборочная единица">Сборочная единица</option>
-                            <option value="Деталь">Деталь</option>
-                            <option value="Покупная">Покупная</option>
-                            <option value="Материал">Материал</option>
-                            <option value="Стандарное изделие">Стандарное изделие</option>
-                            <option value="Сборочная нормаль">Сборочная нормаль</option>
-                        </select>
+      <table class="table table-striped">
+        <thead>
+        <button class="btn btn-success" id="showContent">Показать</button>
+        <button class="btn btn-success" id="hideContent">Скрыть</button>
+        <div style="display:none;" id="filter" title="Фильтр">
+          <form th:method="get" th:action="@{bySearch}">
+            <input type="search" name="name" placeholder="Поиск по названию">
+            <input type="search" name="cipher" placeholder="Поиск по шифру">
+            <input type="search" name="route" placeholder="Поиск по маршруту">
+            <label>
+              <select name="type">
+                <option style="background-color: darkcyan">Выберите тип</option>
+                <option value="Сборочная единица">Сборочная единица</option>
+                <option value="Деталь">Деталь</option>
+                <option value="Покупная">Покупная</option>
+                <option value="Материал">Материал</option>
+                <option value="Стандарное изделие">Стандарное изделие</option>
+                <option value="Сборочная нормаль">Сборочная нормаль</option>
+              </select>
+            </label>
 
-                        <select name="mp">
-                            <option style="background-color: dodgerblue">Выберите узел</option>
-                            <option th:each="mP : ${MPList}" th:value = "${mP}" th:text="${mP}"></option>
-                        </select><br>
+            <select name="mp">
+              <option style="background-color: dodgerblue">Выберите узел</option>
+              <option th:each="mP : ${MPList}" th:value="${mP}" th:text="${mP}"></option>
+            </select><br>
 
-                        <button class="btn btn-success" type="submit">Применить фильтр</button>
-                    </form>
-                    <form th:method="get" th:action="@{reset}">
-                        <button class="btn btn-success">Сбросить фильтр</button>
-                    </form>
-                </div>
+            <button class="btn btn-success" type="submit">Применить фильтр</button>
 
-                </thead>
-                <tbody>
-                    <tr th:each="selectedProduct : ${products.getContent()}">
-                        <td th:text="${selectedProduct.getName}"></td>
-                        <td th:text="${selectedProduct.getCipher}"></td>
-                        <td th:text="${selectedProduct.getRoute}"></td>
-                        <td th:text="${selectedProduct.getType.getType}"></td>
-                        <td>
-                            <span th:if="${selectedProduct.getMainProduct()} == null" text=""></span>
-                            <span th:unless="${selectedProduct.getMainProduct()} == null" th:text="${selectedProduct.getMainProduct().getCipher()}"></span>
-                        </td>
-
-                        <td>
-                            <form th:method="get" th:action="@{${selectedProduct.getCipher}}">
-                                <button class="btn btn-success">Открыть</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
-                                <button class="btn btn-danger">Удалить</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} - 1" th:href="'/api/product/' + ${products.getNumberPage() - 1}">Previous</a></li>
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber}" th:href="'/api/product/' + ${products.getNumberPage()}">1</a></li>
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 1" th:href="'/api/product/' + ${products.getNumberPage() + 1}">2</a></li>
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 2" th:href="'/api/product/' + ${products.getNumberPage() + 2}">3</a></li>
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 3" th:href="'/api/product/' + ${products.getNumberPage() + 3}">Next</a></li>
-                        </ul>
-                    </nav>
-                </tbody>
-            </table>
-            <div class="delete-all-products">
-                <form th:method="delete" th:action="@{''}">
-                    <input class="delete-all" type="submit" value="Очистить список">
-                </form>
-            </div>
-
+          </form>
+          <form th:method="get" th:action="@{reset}">
+            <button class="btn btn-success">Сбросить фильтр</button>
+          </form>
         </div>
-        <div th:if="${products.getContent().size()==0}">
-            Список деталей пуст!
-            <form enctype="multipart/form-data" th:method="post" th:action="@{''}">
-                <p>Загрузите файл</p>
-                <p><input type="file" name="file" multiple></p>
-                <input type="submit" value="Загрузить">
+
+        </thead>
+        <tbody>
+        <tr th:each="selectedProduct : ${products.getContent()}">
+          <td th:text="${selectedProduct.getName}"></td>
+          <td th:text="${selectedProduct.getCipher}"></td>
+          <td th:text="${selectedProduct.getRoute}"></td>
+          <td th:text="${selectedProduct.getType.getType}"></td>
+          <td>
+            <span th:if="${selectedProduct.getMainProduct()} == null" text=""></span>
+            <span th:unless="${selectedProduct.getMainProduct()} == null"
+                  th:text="${selectedProduct.getMainProduct().getCipher()}"></span>
+          </td>
+
+          <td>
+            <form th:method="get" th:action="@{${selectedProduct.getCipher}}">
+              <button class="btn btn-success">Открыть</button>
             </form>
-        </div>
+          </td>
+          <td>
+            <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
+              <button class="btn btn-danger">Удалить</button>
+            </form>
+          </td>
+        </tr>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} - 1"
+                                     th:href="'/api/product/' + ${products.getNumberPage() - 1}">Previous</a></li>
+            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber}"
+                                     th:href="'/api/product/' + ${products.getNumberPage()}">1</a></li>
+            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 1"
+                                     th:href="'/api/product/' + ${products.getNumberPage() + 1}">2</a></li>
+            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 2"
+                                     th:href="'/api/product/' + ${products.getNumberPage() + 2}">3</a></li>
+            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 3"
+                                     th:href="'/api/product/' + ${products.getNumberPage() + 3}">Next</a></li>
+          </ul>
+        </nav>
+        </tbody>
+      </table>
+      <div class="delete-all-products">
+        <form th:method="delete" th:action="@{''}">
+          <input class="delete-all" type="submit" value="Очистить список">
+        </form>
+      </div>
+
     </div>
-    <script>
-        let content = document.getElementById("filter")
-        let show = document.getElementById("showContent")
-        let hide = document.getElementById("hideContent")
+    <div th:if="${products.getContent().size()==0}">
+      Список деталей пуст!
+      <form enctype="multipart/form-data" th:method="post" th:action="@{''}">
+        <p>Загрузите файл</p>
+        <p><input type="file" name="file" multiple></p>
+        <input type="submit" value="Загрузить">
+      </form>
+    </div>
+  </div>
 
-        show.addEventListener("click", () => {
-            content.style.display = "block"
-        })
+  <div>
+    <br/>
+    <h4>Пагинация</h4>
+    <div class="product-list-wrapper">
+      <ol class="product-list list-group"></ol>
+    </div>
 
-        hide.addEventListener("click", () => {
-            content.style.display = "none"
-        })
-    </script>
+    <h5 class="hidden empty-placeholder">Список товаров пуст</h5>
+
+    <div class="spinner">
+      <div class="d-flex justify-content-center align-items-center hidden">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+    <br/>
+    <div class="custom-pagination">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item previous-btn"><a class="page-link" href="javascript:void(0);">Previous</a></li>
+          <li class="page-item next-btn"><a class="page-link" href="javascript:void(0);">Next</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <script>
+    let content = document.getElementById("filter")
+    let show = document.getElementById("showContent")
+    let hide = document.getElementById("hideContent")
+
+    show.addEventListener("click", () => {
+      content.style.display = "block"
+    })
+
+    hide.addEventListener("click", () => {
+      content.style.display = "none"
+    })
+  </script>
+  <!--  Подключение пагинации  -->
+  <script type="module" src="../static/js/pagination.js"></script>
 </main>
 </body>
 </html>
