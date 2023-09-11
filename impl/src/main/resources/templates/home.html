@@ -81,11 +81,11 @@
                     </tr>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} - 1" th:href="'/api/product/' + ${products.getNumberPage() - 1}">Previous</a></li>
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber}" th:href="'/api/product/' + ${products.getNumberPage()}">1</a></li>
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 1" th:href="'/api/product/' + ${products.getNumberPage() + 1}">2</a></li>
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 2" th:href="'/api/product/' + ${products.getNumberPage() + 2}">3</a></li>
-                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 3" th:href="'/api/product/' + ${products.getNumberPage() + 3}">Next</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} - 1" th:href="'/api/product/' + ${products.getNumber() - 1}">Previous</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber}" th:href="'/api/product/' + ${products.getNumber()}">1</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 1" th:href="'/api/product/' + ${products.getNumber() + 1}">2</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 2" th:href="'/api/product/' + ${products.getNumber() + 2}">3</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 3" th:href="'/api/product/' + ${products.getNumber() + 3}">Next</a></li>
                         </ul>
                     </nav>
                 </tbody>
