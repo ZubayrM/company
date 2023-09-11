@@ -110,6 +110,13 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
+    @GetMapping ("/{page}")
+    public String pagination(Model model, @PathVariable int page){
+        Page<Product> products = productService.getProductList(PageRequest.of(page, 10));
+        model.addAttribute("products", products);
+        return "home";
+    }
+
     //@Transactional
     @DeleteMapping("/{cipher}")
     public String delete(@PathVariable String cipher, Model model) {

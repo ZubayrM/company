@@ -22,6 +22,9 @@ public interface ProductController {
     @GetMapping("/")
     String getAll(Model model, int page, int size);
 
+    @GetMapping("/{page}")
+    String pagination(Model model, @PathVariable int page);
+
     @GetMapping("/{name}")
     String getAllByName(@PathVariable String name, Model model);
 

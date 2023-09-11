@@ -72,35 +72,33 @@
                   th:text="${selectedProduct.getMainProduct().getCipher()}"></span>
           </td>
 
-          <td>
-            <form th:method="get" th:action="@{${selectedProduct.getCipher}}">
-              <button class="btn btn-success">Открыть</button>
-            </form>
-          </td>
-          <td>
-            <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
-              <button class="btn btn-danger">Удалить</button>
-            </form>
-          </td>
-        </tr>
-        <nav aria-label="Page navigation example">
-          <ul class="pagination" th:method="get" th:action="@{''}">
-            <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber} - 1">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber}">1</a></li>
-            <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber} + 1">2</a></li>
-            <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber} + 2">3</a></li>
-            <li class="page-item"><a class="page-link" name="page" th:value="${products.getNumber} + 3">Next</a></li>
-          </ul>
-        </nav>
-
-        </tbody>
-      </table>
-      <div class="delete-all-products">
-        <form th:method="delete" th:action="@{''}">
-          <input class="delete-all" type="submit" value="Очистить список">
-        </form>
-      </div>
+                        <td>
+                            <form th:method="get" th:action="@{${selectedProduct.getCipher}}">
+                                <button class="btn btn-success">Открыть</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:method="delete" th:action="@{${selectedProduct.getCipher}}">
+                                <button class="btn btn-danger">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} - 1" th:href="'/api/product/' + ${products.getNumberPage() - 1}">Previous</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber}" th:href="'/api/product/' + ${products.getNumberPage()}">1</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 1" th:href="'/api/product/' + ${products.getNumberPage() + 1}">2</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 2" th:href="'/api/product/' + ${products.getNumberPage() + 2}">3</a></li>
+                            <li class="page-item"><a class="page-link" name="page" value="${products.getNumber} + 3" th:href="'/api/product/' + ${products.getNumberPage() + 3}">Next</a></li>
+                        </ul>
+                    </nav>
+                </tbody>
+            </table>
+            <div class="delete-all-products">
+                <form th:method="delete" th:action="@{''}">
+                    <input class="delete-all" type="submit" value="Очистить список">
+                </form>
+            </div>
 
     </div>
     <div th:if="${products.getContent().size()==0}">
