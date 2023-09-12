@@ -19,11 +19,11 @@ public interface ProductController {
     @PostMapping("/")
     String addList(@RequestAttribute MultipartFile file,Model model);
 
-    @GetMapping("/")
-    String getAll(Model model, int page, int size);
-
     @GetMapping("/{page}")
-    String pagination(Model model, @PathVariable int page);
+    String getAll(Model model, @PathVariable int page);
+
+//    @GetMapping("/{page}")
+//    String pagination(Model model, @PathVariable int page);
 
     @GetMapping("/{name}")
     String getAllByName(@PathVariable String name, Model model);

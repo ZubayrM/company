@@ -100,22 +100,30 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
-    @GetMapping ("/")
-    public String getAll(Model model, @RequestParam(required = false, defaultValue = "0") @Min(0) int page,
-                         @RequestParam(required = false, defaultValue = "10") int size) {
-        Page<Product> products = productService.getProductList(PageRequest.of(page, size));
+    @GetMapping ("/lol/{page}")
+    public String getAll(Model model, @PathVariable int page) {
+        Page<Product> products = productService.getProductList(PageRequest.of(page, 10));
         model.addAttribute("products", products);
         model.addAttribute("pageNumber", products.getNumber());
         //model.addAttribute("list", productService.getMainProductsList());
+        log.info("пришли куда надо");
         return "home";
     }
 
-    @GetMapping ("/{page}")
-    public String pagination(Model model, @PathVariable int page){
-        Page<Product> products = productService.getProductList(PageRequest.of(page, 10));
+    @GetMapping
+    public String getAll2(Model model) {
+        Page<Product> products = productService.getProductList(PageRequest.of(0, 10));
         model.addAttribute("products", products);
         return "home";
     }
+
+
+//    @GetMapping ("/{page}")
+//    public String pagination(Model model, @PathVariable int page){
+//        Page<Product> products = productService.getProductList(PageRequest.of(page, 10));
+//        model.addAttribute("products", products);
+//        return "home";
+//    }
 
     //@Transactional
     @DeleteMapping("/{cipher}")
