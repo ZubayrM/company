@@ -81,11 +81,10 @@
                     </tr>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" type="text" name="page" value="${products.getNumber} - 1" th:href="${'/api/product/lol/1'}">Previous</a></li>
-                            <li class="page-item"><a class="page-link" type="text" name="page" value="${products.getNumber}" th:href="${'/api/product/'}">1</a></li>
-                            <li class="page-item"><a class="page-link" type="text" name="page" value="${products.getNumber} + 1" th:href="${'/api/product/'}">2</a></li>
-                            <li class="page-item"><a class="page-link" type="text" name="page" value="${products.getNumber} + 2" th:href="${'/api/product/'}">3</a></li>
-                            <li class="page-item"><a class="page-link" type="text" name="page" value="${products.getNumber} + 3" th:href="${'/api/product/'}">Next</a></li>
+                            <li class="page-item"><a class="page-link" th:href="'/api/product/page/' + ${previousPageNumber}">Previous</a></li>
+                            <!--<li class="page-item"><a class="page-link" th:href="'/api/product/page/' + ${products.getNumber()}">1</a></li>-->
+                            <label th:text="${products.getNumber() + 1} + ' из ' + ${products.getTotalPages()}"></label>
+                            <li class="page-item"><a class="page-link" th:href="'/api/product/page/' + ${products.getNumber()+1}">Next</a></li>
                         </ul>
                     </nav>
                 </tbody>

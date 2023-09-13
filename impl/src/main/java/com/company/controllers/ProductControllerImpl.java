@@ -100,18 +100,25 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
-    @GetMapping ("/lol/{page}")
-    public String getAll(Model model, @PathVariable int page) {
+    @GetMapping ("/page/{page}")
+    public String pagination(Model model, @PathVariable int page) {
         Page<Product> products = productService.getProductList(PageRequest.of(page, 10));
+        int previousPageNumber = products.getNumber()-1;
+        int nextPageNumber = products.getNumber() + 1;
+        if (page < 0){
+            previousPageNumber = 0;
+        }
+        if (page > products.getTotalPages()-1){
+            nextPageNumber = products.getTotalPages()-1;
+        }
         model.addAttribute("products", products);
-        model.addAttribute("pageNumber", products.getNumber());
-        //model.addAttribute("list", productService.getMainProductsList());
-        log.info("пришли куда надо");
+        model.addAttribute("previousPageNumber", previousPageNumber);
+        model.addAttribute("nextPageNumber", nextPageNumber);
         return "home";
     }
 
     @GetMapping
-    public String getAll2(Model model) {
+    public String getAll(Model model) {
         Page<Product> products = productService.getProductList(PageRequest.of(0, 10));
         model.addAttribute("products", products);
         return "home";

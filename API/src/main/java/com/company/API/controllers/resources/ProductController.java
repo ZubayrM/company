@@ -20,10 +20,7 @@ public interface ProductController {
     String addList(@RequestAttribute MultipartFile file,Model model);
 
     @GetMapping("/{page}")
-    String getAll(Model model, @PathVariable int page);
-
-//    @GetMapping("/{page}")
-//    String pagination(Model model, @PathVariable int page);
+    String pagination(Model model, @PathVariable int page);
 
     @GetMapping("/{name}")
     String getAllByName(@PathVariable String name, Model model);
