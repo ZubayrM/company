@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -167,7 +168,7 @@ public class ProductService {
         return list;
     }
 
-    public Page<Product> getProductListBySearch(String name, String cipher, String type, String route, String mp, PageRequest pageRequest){
+    public Page<Product> getProductListBySearch(Pageable pageable, String name, String cipher, String type, String route, String mp){
         List<Product> list = new ArrayList<>();
 
         if (!name.equals("")){
@@ -254,7 +255,7 @@ public class ProductService {
             Set<Product> productSet = new HashSet(list);
             list = new ArrayList<>(productSet);
         }
-        Page<Product> page = new PageImpl<>(list, pageRequest, list.size());
+        Page<Product> page = new PageImpl<>(list, pageable, list.size());
         int i = page.getTotalPages();
         int e = page.getNumber();
 //        for (Product product : list){

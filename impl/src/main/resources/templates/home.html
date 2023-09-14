@@ -30,7 +30,7 @@
                 <button class="btn btn-success" id="showContent">Показать</button>
                 <button class="btn btn-success" id="hideContent">Скрыть</button>
                 <div style="display:none;" id="filter" title="Фильтр">
-                    <form th:method="get" th:action="@{bySearch}">
+                    <form th:method="get" th:action="@{/api/product/bySearch}">
                         <input type="search" name="name" placeholder="Поиск по названию">
                         <input type="search" name="cipher" placeholder="Поиск по шифру">
                         <input type="search" name="route" placeholder="Поиск по маршруту">
@@ -81,10 +81,9 @@
                     </tr>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
-                            <li class="page-item"><a class="page-link" th:href="'/api/product/page/' + ${previousPageNumber}">Previous</a></li>
-                            <!--<li class="page-item"><a class="page-link" th:href="'/api/product/page/' + ${products.getNumber()}">1</a></li>-->
+                            <li class="page-item"><a class="page-link" th:href="'/api/product/page/' + ${products.previousOrFirstPageable().getPageNumber()}">Previous</a></li>
                             <label th:text="${products.getNumber() + 1} + ' из ' + ${products.getTotalPages()}"></label>
-                            <li class="page-item"><a class="page-link" th:href="'/api/product/page/' + ${products.getNumber()+1}">Next</a></li>
+                            <li class="page-item"><a class="page-link" th:href="'/api/product/page/' + ${products.nextOrLastPageable().getPageNumber()}">Next</a></li>
                         </ul>
                     </nav>
                 </tbody>

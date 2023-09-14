@@ -96,24 +96,15 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     public String getProductListBySearch(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "cipher", required = false) String cipher,
                                  @RequestParam(value = "type", required = false) String type, @RequestParam(value = "route", required = false) String route,
                                  @RequestParam(value = "mp", required = false) String mp, Model model){
-        model.addAttribute("products", productService.getProductListBySearch(name, cipher, type, route, mp, PageRequest.of(0, 10)));
+        Page<Product>page = productService.getProductListBySearch(PageRequest.of(0, 10), name, cipher, type, route, mp);
+        model.addAttribute("products", page);
         return "home";
     }
 
     @GetMapping ("/page/{page}")
     public String pagination(Model model, @PathVariable int page) {
         Page<Product> products = productService.getProductList(PageRequest.of(page, 10));
-        int previousPageNumber = products.getNumber()-1;
-        int nextPageNumber = products.getNumber() + 1;
-        if (page < 0){
-            previousPageNumber = 0;
-        }
-        if (page > products.getTotalPages()-1){
-            nextPageNumber = products.getTotalPages()-1;
-        }
         model.addAttribute("products", products);
-        model.addAttribute("previousPageNumber", previousPageNumber);
-        model.addAttribute("nextPageNumber", nextPageNumber);
         return "home";
     }
 
@@ -123,14 +114,6 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         model.addAttribute("products", products);
         return "home";
     }
-
-
-//    @GetMapping ("/{page}")
-//    public String pagination(Model model, @PathVariable int page){
-//        Page<Product> products = productService.getProductList(PageRequest.of(page, 10));
-//        model.addAttribute("products", products);
-//        return "home";
-//    }
 
     //@Transactional
     @DeleteMapping("/{cipher}")
