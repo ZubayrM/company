@@ -12,6 +12,7 @@ import com.company.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -166,10 +167,8 @@ public class ProductService {
         return list;
     }
 
-    public List<Product> getProductListBySearch(String name, String cipher, String type, String route, String mp){
+    public Page<Product> getProductListBySearch(String name, String cipher, String type, String route, String mp, PageRequest pageRequest){
         List<Product> list = new ArrayList<>();
-        List<ProductDtoResponse> finalList = new ArrayList<>();
-        ProductMapper productMapper = new ProductMapper();
 
         if (!name.equals("")){
             for (Product product : productRepository.findAll()){
@@ -255,11 +254,14 @@ public class ProductService {
             Set<Product> productSet = new HashSet(list);
             list = new ArrayList<>(productSet);
         }
+        Page<Product> page = new PageImpl<>(list, pageRequest, list.size());
+        int i = page.getTotalPages();
+        int e = page.getNumber();
 //        for (Product product : list){
 //            finalList.add(productMapper.toDto(product));
 //        }
 
-        return list;
+        return page;
     }
 
     public void deleteProduct (String cipher){

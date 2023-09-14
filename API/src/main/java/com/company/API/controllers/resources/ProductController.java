@@ -31,7 +31,7 @@ public interface ProductController {
     @GetMapping("/{cipher}")
     String getByCipher(@PathVariable String cipher, Model model);
 
-    @GetMapping("/{name}{cipher}{route}{type}{mp}")
+    @GetMapping("/bySearch/{name}{cipher}{route}{type}{mp}")
     String getProductListBySearch(@PathVariable String name, @PathVariable String cipher, @PathVariable String route, @PathVariable String type, @PathVariable String mp, Model model);
 
     @DeleteMapping("/{cipher}")
