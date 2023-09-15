@@ -30,7 +30,7 @@
                 <button class="btn btn-success" id="showContent">Показать</button>
                 <button class="btn btn-success" id="hideContent">Скрыть</button>
                 <div style="display:none;" id="filter" title="Фильтр">
-                    <form th:method="get" th:action="@{/api/product/bySearch}">
+                    <form th:method="get" th:action="@{''}">
                         <input type="search" name="name" placeholder="Поиск по названию">
                         <input type="search" name="cipher" placeholder="Поиск по шифру">
                         <input type="search" name="route" placeholder="Поиск по маршруту">

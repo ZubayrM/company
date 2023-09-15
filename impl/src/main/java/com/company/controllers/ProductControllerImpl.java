@@ -92,7 +92,7 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
         return "home";
     }
 
-    @GetMapping("/bySearch")
+    @GetMapping("/")
     public String getProductListBySearch(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "cipher", required = false) String cipher,
                                  @RequestParam(value = "type", required = false) String type, @RequestParam(value = "route", required = false) String route,
                                  @RequestParam(value = "mp", required = false) String mp, Model model){
@@ -102,18 +102,20 @@ public class ProductControllerImpl implements com.company.API.controllers.resour
     }
 
     @GetMapping ("/page/{page}")
-    public String pagination(Model model, @PathVariable int page) {
-        Page<Product> products = productService.getProductList(PageRequest.of(page, 10));
+    public String pagination(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "cipher", required = false) String cipher,
+                             @RequestParam(value = "type", required = false) String type, @RequestParam(value = "route", required = false) String route,
+                             @RequestParam(value = "mp", required = false) String mp, Model model, @PathVariable int page) {
+        Page<Product>products = productService.getProductListBySearch(PageRequest.of(page, 10), name, cipher, type, route, mp);
         model.addAttribute("products", products);
         return "home";
     }
 
-    @GetMapping
-    public String getAll(Model model) {
-        Page<Product> products = productService.getProductList(PageRequest.of(0, 10));
-        model.addAttribute("products", products);
-        return "home";
-    }
+//    @GetMapping
+//    public String getAll(Model model) {
+//        Page<Product> products = productService.getProductList(PageRequest.of(0, 10));
+//        model.addAttribute("products", products);
+//        return "home";
+//    }
 
     //@Transactional
     @DeleteMapping("/{cipher}")

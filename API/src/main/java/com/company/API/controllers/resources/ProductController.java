@@ -20,7 +20,9 @@ public interface ProductController {
     String addList(@RequestAttribute MultipartFile file,Model model);
 
     @GetMapping("/{page}")
-    String pagination(Model model, @PathVariable int page);
+    String pagination(@RequestParam(value = "name", required = false) String name, @RequestParam(value = "cipher", required = false) String cipher,
+                      @RequestParam(value = "type", required = false) String type, @RequestParam(value = "route", required = false) String route,
+                      @RequestParam(value = "mp", required = false) String mp, Model model, @PathVariable int page);
 
     @GetMapping("/{name}")
     String getAllByName(@PathVariable String name, Model model);

@@ -170,99 +170,99 @@ public class ProductService {
 
     public Page<Product> getProductListBySearch(Pageable pageable, String name, String cipher, String type, String route, String mp){
         List<Product> list = new ArrayList<>();
-
-        if (!name.equals("")){
-            for (Product product : productRepository.findAll()){
-                if (product.getName().contains(name)){
-                    list.add(product);
-                }
-            }
+        Page<Product> page;
+        if (name == null && cipher == null && type == null && route == null && mp == null){
+            page = productRepository.findAll(pageable);
+            return page;
         }
-        if (!cipher.equals("")){
-            if (!list.isEmpty()){
-                Iterator<Product>iterator = list.iterator();
-                while (iterator.hasNext()){
-                    if (!iterator.next().getCipher().contains(cipher) || iterator.next()!=null){
-                        iterator.remove();
-                    }
-                }
-            }
-            else {
+        else {
+            if (!name.equals("")){
                 for (Product product : productRepository.findAll()){
-                    if (product.getCipher().contains(cipher) || product.getCipher()!=null){
+                    if (product.getName().contains(name)){
                         list.add(product);
                     }
                 }
             }
-        }
-        if (!type.equals("Выберите тип")){
-            if (!list.isEmpty()){
-                Iterator<Product>iterator = list.iterator();
-                while (iterator.hasNext()){
-                    if (!iterator.next().getType().getType().contains(type)){
-                        iterator.remove();
-                    }
-                }
-            }
-            else {
-                for (Product product : productRepository.findAll()){
-                    if (product.getType().getType().contains(type)){
-                        list.add(product);
-                    }
-                }
-            }
-        }
-        if (!route.equals("")){
-            if (!list.isEmpty()){
-                Iterator<Product>iterator = list.iterator();
-                while (iterator.hasNext()){
-                    if (!iterator.next().getRoute().contains(route)){
-                        iterator.remove();
-                    }
-                }
-            }
-            else {
-                for (Product product : productRepository.findAll()){
-                    if (product.getRoute().contains(route)){
-                        list.add(product);
-                    }
-                }
-            }
-        }
-        if (!mp.equals("Выберите узел")){
-
-            if (!list.isEmpty()){
-                Iterator<Product>iterator = list.iterator();
-                while (iterator.hasNext()){
-                    Product product = iterator.next();
-                    if (product.getMainProduct() != null){
-                        String mPr = product.getMainProduct().getCipher();
-                        if (!mPr.equals(mp)){
+            if (!cipher.equals("")){
+                if (!list.isEmpty()){
+                    Iterator<Product>iterator = list.iterator();
+                    while (iterator.hasNext()){
+                        if (!iterator.next().getCipher().contains(cipher) || iterator.next()!=null){
                             iterator.remove();
                         }
                     }
                 }
-            }
-            else {
-                for (Product product : productRepository.findAll()){
-                    if (product.getMainProduct() != null){
-                        if (product.getMainProduct().getCipher().equals(mp)){
+                else {
+                    for (Product product : productRepository.findAll()){
+                        if (product.getCipher().contains(cipher) || product.getCipher()!=null){
                             list.add(product);
                         }
                     }
                 }
             }
-            Set<Product> productSet = new HashSet(list);
-            list = new ArrayList<>(productSet);
-        }
-        Page<Product> page = new PageImpl<>(list, pageable, list.size());
-        int i = page.getTotalPages();
-        int e = page.getNumber();
-//        for (Product product : list){
-//            finalList.add(productMapper.toDto(product));
-//        }
+            if (!type.equals("Выберите тип")){
+                if (!list.isEmpty()){
+                    Iterator<Product>iterator = list.iterator();
+                    while (iterator.hasNext()){
+                        if (!iterator.next().getType().getType().contains(type)){
+                            iterator.remove();
+                        }
+                    }
+                }
+                else {
+                    for (Product product : productRepository.findAll()){
+                        if (product.getType().getType().contains(type)){
+                            list.add(product);
+                        }
+                    }
+                }
+            }
+            if (!route.equals("")){
+                if (!list.isEmpty()){
+                    Iterator<Product>iterator = list.iterator();
+                    while (iterator.hasNext()){
+                        if (!iterator.next().getRoute().contains(route)){
+                            iterator.remove();
+                        }
+                    }
+                }
+                else {
+                    for (Product product : productRepository.findAll()){
+                        if (product.getRoute().contains(route)){
+                            list.add(product);
+                        }
+                    }
+                }
+            }
+            if (!mp.equals("Выберите узел")){
 
-        return page;
+                if (!list.isEmpty()){
+                    Iterator<Product>iterator = list.iterator();
+                    while (iterator.hasNext()){
+                        Product product = iterator.next();
+                        if (product.getMainProduct() != null){
+                            String mPr = product.getMainProduct().getCipher();
+                            if (!mPr.equals(mp)){
+                                iterator.remove();
+                            }
+                        }
+                    }
+                }
+                else {
+                    for (Product product : productRepository.findAll()){
+                        if (product.getMainProduct() != null){
+                            if (product.getMainProduct().getCipher().equals(mp)){
+                                list.add(product);
+                            }
+                        }
+                    }
+                }
+                Set<Product> productSet = new HashSet(list);
+                list = new ArrayList<>(productSet);
+            }
+            page = new PageImpl<>(list, pageable, list.size());
+            return page;
+        }
     }
 
     public void deleteProduct (String cipher){
